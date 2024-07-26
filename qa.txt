@@ -1,0 +1,5 @@
+Hi all,
+I have a few questions about the task:
+- I couldn't find anything in Figma related to attachments- I couldn't find anything in the requirements related to "due date" and "tags", and nothing in figma about how to set the values
+In terms of usability, I find the weather icon in the notes a bit confusing, especially with a due date: is the weather current, or forecasted for the due date?
+I'm sure I will come up with more questions,Jose
