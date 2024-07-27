@@ -1,5 +1,4 @@
 import { Button } from "../components/button/main";
-import { FieldComponent } from "../components/form/field";
 import { CheckBox, Input } from "../components/form/input";
 import { Icon } from "../components/icon/main";
 import {
@@ -85,7 +84,7 @@ export function MetaCheckLabel(args: {
       key={Math.random()}
       defaultChecked={false}
       onChange={() => {
-        const todo = tasks?.filter((item) => !!item.done != done);
+        const todo = tasks?.filter((item) => !!item.done !== done);
         if (!todo?.length) return;
         Promise.all(todo.map(({ id }) => updateTask({ id, done }))).then(
           refreshTasks
@@ -109,8 +108,6 @@ export function getMetaActions(args: {
     tdStyled: <StyledTableCellStyckyRight align="center" />,
     value: (task) => {
       const { id } = task;
-      let { done } = task;
-      done = done ?? false;
       return (
         <>
           <Button

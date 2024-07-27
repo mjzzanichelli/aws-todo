@@ -1,10 +1,5 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import {
-  StyledTableCellStyckyLeft,
-  StyledTableCellStyckyRight,
-} from "../components/table/styled";
-import { CheckBox } from "../components/form/input";
-import {
   getMetaActions,
   getMetaCheck,
   MetaCheckLabel,
@@ -12,9 +7,7 @@ import {
   TasksMeta,
   TasksMetaType,
 } from "../tasks/meta";
-import { deleteTask, listTasks, updateTask } from "../tasks/crud";
-import { Button } from "../components/button/main";
-import { Icon } from "../components/icon/main";
+import { listTasks, updateTask } from "../tasks/crud";
 
 export const TasksContext = createContext<{
   tasks?: TaskDataType[];
