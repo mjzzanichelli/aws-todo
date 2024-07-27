@@ -11,16 +11,11 @@ import { Icon } from "./components/icon/main";
 import { Header } from "./partials/header";
 import { AuthContext } from "./hooks/auth";
 import { TasksEditor } from "./tasks/editor";
-// import { client } from "./amplify";
+import { createTask } from "./tasks/crud";
+import { TasksContext, useTasksMeta } from "./hooks/tasks";
 
-export default function App() {
+export function App() {
   const { theme, switchTheme } = useThemeSwitch();
-  const formData = useFormData({
-    onChange: (values) => {
-      console.log(getValuesEntries(values).strings);
-    },
-  });
-
   return (
     <ThemeContext.Provider value={{ theme, switchTheme }}>
       <ThemeProvider theme={theme}>
@@ -29,38 +24,47 @@ export default function App() {
           <Authenticator>
             {(auth) => (
               <AuthContext.Provider value={auth}>
-                <Header />
-                <FlexBox size={"none"} display="flex" flexDirection="row">
-                  <FlexBox as="h2" mobileSize={1} margin="0">
-                    My Tasks for next month
-                  </FlexBox>
-                  <FlexBox size={"none"}>
-                    <FieldComponent id="search" noLabel formData={formData}>
-                      <Input placeholder="Search" />
-                    </FieldComponent>
-                  </FlexBox>
-                </FlexBox>
-                <FlexBox size={"none"}>
-                  <Button
-                    onClick={() => {
-                      // client.models.Todo.create({
-                      //   name: "New Task",
-                      // }).then((value) => {
-                      //   if (value.errors) return;
-                      //   console.log(value.data);
-                      // });
-                    }}
-                  >
-                    <Icon name="xmark" />
-                    <label>Add task</label>
-                  </Button>
-                </FlexBox>
-                <TasksEditor />
+                <AppAuth />
               </AuthContext.Provider>
             )}
           </Authenticator>
         </AppContainer>
       </ThemeProvider>
     </ThemeContext.Provider>
+  );
+}
+
+export function AppAuth() {
+  const { tasks, metaDone, metaTodo, setTasks, refreshTasks } = useTasksMeta();
+
+  const formData = useFormData({
+    onChange: (values) => {
+      console.log(getValuesEntries(values).strings);
+    },
+  });
+
+  return (
+    <>
+      <Header />
+      <FlexBox size={"none"} display="flex" flexDirection="row">
+        <FlexBox as="h2" mobileSize={1} margin="0">
+          My Tasks for next month
+        </FlexBox>
+        <FlexBox size={"none"}>
+          <FieldComponent id="search" noLabel formData={formData}>
+            <Input placeholder="Search" />
+          </FieldComponent>
+        </FlexBox>
+      </FlexBox>
+      <TasksContext.Provider value={{ tasks, metaDone, metaTodo, setTasks }}>
+        <FlexBox size={"none"}>
+          <Button onClick={() => createTask().then(refreshTasks)}>
+            <Icon name="xmark" />
+            <label>Add task</label>
+          </Button>
+        </FlexBox>
+        <TasksEditor />
+      </TasksContext.Provider>
+    </>
   );
 }

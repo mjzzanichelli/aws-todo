@@ -1,11 +1,15 @@
 import { CheckBox } from "../components/form/input";
 import {
   StyledTableCell,
-  StyledTableCellStyckyLeft,
   StyledTableCellStyckyRight,
 } from "../components/table/styled";
-import { TableMetaType } from "../components/table/types";
-import { TaskDataType } from "./data";
+import { TableDataType, TableMetaType } from "../components/table/types";
+
+export interface TaskDataType extends TableDataType {
+  id: string;
+  name: string;
+  done?: boolean;
+}
 
 export type TasksMetaType = TableMetaType<TaskDataType>;
 
@@ -26,16 +30,5 @@ export const TasksMeta: TasksMetaType[] = [
   {
     key: "note",
     label: "Note",
-  },
-  {
-    key: "actions",
-    label: "Actions",
-    thStyled: (
-      <StyledTableCellStyckyRight align="center" style={{ width: "6rem" }} />
-    ),
-    tdStyled: <StyledTableCellStyckyRight align="center" />,
-    value: () => {
-      return <CheckBox />;
-    },
   },
 ];
