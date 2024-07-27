@@ -1,8 +1,4 @@
-import "@aws-amplify/ui-react/styles.css";
-import { useContext, useEffect, useState } from "react";
-import outputs from "./amplify_outputs.json";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { Amplify } from "aws-amplify";
 import { ThemeProvider } from "styled-components";
 import { ThemeContext, useThemeSwitch } from "./hooks/theme-switch";
 import { GlobalStyles } from "./utils/styles";
@@ -14,10 +10,8 @@ import { FieldComponent } from "./components/form/field";
 import { Icon } from "./components/icon/main";
 import { Header } from "./partials/header";
 import { AuthContext } from "./hooks/auth";
-import { TasksContext } from "./tasks/data";
-import { TasksEditor, TasksTable } from "./tasks/editor";
-
-Amplify.configure(outputs);
+import { TasksEditor } from "./tasks/editor";
+// import { client } from "./amplify";
 
 export default function App() {
   const { theme, switchTheme } = useThemeSwitch();
@@ -47,7 +41,16 @@ export default function App() {
                   </FlexBox>
                 </FlexBox>
                 <FlexBox size={"none"}>
-                  <Button>
+                  <Button
+                    onClick={() => {
+                      // client.models.Todo.create({
+                      //   name: "New Task",
+                      // }).then((value) => {
+                      //   if (value.errors) return;
+                      //   console.log(value.data);
+                      // });
+                    }}
+                  >
                     <Icon name="xmark" />
                     <label>Add task</label>
                   </Button>

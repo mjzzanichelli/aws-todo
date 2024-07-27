@@ -1,10 +1,15 @@
-import { useContext, useEffect, useState } from "react";
+import { useContext, useState } from "react";
 import { CheckBox } from "../components/form/input";
 import { FlexBoxCentered } from "../components/layout/styled";
 import { Table } from "../components/table/main";
 import { TaskDataType, TasksContext } from "./data";
 import { TasksMeta, TasksMetaType } from "./meta";
 import { StyledTableCellStyckyLeft } from "../components/table/styled";
+// import { client } from "./../amplify";
+
+// const { data: todos } = await client.models.Todo.list();
+
+// console.log(todos);
 
 export function useTasksMeta(meta: TasksMetaType[]) {
   const initialTasks = useContext(TasksContext);
