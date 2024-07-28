@@ -1,4 +1,3 @@
-
 import { useEffect, useState } from "react";
 import { hasKeys, prettyJson, randomString } from "../utils/helpers";
 import { JsonProperties, Properties } from "../utils/types";
@@ -66,8 +65,7 @@ export function sanitizeFormValues(
       else if (value instanceof File) formValues[i] = value;
       else if (value instanceof Array) {
         formValues[i] = value.join(";");
-      } else if (isJsonProperties(value))
-        formValues[i] = prettyJson(value);
+      } else if (isJsonProperties(value)) formValues[i] = prettyJson(value);
       else formValues[i] = String(value);
     }
   }
@@ -107,8 +105,7 @@ export function getFormData(obj: unknown) {
     if (value === undefined) continue;
     if (value instanceof Function) continue;
     if (value instanceof File) formData.set(key, value);
-    else if (isJsonProperties(value))
-      formData.set(key, prettyJson(value));
+    else if (isJsonProperties(value)) formData.set(key, prettyJson(value));
     else formData.set(key, String(value));
   }
   return formData;
@@ -119,7 +116,7 @@ export type FormValidation = (formEntries: FormEntries) => Properties<string>;
 export function useFormData<T>(
   props: {
     validateOnInit?: boolean;
-    onSubmit?: (entries: FormEntriesType) => Promise<T>;
+    onSubmit?: (entries: FormEntriesType) => Promise<T> | void;
     onChange?: (values: FormValuesType) => void;
     validation?: FormValidation;
   } = {}

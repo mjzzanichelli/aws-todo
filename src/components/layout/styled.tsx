@@ -52,7 +52,7 @@ export function flexMixin({
     ${flexWrap && `flex-wrap: ${flexWrap};`}
     ${boxShadow && boxShadow === true
       ? makeBoxShadow()
-      : `box-shadow:${boxShadow};`}
+      : boxShadow && `box-shadow:${boxShadow};`}
     ${centered &&
     `justify-content: center;
     justify-items: center;

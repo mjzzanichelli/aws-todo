@@ -7,24 +7,14 @@ import {
 } from "./../../theme/variants";
 import { StyledTableProps, RowProps, TableCellProps } from "./types";
 import { boxShadow, shadow } from "../../utils/styles";
+import { FlexBoxCentered } from "../layout/styled";
 
-export const StyledTableSection = styled.section.withConfig({
-  shouldForwardProp: (prop) => !["centered"].includes(prop),
-})<{ centered?: boolean }>`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  overflow: auto;
-  width: 100%;
-  ${({ centered }) => {
-    return (
-      centered &&
-      css`
-        align-items: center;
-        justify-content: center;
-      `
-    );
-  }}
+export const StyledTableSection = styled(FlexBoxCentered)`
+  overflow-x: auto;
+  & > h3 {
+    width: 100%;
+    margin: 0;
+  }
 `;
 
 export const StyledTable = styled.table.withConfig({

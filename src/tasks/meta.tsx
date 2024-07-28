@@ -2,30 +2,22 @@ import { Button } from "../components/button/main";
 import { CheckBox, Input } from "../components/form/input";
 import { Icon } from "../components/icon/main";
 import {
-  StyledTableCell,
   StyledTableCellStyckyLeft,
   StyledTableCellStyckyRight,
 } from "../components/table/styled";
-import { TableDataType, TableMetaType } from "../components/table/types";
 import { Confirmation } from "../hooks/confirmation";
-import { GlobalError } from "../hooks/error";
 import { Void } from "../utils/helpers";
 import { deleteTask, updateTask } from "./crud";
-
-export interface TaskDataType extends TableDataType {
-  id: string;
-  name: string;
-  done?: boolean;
-  editable?: boolean;
-}
-
-export type TasksMetaType = TableMetaType<TaskDataType>;
+import { TaskDataType, TasksMetaType } from "./types";
 
 export const TasksMeta: TasksMetaType[] = [
   {
     key: "name",
     label: "Task name",
-    thStyled: <StyledTableCell style={{ width: "50%" }} />,
+    thStyled: (
+      <StyledTableCellStyckyLeft style={{ width: "50%", left: "2.5rem" }} />
+    ),
+    tdStyled: <StyledTableCellStyckyLeft style={{ left: "2.5rem" }} />,
     value: function (task) {
       if (!task.editable) return task.name;
       return (
@@ -150,7 +142,7 @@ export function getMetaActions(args: {
               }).then(() => deleteTask({ id }).then(reloadTasks), Void);
             }}
           >
-            <Icon name="xmark" />
+            <Icon name="trash-can" />
           </Button>
         </>
       );

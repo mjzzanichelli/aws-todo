@@ -7,6 +7,8 @@ import { FlexBox } from "../components/layout/styled";
 import { getValuesEntries, useFormData } from "../hooks/form-data";
 import { createTask } from "../tasks/crud";
 import { TasksContext } from "../hooks/tasks";
+import { Confirmation } from "../hooks/confirmation";
+import { CreateTask } from "../tasks/form";
 
 export function PageTop() {
   const { reloadTasks } = useContext(TasksContext);
@@ -28,8 +30,20 @@ export function PageTop() {
         </FlexBox>
       </FlexBox>
       <FlexBox size={"none"}>
-        <Button onClick={() => createTask().then(reloadTasks)}>
-          <Icon name="xmark" />
+        <Button
+          onClick={() => {
+            Confirmation.prompt((resolve) => {
+              return (
+                <CreateTask
+                  onSubmit={(task) =>
+                    createTask(task).then(reloadTasks).then(resolve)
+                  }
+                />
+              );
+            });
+          }}
+        >
+          <Icon name="plus" />
           <label>Add task</label>
         </Button>
       </FlexBox>

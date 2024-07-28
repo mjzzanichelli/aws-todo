@@ -1,12 +1,11 @@
 {
-  "check": "0xf101",
-  "chevron-left": "0xf102",
-  "chevron-right": "0xf103",
-  "compress": "0xf104",
-  "floppy-disk": "0xf105",
-  "globe": "0xf106",
-  "pause": "0xf107",
-  "play": "0xf108",
-  "question": "0xf109",
-  "xmark": "0xf10a"
+  "calendar": "0xf101",
+  "check": "0xf102",
+  "floppy-disk": "0xf103",
+  "link": "0xf104",
+  "pen": "0xf105",
+  "plus": "0xf106",
+  "tags": "0xf107",
+  "trash-can": "0xf108",
+  "xmark": "0xf109"
 }

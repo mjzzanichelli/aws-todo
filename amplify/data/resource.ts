@@ -3,7 +3,9 @@ import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 const schema = a.schema({
   Tasks: a
     .model({
-      name: a.string(),
+      name: a.string().required(),
+      dueDate: a.date(),
+      attachment: a.string(),
       done: a.boolean(),
     })
     .authorization((allow) => [allow.owner()]),

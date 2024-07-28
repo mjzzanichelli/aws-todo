@@ -1,37 +1,43 @@
 import { GlobalError } from "../hooks/error";
 import { client } from "./../amplify";
-import { TaskDataType } from "./meta";
+import {
+  TaskDataCreateType,
+  TaskDataDeleteType,
+  TaskDataUpdateType,
+} from "./types";
 
-export async function createTask() {
-  const { data, errors } = await client.models.Tasks.create({
-    name: "New Task",
-  });
-  if (errors) return GlobalError.setError(new Error(errors.join("\n")));
+export function setApiError(errors: { message: string }[]) {
+  return GlobalError.setError(
+    new Error(errors.map((item) => item.message).join("\n"))
+  );
+}
+
+export async function createTask(task: TaskDataCreateType) {
+  const { data, errors } = await client.models.Tasks.create(task);
+  if (errors) return setApiError(errors);
   return data;
 }
 
 export async function getTask(id: string) {
   const { data, errors } = await client.models.Tasks.get({ id });
-  if (errors) return GlobalError.setError(new Error(errors.join("\n")));
+  if (errors) return setApiError(errors);
   return data;
 }
 
 export async function listTasks() {
   const { data, errors } = await client.models.Tasks.list();
-  if (errors) return GlobalError.setError(new Error(errors.join("\n")));
+  if (errors) return setApiError(errors);
   return data;
 }
 
-export async function updateTask(
-  task: Partial<TaskDataType> & Pick<TaskDataType, "id">
-) {
+export async function updateTask(task: TaskDataUpdateType) {
   const { data, errors } = await client.models.Tasks.update(task);
-  if (errors) return GlobalError.setError(new Error(errors.join("\n")));
+  if (errors) return setApiError(errors);
   return data;
 }
 
-export async function deleteTask(task: Pick<TaskDataType, "id">) {
+export async function deleteTask(task: TaskDataDeleteType) {
   const { data, errors } = await client.models.Tasks.delete(task);
-  if (errors) return GlobalError.setError(new Error(errors.join("\n")));
+  if (errors) return setApiError(errors);
   return data;
 }

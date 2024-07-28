@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "customicons";
-	src: url("customicons.eot?754b99821455848c860ae6397eeb30f7?#iefix") format("embedded-opentype"),
-url("customicons.woff2?754b99821455848c860ae6397eeb30f7") format("woff2"),
-url("customicons.woff?754b99821455848c860ae6397eeb30f7") format("woff"),
-url("customicons.ttf?754b99821455848c860ae6397eeb30f7") format("truetype"),
-url("customicons.svg?754b99821455848c860ae6397eeb30f7#customicons") format("svg");
+	src: url("customicons.eot?bce1b0e9159a7ef83a7bcdca10064c1a?#iefix") format("embedded-opentype"),
+url("customicons.woff2?bce1b0e9159a7ef83a7bcdca10064c1a") format("woff2"),
+url("customicons.woff?bce1b0e9159a7ef83a7bcdca10064c1a") format("woff"),
+url("customicons.ttf?bce1b0e9159a7ef83a7bcdca10064c1a") format("truetype"),
+url("customicons.svg?bce1b0e9159a7ef83a7bcdca10064c1a#customicons") format("svg");
 }
 
 .customicons {
@@ -18,33 +18,30 @@ url("customicons.svg?754b99821455848c860ae6397eeb30f7#customicons") format("svg"
 	vertical-align: top;
 }
 
-.customicons-check:before {
+.customicons-calendar:before {
 	content: "\0xf101";
 }
-.customicons-chevron-left:before {
+.customicons-check:before {
 	content: "\0xf102";
 }
-.customicons-chevron-right:before {
+.customicons-floppy-disk:before {
 	content: "\0xf103";
 }
-.customicons-compress:before {
+.customicons-link:before {
 	content: "\0xf104";
 }
-.customicons-floppy-disk:before {
+.customicons-pen:before {
 	content: "\0xf105";
 }
-.customicons-globe:before {
+.customicons-plus:before {
 	content: "\0xf106";
 }
-.customicons-pause:before {
+.customicons-tags:before {
 	content: "\0xf107";
 }
-.customicons-play:before {
+.customicons-trash-can:before {
 	content: "\0xf108";
 }
-.customicons-question:before {
-	content: "\0xf109";
-}
 .customicons-xmark:before {
-	content: "\0xf10a";
+	content: "\0xf109";
 }

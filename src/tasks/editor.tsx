@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { FlexBoxCentered } from "../components/layout/styled";
 import { Table } from "../components/table/main";
 import { TasksContext } from "../hooks/tasks";
-import { TaskDataType, TasksMetaType } from "./meta";
+import { StyledTableSection } from "../components/table/styled";
+import { TaskDataType, TasksMetaType } from "./types";
 
 export function TasksTable(args: {
   meta?: TasksMetaType[];
@@ -12,10 +12,10 @@ export function TasksTable(args: {
   const { meta, data, title } = args;
   if (!meta?.length || !data?.length) return null;
   return (
-    <FlexBoxCentered as="section" display="flex" flexDirection="column">
-      <h3 style={{ width: "100%", margin: 0 }}>{title}</h3>
+    <StyledTableSection as="section">
+      <h3>{title}</h3>
       <Table meta={meta} data={data}></Table>
-    </FlexBoxCentered>
+    </StyledTableSection>
   );
 }
 
