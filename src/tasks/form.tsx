@@ -2,7 +2,7 @@ import { uploadData } from "aws-amplify/storage";
 import { Properties } from "../utils/types";
 import { Button } from "../components/button/main";
 import { FieldComponent } from "../components/form/field";
-import { Input } from "../components/form/input";
+import { Input, InputFile } from "../components/form/input";
 import { FormComponent } from "../components/form/main";
 import { FormEntries, FormEntriesType, useFormData } from "../hooks/form-data";
 import { GlobalError } from "../hooks/error";
@@ -49,7 +49,7 @@ export function CreateTask(args: {
         <Input type="date" />
       </FieldComponent>
       <FieldComponent id="attachment">
-        <Input type="file" />
+        <InputFile />
       </FieldComponent>
       <br />
       <Button onClick={formData.submit}>Create Task</Button>

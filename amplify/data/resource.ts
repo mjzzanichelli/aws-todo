@@ -1,9 +1,7 @@
 import { type ClientSchema, a, defineData } from "@aws-amplify/backend";
 
-const tags = a.enum(["Urgent", "Low"]);
-
 const schema = a.schema({
-  Tags: tags,
+  Tags: a.enum(["Urgent", "Low"]),
   Tasks: a
     .model({
       name: a.string().required(),

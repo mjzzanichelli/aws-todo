@@ -1,22 +1,16 @@
 import { useContext } from "react";
 import { Button } from "../components/button/main";
-import { FieldComponent } from "../components/form/field";
 import { Input } from "../components/form/input";
 import { Icon } from "../components/icon/main";
 import { FlexBox } from "../components/layout/styled";
-import { getValuesEntries, useFormData } from "../hooks/form-data";
 import { createTask } from "../tasks/crud";
 import { TasksContext } from "../hooks/tasks";
 import { Confirmation } from "../hooks/confirmation";
 import { CreateTask } from "../tasks/form";
 
 export function PageTop() {
-  const { reloadTasks } = useContext(TasksContext);
-  const formData = useFormData({
-    onChange: (values) => {
-      console.log(getValuesEntries(values).strings);
-    },
-  });
+  const { search, setSearch, reloadTasks } = useContext(TasksContext);
+
   return (
     <>
       <FlexBox size={"none"} display="flex" flexDirection="row">
@@ -24,9 +18,11 @@ export function PageTop() {
           My Tasks for next month
         </FlexBox>
         <FlexBox size={"none"}>
-          <FieldComponent id="search" noLabel formData={formData}>
-            <Input placeholder="Search" />
-          </FieldComponent>
+          <Input
+            placeholder="Search"
+            defaultValue={search}
+            onChange={setSearch}
+          />
         </FlexBox>
       </FlexBox>
       <FlexBox size={"none"}>

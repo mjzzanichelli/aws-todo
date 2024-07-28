@@ -27,8 +27,10 @@ export async function getTask(id: string) {
 
 export type TaskSchema = Awaited<ReturnType<typeof getTask>>;
 
-export async function listTasks() {
-  const { data, errors } = await client.models.Tasks.list();
+export async function listTasks(
+  ...params: Parameters<typeof client.models.Tasks.list>
+) {
+  const { data, errors } = await client.models.Tasks.list(...params);
   if (errors) return setApiError(errors);
   return data;
 }

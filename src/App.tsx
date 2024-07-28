@@ -32,14 +32,11 @@ export function App() {
 }
 
 export function AppAuth() {
-  const { tasks, metaDone, metaTodo, setTasks, reloadTasks } = useTasksMeta();
-
+  const tasksValues = useTasksMeta();
   return (
     <>
       <ErrorNotification>
-        <TasksContext.Provider
-          value={{ tasks, metaDone, metaTodo, setTasks, reloadTasks }}
-        >
+        <TasksContext.Provider value={tasksValues}>
           <Header />
           <PageTop />
           <TasksEditor />

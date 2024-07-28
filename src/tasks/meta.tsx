@@ -1,4 +1,3 @@
-import moment from "moment";
 import { Button } from "../components/button/main";
 import { CheckBox, Input } from "../components/form/input";
 import { Icon } from "../components/icon/main";
@@ -7,13 +6,25 @@ import {
   StyledTableCellStyckyRight,
 } from "../components/table/styled";
 import { Confirmation } from "../hooks/confirmation";
-import { Void } from "../utils/helpers";
-import { deleteTask, TaskSchema, updateTask } from "./crud";
+import { formatDate, Void } from "../utils/helpers";
+import { deleteTask, TaskSchema, TaskSchemaUpdate, updateTask } from "./crud";
 import { TableDataType, TableMetaType } from "../components/table/types";
 
 export type TaskDataType = TableDataType & TaskSchema & { editable?: boolean };
 
 export type TasksMetaType = TableMetaType<TaskDataType>;
+
+export function getTaskValues(task: TaskDataType): TaskSchemaUpdate {
+  const { id, name, attachment, done, dueDate, tags } = task;
+  return {
+    id,
+    name,
+    attachment,
+    done,
+    dueDate,
+    tags,
+  };
+}
 
 export const TasksMeta: TasksMetaType[] = [
   {
@@ -28,8 +39,8 @@ export const TasksMeta: TasksMetaType[] = [
       return (
         <Input
           defaultValue={task.name}
-          onChange={(value) => {
-            task.name = value as string;
+          onChange={(value = "") => {
+            task.name = value;
           }}
         />
       );
@@ -38,13 +49,23 @@ export const TasksMeta: TasksMetaType[] = [
   {
     key: "dueDate",
     label: "Due date",
-    value: (task) => {
-      return task.dueDate && moment(task.dueDate).calendar();
+    value: function (task) {
+      if (!task.editable)
+        return task.dueDate && formatDate(task.dueDate);
+      return (
+        <Input
+          type="date"
+          defaultValue={task.dueDate ?? undefined}
+          onChange={(value) => {
+            task.dueDate = value ?? null;
+          }}
+        />
+      );
     },
   },
   {
-    key: "tag",
-    label: "Tag",
+    key: "tags",
+    label: "Tags",
     value: (task) => {
       return task.tags?.join(";");
     },
@@ -129,7 +150,7 @@ export function getMetaActions(args: {
               makeEditable(task);
             }}
           >
-            <Icon name="xmark" />
+            <Icon name={task.editable ? "floppy-disk" : "pen"} />
           </Button>
           &nbsp;
           <Button

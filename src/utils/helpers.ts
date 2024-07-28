@@ -1,5 +1,6 @@
 import { ReactElement } from "react";
 import { ChildrenType } from "./types";
+import moment from "moment";
 
 export function randomString() {
   return Math.random().toString(33).replace(/\./g, "");
@@ -63,4 +64,13 @@ export function truncate(val: string, max = 50) {
   val = val.trim();
   if (val.length <= max) return val;
   return `${val.slice(0, max)}...`;
+}
+
+// Date Formatter
+
+moment.locale(navigator.language.toLowerCase());
+export function formatDate(date: string) {
+  return moment(date).calendar(null, {
+    sameElse: "MMM D YYYY",
+  });
 }

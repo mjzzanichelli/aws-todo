@@ -2,32 +2,51 @@ import { createContext, useCallback, useEffect, useState } from "react";
 import {
   getMetaActions,
   getMetaCheck,
+  getTaskValues,
   MetaCheckLabel,
   TaskDataType,
   TasksMeta,
   TasksMetaType,
 } from "../tasks/meta";
-import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
+import { listTasks, updateTask } from "../tasks/crud";
 
 export const TasksContext = createContext<{
   tasks?: TaskDataType[];
   metaTodo?: TasksMetaType[];
   metaDone?: TasksMetaType[];
+  search?: string;
+  setSearch?: (search?: string) => void;
   setTasks?: (tasks: TaskDataType[]) => void;
   reloadTasks?: () => void;
 }>({});
 
 export function useTasksMeta() {
   const [tasks, setTasks] = useState<TaskDataType[]>();
+  const [search, setSearch] = useState<string>();
 
   const reloadTasks = useCallback(() => {
-    listTasks().then((tasks) => {
+    listTasks(
+      search
+        ? {
+            filter: {
+              name: {
+                contains: search,
+              },
+            },
+          }
+        : undefined
+    ).then((tasks) => {
       setTasks(tasks);
     });
-  }, [setTasks]);
+  }, [setTasks, search]);
 
   useEffect(() => {
-    reloadTasks();
+    const search = setTimeout(() => {
+      reloadTasks();
+    }, 200);
+    return () => {
+      clearTimeout(search);
+    };
   }, [reloadTasks]);
 
   const makeEditable = useCallback(
@@ -37,7 +56,8 @@ export function useTasksMeta() {
         task.editable = !task.editable;
         setTasks([...tasks]);
       } else {
-        updateTask(task).then(reloadTasks);
+        const values = getTaskValues(task);
+        updateTask(values).then(reloadTasks);
       }
     },
     [tasks, reloadTasks]
@@ -59,9 +79,11 @@ export function useTasksMeta() {
 
   return {
     tasks,
-    setTasks,
-    reloadTasks,
     metaTodo: [checkMetaTodo, ...TasksMeta, metaActions],
     metaDone: [checkMetaDone, ...TasksMeta, metaActions],
+    search,
+    setSearch,
+    setTasks,
+    reloadTasks,
   };
 }

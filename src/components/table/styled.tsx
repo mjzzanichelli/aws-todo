@@ -14,6 +14,8 @@ export const StyledTableSection = styled(FlexBoxCentered)`
   & > h3 {
     width: 100%;
     margin: 0;
+    position: sticky;
+    left: 0;
   }
 `;
 
