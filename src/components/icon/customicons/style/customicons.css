@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "customicons";
-	src: url("customicons.eot?bce1b0e9159a7ef83a7bcdca10064c1a?#iefix") format("embedded-opentype"),
-url("customicons.woff2?bce1b0e9159a7ef83a7bcdca10064c1a") format("woff2"),
-url("customicons.woff?bce1b0e9159a7ef83a7bcdca10064c1a") format("woff"),
-url("customicons.ttf?bce1b0e9159a7ef83a7bcdca10064c1a") format("truetype"),
-url("customicons.svg?bce1b0e9159a7ef83a7bcdca10064c1a#customicons") format("svg");
+	src: url("customicons.eot?6a8652c418bfbe36080c48f6bbf9769f?#iefix") format("embedded-opentype"),
+url("customicons.woff2?6a8652c418bfbe36080c48f6bbf9769f") format("woff2"),
+url("customicons.woff?6a8652c418bfbe36080c48f6bbf9769f") format("woff"),
+url("customicons.ttf?6a8652c418bfbe36080c48f6bbf9769f") format("truetype"),
+url("customicons.svg?6a8652c418bfbe36080c48f6bbf9769f#customicons") format("svg");
 }
 
 .customicons {
@@ -30,18 +30,21 @@ url("customicons.svg?bce1b0e9159a7ef83a7bcdca10064c1a#customicons") format("svg"
 .customicons-link:before {
 	content: "\0xf104";
 }
-.customicons-pen:before {
+.customicons-paperclip:before {
 	content: "\0xf105";
 }
-.customicons-plus:before {
+.customicons-pen:before {
 	content: "\0xf106";
 }
-.customicons-tags:before {
+.customicons-plus:before {
 	content: "\0xf107";
 }
-.customicons-trash-can:before {
+.customicons-tags:before {
 	content: "\0xf108";
 }
-.customicons-xmark:before {
+.customicons-trash-can:before {
 	content: "\0xf109";
+}
+.customicons-xmark:before {
+	content: "\0xf10a";
 }

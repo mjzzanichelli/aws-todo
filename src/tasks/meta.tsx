@@ -9,6 +9,7 @@ import { Confirmation } from "../hooks/confirmation";
 import { formatDate, Void } from "../utils/helpers";
 import { deleteTask, TaskSchema, TaskSchemaUpdate, updateTask } from "./crud";
 import { TableDataType, TableMetaType } from "../components/table/types";
+import { TaskDetails } from "./details";
 
 export type TaskDataType = TableDataType & TaskSchema & { editable?: boolean };
 
@@ -28,14 +29,16 @@ export function getTaskValues(task: TaskDataType): TaskSchemaUpdate {
 
 export const TasksMeta: TasksMetaType[] = [
   {
-    key: "name",
+    key: "details",
     label: "Task name",
     thStyled: (
       <StyledTableCellStyckyLeft style={{ width: "50%", left: "2.5rem" }} />
     ),
     tdStyled: <StyledTableCellStyckyLeft style={{ left: "2.5rem" }} />,
     value: function (task) {
-      if (!task.editable) return task.name;
+      if (!task.editable) {
+        return <TaskDetails task={task} />;
+      }
       return (
         <Input
           defaultValue={task.name}
@@ -50,8 +53,7 @@ export const TasksMeta: TasksMetaType[] = [
     key: "dueDate",
     label: "Due date",
     value: function (task) {
-      if (!task.editable)
-        return task.dueDate && formatDate(task.dueDate);
+      if (!task.editable) return task.dueDate && formatDate(task.dueDate);
       return (
         <Input
           type="date"

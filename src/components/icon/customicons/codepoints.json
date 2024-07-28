@@ -3,9 +3,10 @@
   "check": "0xf102",
   "floppy-disk": "0xf103",
   "link": "0xf104",
-  "pen": "0xf105",
-  "plus": "0xf106",
-  "tags": "0xf107",
-  "trash-can": "0xf108",
-  "xmark": "0xf109"
+  "paperclip": "0xf105",
+  "pen": "0xf106",
+  "plus": "0xf107",
+  "tags": "0xf108",
+  "trash-can": "0xf109",
+  "xmark": "0xf10a"
 }

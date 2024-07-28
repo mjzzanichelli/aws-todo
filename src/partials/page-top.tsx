@@ -29,15 +29,18 @@ export function PageTop() {
       <FlexBox size={"none"}>
         <Button
           onClick={() => {
-            Confirmation.prompt((resolve) => {
-              return (
-                <CreateTask
-                  onSubmit={(task) =>
-                    createTask(task).then(reloadTasks).then(resolve)
-                  }
-                />
-              );
-            }).catch(Void);
+            Confirmation.prompt(
+              (resolve) => {
+                return (
+                  <CreateTask
+                    onSubmit={(task) =>
+                      createTask(task).then(reloadTasks).then(resolve)
+                    }
+                  />
+                );
+              },
+              { title: "Create new task" }
+            ).catch(Void);
           }}
         >
           <Icon name="plus" />

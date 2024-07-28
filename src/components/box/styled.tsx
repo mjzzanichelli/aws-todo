@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { FlexBox } from "../layout/styled";
 import { VariantElementProps } from "../../utils/types";
 import { shadow, sizeMixin } from "../../utils/styles";
 import {
@@ -39,8 +38,10 @@ export const StyledBoxTitle = styled.label.withConfig({
 })<VariantElementProps<HTMLLabelElement>>`
   flex: 1;
   font-size: 1rem;
-  line-height: 1.5rem;
-  text-align: center;
+  line-height: 2;
+  text-align: left;
+  vertical-align: middle;
+  display: inline-block;
 `;
 
 export const StyledBoxTools = styled.div.withConfig({
