@@ -9,7 +9,8 @@
     "eject": "react-scripts eject",
     "sso": "aws sso login",
     "sandbox": "npx ampx sandbox --outputs-out-dir ./src/ --once",
-    "sandbox:watch": "npx ampx sandbox --outputs-out-dir ./src/"
+    "sandbox:watch": "npx ampx sandbox --outputs-out-dir ./src/",
+    "webfonts": "node webfonts/main.js"
   },
   "dependencies": {
     "@aws-amplify/backend": "^1.0.4",
