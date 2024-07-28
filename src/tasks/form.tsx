@@ -25,10 +25,12 @@ export function CreateTask(args: {
     },
     onSubmit: async (entries: FormEntriesType) => {
       const { name, dueDate } = entries.strings;
+      const { tags = [] } = entries.stringArrays;
       const { attachment } = entries.files;
       const task: TaskDataCreateType = {
         name: name!,
         dueDate,
+        tags,
         done: false,
       };
       if (!attachment) return onSubmit(task);

@@ -21,7 +21,7 @@ export function useTasksMeta() {
 
   const reloadTasks = useCallback(() => {
     listTasks().then((tasks) => {
-      setTasks(tasks as TaskDataType[]);
+      setTasks(tasks);
     });
   }, [setTasks]);
 

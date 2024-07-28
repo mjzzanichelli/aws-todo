@@ -1,15 +1,15 @@
 import { TableDataType, TableMetaType } from "../components/table/types";
+import type { Schema } from "./../../amplify/data/resource";
 
 export interface TaskSchema {
   id: string;
   name: string;
   dueDate?: string;
+  tags: string[];
   attachment?: string;
   done?: boolean;
   editable?: boolean;
 }
-
-export type TaskKeys = keyof TaskSchema;
 
 export type TaskDataType = TableDataType & TaskSchema;
 

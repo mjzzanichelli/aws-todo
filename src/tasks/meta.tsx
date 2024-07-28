@@ -35,12 +35,15 @@ export const TasksMeta: TasksMetaType[] = [
     key: "dueDate",
     label: "Due date",
     value: (task) => {
-      return <>{task.dueDate && moment(task.dueDate).calendar()}</>;
+      return task.dueDate && moment(task.dueDate).calendar();
     },
   },
   {
     key: "tag",
     label: "Tag",
+    value: (task) => {
+      return task.tags?.join(";");
+    },
   },
   {
     key: "note",
