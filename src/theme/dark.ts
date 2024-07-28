@@ -4,12 +4,15 @@ import { LightTheme } from "./light";
 
 export const DarkTheme: DefaultTheme = {
   ...LightTheme,
-  name: "dark",
   mode: "dark",
   textColor: LightTheme.bgColor,
   bgColor: LightTheme.textColor,
   variantColors: {
     ...LightTheme.variantColors,
+    warning: {
+      ...LightTheme.variantColors.warning,
+      bg: LightTheme.textColor,
+    },
     off: {
       ...LightTheme.variantColors.off,
       text: invert(LightTheme.variantColors.off.text),

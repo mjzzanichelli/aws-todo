@@ -15,7 +15,7 @@ if (matchMedia) {
 
 const themeMode = localStorage.getItem("theme") || preferedTheme;
 const defaultTheme =
-  [LightTheme, DarkTheme].find((item) => item.name === themeMode) || LightTheme;
+  [LightTheme, DarkTheme].find((item) => item.mode === themeMode) || LightTheme;
 
 export function getNextTheme(theme: DefaultTheme) {
   return theme === DarkTheme ? LightTheme : DarkTheme;

@@ -7,6 +7,9 @@ import {
   StyledTableCellStyckyRight,
 } from "../components/table/styled";
 import { TableDataType, TableMetaType } from "../components/table/types";
+import { Confirmation } from "../hooks/confirmation";
+import { GlobalError } from "../hooks/error";
+import { Void } from "../utils/helpers";
 import { deleteTask, updateTask } from "./crud";
 
 export interface TaskDataType extends TableDataType {
@@ -49,7 +52,7 @@ export const TasksMeta: TasksMetaType[] = [
   },
 ];
 
-export function getMetaCheck(refreshTasks: () => void): TasksMetaType {
+export function getMetaCheck(reloadTasks: () => void): TasksMetaType {
   return {
     key: "done",
     thStyled: (
@@ -65,7 +68,7 @@ export function getMetaCheck(refreshTasks: () => void): TasksMetaType {
           key={id}
           defaultChecked={done}
           onChange={() => {
-            updateTask({ id, done: !done }).then(refreshTasks);
+            updateTask({ id, done: !done }).then(reloadTasks);
           }}
         />
       );
@@ -76,9 +79,9 @@ export function getMetaCheck(refreshTasks: () => void): TasksMetaType {
 export function MetaCheckLabel(args: {
   tasks?: TaskDataType[];
   done?: boolean;
-  refreshTasks: () => void;
+  reloadTasks: () => void;
 }) {
-  const { tasks, done = false, refreshTasks } = args;
+  const { tasks, done = false, reloadTasks } = args;
   return (
     <CheckBox
       key={Math.random()}
@@ -87,7 +90,7 @@ export function MetaCheckLabel(args: {
         const todo = tasks?.filter((item) => !!item.done !== done);
         if (!todo?.length) return;
         Promise.all(todo.map(({ id }) => updateTask({ id, done }))).then(
-          refreshTasks
+          reloadTasks
         );
       }}
     />
@@ -96,16 +99,24 @@ export function MetaCheckLabel(args: {
 
 export function getMetaActions(args: {
   makeEditable: (task: TaskDataType) => void;
-  refreshTasks: () => void;
+  reloadTasks: () => void;
 }): TasksMetaType {
-  const { makeEditable, refreshTasks } = args;
+  const { makeEditable, reloadTasks } = args;
   return {
     key: "actions",
     label: "Actions",
     thStyled: (
-      <StyledTableCellStyckyRight align="center" style={{ width: "6rem" }} />
+      <StyledTableCellStyckyRight
+        align="center"
+        style={{ minWidth: "6rem", width: "6rem" }}
+      />
     ),
-    tdStyled: <StyledTableCellStyckyRight align="center" />,
+    tdStyled: (
+      <StyledTableCellStyckyRight
+        align="center"
+        style={{ minWidth: "6rem", width: "6rem" }}
+      />
+    ),
     value: (task) => {
       const { id } = task;
       return (
@@ -117,9 +128,26 @@ export function getMetaActions(args: {
           >
             <Icon name="xmark" />
           </Button>
+          &nbsp;
           <Button
             onClick={() => {
-              deleteTask({ id }).then(refreshTasks);
+              Confirmation.prompt((resolve, reject) => {
+                return (
+                  <>
+                    <strong>{task.name}</strong>
+                    <p>Are you sure you want to delete?</p>
+                    <div>
+                      <Button variant="success" onClick={resolve}>
+                        Confirm
+                      </Button>
+                      &nbsp;
+                      <Button variant="error" onClick={reject}>
+                        Cancel
+                      </Button>
+                    </div>
+                  </>
+                );
+              }).then(() => deleteTask({ id }).then(reloadTasks), Void);
             }}
           >
             <Icon name="xmark" />

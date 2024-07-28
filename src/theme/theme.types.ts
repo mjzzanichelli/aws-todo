@@ -32,7 +32,6 @@ export type ThemeMode = "light" | "dark";
 
 declare module "styled-components" {
   export interface DefaultTheme {
-    name: string;
     mode: ThemeMode;
     sizes: {
       xs: number;

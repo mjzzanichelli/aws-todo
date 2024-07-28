@@ -2,7 +2,6 @@ import { DefaultTheme } from "styled-components";
 import { DarkColor, LightColor } from "./variants";
 
 export const LightTheme: DefaultTheme = {
-  name: "light",
   mode: "light",
   fontSize: 14,
   sizes: {

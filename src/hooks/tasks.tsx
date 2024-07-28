@@ -14,20 +14,21 @@ export const TasksContext = createContext<{
   metaTodo?: TasksMetaType[];
   metaDone?: TasksMetaType[];
   setTasks?: (tasks: TaskDataType[]) => void;
+  reloadTasks?: () => void;
 }>({});
 
 export function useTasksMeta() {
   const [tasks, setTasks] = useState<TaskDataType[]>();
 
-  const refreshTasks = useCallback(() => {
+  const reloadTasks = useCallback(() => {
     listTasks().then((tasks) => {
       setTasks(tasks as TaskDataType[]);
     });
   }, [setTasks]);
 
   useEffect(() => {
-    refreshTasks();
-  }, [refreshTasks]);
+    reloadTasks();
+  }, [reloadTasks]);
 
   const makeEditable = useCallback(
     (task: TaskDataType) => {
@@ -37,30 +38,30 @@ export function useTasksMeta() {
         setTasks([...tasks]);
       } else {
         const { id, name } = task;
-        updateTask({ id, name }).then(refreshTasks);
+        updateTask({ id, name }).then(reloadTasks);
       }
     },
-    [tasks, refreshTasks]
+    [tasks, reloadTasks]
   );
 
-  const metaCheck = getMetaCheck(refreshTasks);
+  const metaCheck = getMetaCheck(reloadTasks);
 
-  const metaActions = getMetaActions({ makeEditable, refreshTasks });
+  const metaActions = getMetaActions({ makeEditable, reloadTasks });
 
   const checkMetaTodo: TasksMetaType = {
     ...metaCheck,
-    label: <MetaCheckLabel tasks={tasks} refreshTasks={refreshTasks} done />,
+    label: <MetaCheckLabel tasks={tasks} reloadTasks={reloadTasks} done />,
   };
 
   const checkMetaDone: TasksMetaType = {
     ...metaCheck,
-    label: <MetaCheckLabel tasks={tasks} refreshTasks={refreshTasks} />,
+    label: <MetaCheckLabel tasks={tasks} reloadTasks={reloadTasks} />,
   };
 
   return {
     tasks,
     setTasks,
-    refreshTasks,
+    reloadTasks,
     metaTodo: [checkMetaTodo, ...TasksMeta, metaActions],
     metaDone: [checkMetaDone, ...TasksMeta, metaActions],
   };

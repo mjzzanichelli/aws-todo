@@ -8,7 +8,13 @@ export interface Properties<T = unknown> {
 export type StringNumber = string | number;
 
 export interface JsonProperties<T = never> {
-  [key: string]: StringNumber | boolean | null | JsonProperties<T> | undefined | T;
+  [key: string]:
+    | StringNumber
+    | boolean
+    | null
+    | JsonProperties<T>
+    | undefined
+    | T;
 }
 
 export type ChildrenType = Parameters<typeof Children.toArray>["0"];
