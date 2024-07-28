@@ -36,8 +36,7 @@ export function useTasksMeta() {
         task.editable = !task.editable;
         setTasks([...tasks]);
       } else {
-        const { id, name } = task;
-        updateTask({ id, name }).then(reloadTasks);
+        updateTask(task).then(reloadTasks);
       }
     },
     [tasks, reloadTasks]

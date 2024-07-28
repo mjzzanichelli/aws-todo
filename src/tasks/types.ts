@@ -9,19 +9,12 @@ export interface TaskSchema {
   editable?: boolean;
 }
 
-export interface TaskDataType extends TableDataType {
-  id: string;
-  name: string;
-  dueDate?: string;
-  attachment?: string;
-  done?: boolean;
-  editable?: boolean;
-}
+export type TaskKeys = keyof TaskSchema;
+
+export type TaskDataType = TableDataType & TaskSchema;
 
 export type TasksMetaType = TableMetaType<TaskDataType>;
 
 export type TaskDataCreateType = Omit<TaskSchema, "id">;
 
 export type TaskDataUpdateType = Partial<TaskSchema> & Pick<TaskSchema, "id">;
-
-export type TaskDataDeleteType = Pick<TaskSchema, "id">;

@@ -5,6 +5,7 @@ const schema = a.schema({
     .model({
       name: a.string().required(),
       dueDate: a.date(),
+      tags: a.string().array(),
       attachment: a.string(),
       done: a.boolean(),
     })

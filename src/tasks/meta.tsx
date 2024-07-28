@@ -1,3 +1,4 @@
+import moment from "moment";
 import { Button } from "../components/button/main";
 import { CheckBox, Input } from "../components/form/input";
 import { Icon } from "../components/icon/main";
@@ -31,8 +32,11 @@ export const TasksMeta: TasksMetaType[] = [
     },
   },
   {
-    key: "date",
+    key: "dueDate",
     label: "Due date",
+    value: (task) => {
+      return <>{task.dueDate && moment(task.dueDate).calendar()}</>;
+    },
   },
   {
     key: "tag",
@@ -139,7 +143,7 @@ export function getMetaActions(args: {
                     </div>
                   </>
                 );
-              }).then(() => deleteTask({ id }).then(reloadTasks), Void);
+              }).then(() => deleteTask(id).then(reloadTasks), Void);
             }}
           >
             <Icon name="trash-can" />

@@ -1,10 +1,6 @@
 import { GlobalError } from "../hooks/error";
 import { client } from "./../amplify";
-import {
-  TaskDataCreateType,
-  TaskDataDeleteType,
-  TaskDataUpdateType,
-} from "./types";
+import { TaskDataCreateType, TaskDataUpdateType } from "./types";
 
 export function setApiError(errors: { message: string }[]) {
   return GlobalError.setError(
@@ -36,8 +32,8 @@ export async function updateTask(task: TaskDataUpdateType) {
   return data;
 }
 
-export async function deleteTask(task: TaskDataDeleteType) {
-  const { data, errors } = await client.models.Tasks.delete(task);
+export async function deleteTask(id: string) {
+  const { data, errors } = await client.models.Tasks.delete({ id });
   if (errors) return setApiError(errors);
   return data;
 }
