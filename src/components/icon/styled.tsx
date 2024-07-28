@@ -1,4 +1,3 @@
-import "./customicons/style/customicons.css";
 import styled, { css } from "styled-components";
 import { IconName, IconProps, Icons } from "./types";
 
