@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { Table } from "../components/table/main";
 import { TasksContext } from "../hooks/tasks";
 import { StyledTableSection } from "../components/table/styled";
-import { TaskDataType, TasksMetaType } from "./types";
+import { TaskDataType, TasksMetaType } from "./meta";
 
 export function TasksTable(args: {
   meta?: TasksMetaType[];

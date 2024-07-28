@@ -8,8 +8,12 @@ import {
 } from "../components/table/styled";
 import { Confirmation } from "../hooks/confirmation";
 import { Void } from "../utils/helpers";
-import { deleteTask, updateTask } from "./crud";
-import { TaskDataType, TasksMetaType } from "./types";
+import { deleteTask, TaskSchema, updateTask } from "./crud";
+import { TableDataType, TableMetaType } from "../components/table/types";
+
+export type TaskDataType = TableDataType & TaskSchema & { editable?: boolean };
+
+export type TasksMetaType = TableMetaType<TaskDataType>;
 
 export const TasksMeta: TasksMetaType[] = [
   {

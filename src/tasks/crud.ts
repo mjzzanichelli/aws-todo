@@ -1,6 +1,5 @@
 import { GlobalError } from "../hooks/error";
 import { client } from "./../amplify";
-import { TaskDataCreateType, TaskDataType, TaskDataUpdateType } from "./types";
 
 export function setApiError(errors: { message: string }[]) {
   GlobalError.setError(
@@ -9,28 +8,39 @@ export function setApiError(errors: { message: string }[]) {
   return Promise.reject(errors);
 }
 
-export async function createTask(task: TaskDataCreateType) {
+export type TaskSchemaCreate = Parameters<
+  typeof client.models.Tasks.create
+>["0"];
+
+export async function createTask(task: TaskSchemaCreate) {
   const { data, errors } = await client.models.Tasks.create(task);
   if (errors) return setApiError(errors);
-  return data as TaskDataType;
+  return data;
 }
 
 export async function getTask(id: string) {
   const { data, errors } = await client.models.Tasks.get({ id });
   if (errors) return setApiError(errors);
-  return data as TaskDataType;
+  if (data === null) return setApiError([{ message: "Task not found" }]);
+  return data;
 }
+
+export type TaskSchema = Awaited<ReturnType<typeof getTask>>;
 
 export async function listTasks() {
   const { data, errors } = await client.models.Tasks.list();
   if (errors) return setApiError(errors);
-  return data as TaskDataType[];
+  return data;
 }
 
-export async function updateTask(task: TaskDataUpdateType) {
+export type TaskSchemaUpdate = Parameters<
+  typeof client.models.Tasks.update
+>["0"];
+
+export async function updateTask(task: TaskSchemaUpdate) {
   const { data, errors } = await client.models.Tasks.update(task);
   if (errors) return setApiError(errors);
-  return data as TaskDataType;
+  return data;
 }
 
 export async function deleteTask(id: string) {

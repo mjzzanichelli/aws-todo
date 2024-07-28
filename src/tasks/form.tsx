@@ -5,18 +5,14 @@ import { FieldComponent } from "../components/form/field";
 import { Input } from "../components/form/input";
 import { FormComponent } from "../components/form/main";
 import { FormEntries, FormEntriesType, useFormData } from "../hooks/form-data";
-import { TaskDataCreateType } from "./types";
 import { GlobalError } from "../hooks/error";
+import { TaskSchemaCreate } from "./crud";
 
 export function CreateTask(args: {
-  onSubmit: (task: TaskDataCreateType) => void;
+  onSubmit: (task: TaskSchemaCreate) => void;
 }) {
   const { onSubmit } = args;
   const formData = useFormData({
-    // onChange: (values) => {
-    //   const entries = getValuesEntries(values);
-    //   const attachment = entries.files["attachment"];
-    // },
     validation: (formEntries: FormEntries) => {
       const errors: Properties<string> = {};
       const { name } = formEntries.strings;
@@ -27,7 +23,7 @@ export function CreateTask(args: {
       const { name, dueDate } = entries.strings;
       const { tags = [] } = entries.stringArrays;
       const { attachment } = entries.files;
-      const task: TaskDataCreateType = {
+      const task: TaskSchemaCreate = {
         name: name!,
         dueDate,
         tags,
@@ -40,8 +36,7 @@ export function CreateTask(args: {
             `attachments/${identityId}/${attachment.name}`,
           data: attachment,
         }).result;
-        task.attachment = result.path;
-        onSubmit(task);
+        onSubmit({ ...task!, attachment: result.path });
       } catch (e) {
         GlobalError.setError(new Error("File upload failed"));
       }

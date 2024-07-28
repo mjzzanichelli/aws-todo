@@ -3,10 +3,11 @@ import {
   getMetaActions,
   getMetaCheck,
   MetaCheckLabel,
+  TaskDataType,
   TasksMeta,
+  TasksMetaType,
 } from "../tasks/meta";
-import { listTasks, updateTask } from "../tasks/crud";
-import { TaskDataType, TasksMetaType } from "../tasks/types";
+import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
 
 export const TasksContext = createContext<{
   tasks?: TaskDataType[];
