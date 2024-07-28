@@ -7,6 +7,7 @@ import { createTask } from "../tasks/crud";
 import { TasksContext } from "../hooks/tasks";
 import { Confirmation } from "../hooks/confirmation";
 import { CreateTask } from "../tasks/form";
+import { Void } from "../utils/helpers";
 
 export function PageTop() {
   const { search, setSearch, reloadTasks } = useContext(TasksContext);
@@ -36,7 +37,7 @@ export function PageTop() {
                   }
                 />
               );
-            });
+            }).catch(Void);
           }}
         >
           <Icon name="plus" />

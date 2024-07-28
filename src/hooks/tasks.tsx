@@ -8,7 +8,7 @@ import {
   TasksMeta,
   TasksMetaType,
 } from "../tasks/meta";
-import { listTasks, updateTask } from "../tasks/crud";
+import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
 
 export const TasksContext = createContext<{
   tasks?: TaskDataType[];
@@ -36,7 +36,13 @@ export function useTasksMeta() {
           }
         : undefined
     ).then((tasks) => {
-      setTasks(tasks);
+      setTasks(
+        tasks.sort((a: TaskSchema, b: TaskSchema) => {
+          const aCreatedAt = new Date(a.createdAt);
+          const bCreatedAt = new Date(b.createdAt);
+          return aCreatedAt.getTime() < bCreatedAt.getTime() ? -1 : 1;
+        })
+      );
     });
   }, [setTasks, search]);
 
