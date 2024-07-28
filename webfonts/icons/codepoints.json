@@ -1,0 +1,12 @@
+{
+  "check": "0xf101",
+  "chevron-left": "0xf102",
+  "chevron-right": "0xf103",
+  "compress": "0xf104",
+  "floppy-disk": "0xf105",
+  "globe": "0xf106",
+  "pause": "0xf107",
+  "play": "0xf108",
+  "question": "0xf109",
+  "xmark": "0xf10a"
+}
