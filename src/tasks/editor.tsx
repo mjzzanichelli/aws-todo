@@ -15,7 +15,7 @@ export function TasksTable(args: {
   return (
     <StyledTableSection as="section">
       <h3>{title}</h3>
-      <Table meta={meta} data={data}></Table>
+      <Table meta={meta} data={data} outlined></Table>
     </StyledTableSection>
   );
 }

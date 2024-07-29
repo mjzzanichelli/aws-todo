@@ -1,5 +1,6 @@
-import type { DefaultTheme } from "styled-components";
 import { darken, lighten } from "polished";
+import type { DefaultTheme } from "styled-components";
+import type { TagName } from "../tasks/crud";
 import { ThemeColorType, VariantType } from "./theme.types";
 import {
   ThemeColorValue,
@@ -8,7 +9,7 @@ import {
   VariantValues,
 } from "./styled.types";
 
-export const LightColor = "#DADADA";
+export const LightColor = "#FFFFFF";
 export const DarkColor = "#202020";
 
 export function isThemeColorType(
@@ -56,6 +57,16 @@ export function getVariantValues(
 
 export const variantTextColor = getVariantValues("textColor", themeTextColor);
 export const variantBgColor = getVariantValues("bgColor", themeBgColor);
+
+export function tagTextColor(props: { theme: DefaultTheme; variant: TagName }) {
+  const { text } = props.theme.tags[props.variant];
+  return isThemeColorType(text) ? props.theme[text] : text;
+}
+
+export function tagBgColor(props: { theme: DefaultTheme; variant: TagName }) {
+  const { bg } = props.theme.tags[props.variant];
+  return isThemeColorType(bg) ? props.theme[bg] : bg;
+}
 
 export function lightenColor({ theme, color, value }: ThemeColorValue) {
   const fn = theme.mode === "light" ? lighten : darken;

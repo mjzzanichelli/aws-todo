@@ -1,3 +1,5 @@
+import type { TagName } from "../tasks/crud";
+
 export type DefaultVariant = "default";
 
 export type VariantType =
@@ -17,6 +19,11 @@ export interface VariantProps {
   variant?: ThemeVariantType;
 }
 
+export interface TagProps {
+  variant: TagName;
+  selected?: boolean;
+}
+
 export type ThemeColorType = "bgColor" | "textColor";
 
 export type VariantColorType = {
@@ -26,6 +33,10 @@ export type VariantColorType = {
 
 export type ThemeVariants = {
   [key in VariantType]: VariantColorType;
+};
+
+export type TagVariants = {
+  [key in TagName]: VariantColorType;
 };
 
 export type ThemeMode = "light" | "dark";
@@ -44,5 +55,6 @@ declare module "styled-components" {
     textColor: string;
     bgColor: string;
     variantColors: ThemeVariants;
+    tags: TagVariants;
   }
 }

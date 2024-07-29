@@ -8,7 +8,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
     let { variant, ...props } = others;
     variant = disabled ? "disabled" : variant;
     if (!variant && !disabled && type === "submit") variant = "tertiary";
-    variant = variant || "secondary";
+    variant = variant || "default";
     const handleOnClick: React.MouseEventHandler<HTMLButtonElement> = (e) => {
       if (preventDefault) e.preventDefault();
       return onClick && onClick(e);

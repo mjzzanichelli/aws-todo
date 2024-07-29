@@ -46,7 +46,7 @@ export function outlineColor(color: string) {
   `;
 }
 
-export function borderRadius(val = "0.25rem") {
+export function borderRadius(val = "0.33rem") {
   return css`
     border-radius: ${val};
   `;

@@ -3,7 +3,7 @@ import {
   variantTextColor,
   variantBgColor,
   lightenVariantTextColor,
-  darkenColor,
+  darkenVariantBgColor,
 } from "./../../theme/variants";
 import { StyledTableProps, RowProps, TableCellProps } from "./types";
 import { boxShadow, shadow } from "../../utils/styles";
@@ -31,6 +31,7 @@ export const StyledTable = styled.table.withConfig({
       variant: "disabled",
       value: 0.22,
     });
+    const border = outlined ? "border-bottom" : "border";
     return css`
       overflow-y: hidden;
       width: 100%;
@@ -44,18 +45,17 @@ export const StyledTable = styled.table.withConfig({
         & > tr > th {
           text-align: left;
           padding: 0.5rem;
-          background-color: ${darkenColor({
-            theme,
-            value: 0.1,
-            color: outlined ? thBgColor : thTextColor,
-          })};
+          background-color: ${outlined ? thBgColor : thTextColor};
           color: ${outlined ? thTextColor : thBgColor};
-          border: 0.03rem solid ${outlined ? tdBgColor : thBgColor};
+          ${border}: 0.03rem solid ${outlined ? tdBgColor : thBgColor};
           &:first-child {
             border-top-left-radius: 0.25rem;
           }
           &:last-child {
             border-top-right-radius: 0.25rem;
+          }
+          & > i {
+            vertical-align: middle;
           }
         }
       }
@@ -69,19 +69,19 @@ export const StyledTableRow = styled.th.withConfig({
 })<RowProps>`
   ${(props) => {
     const { theme, onClick, selected, hover } = props;
-    const bgColorHover = lightenVariantTextColor({ ...props, value: 0.5 });
-    const fontColorHover = variantBgColor(props);
+    const bgColorHover = darkenVariantBgColor({ ...props, value: 0.05 });
+    const fontColorHover = variantTextColor(props);
 
     const bgColor = selected
       ? variantTextColor(props)
       : hover
       ? bgColorHover
-      : lightenVariantTextColor({ ...props, value: 0.75 });
+      : variantBgColor(props);
     const fontColor = selected
       ? variantBgColor(props)
       : hover
       ? fontColorHover
-      : variantTextColor({ theme });
+      : variantTextColor(props);
 
     const borderColor = shadow({ theme });
 

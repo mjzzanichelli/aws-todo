@@ -3,7 +3,7 @@ import { DarkColor, LightColor } from "./variants";
 
 export const LightTheme: DefaultTheme = {
   mode: "light",
-  fontSize: 14,
+  fontSize: 12,
   sizes: {
     xs: 0,
     sm: 300,
@@ -23,5 +23,12 @@ export const LightTheme: DefaultTheme = {
     success: { text: "#709856", bg: "textColor" },
     warning: { text: "#f7ce84", bg: "textColor" },
     error: { text: "#ed4c4c", bg: "bgColor" },
+  },
+  tags: {
+    Urgent: { text: DarkColor, bg: "#FFEEB4" },
+    High: { text: DarkColor, bg: "#FFB4DC" },
+    Medium: { text: DarkColor, bg: "#FFEEB4" },
+    Low: { text: DarkColor, bg: "#DDDDDD" },
+    NotUrgent: { text: DarkColor, bg: "#DDDDDD" },
   },
 };

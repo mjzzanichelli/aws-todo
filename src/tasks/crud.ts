@@ -47,4 +47,4 @@ export async function deleteTask(id: string) {
 
 export const Tags = client.enums.Tags.values();
 
-// const weather = await getWeather("London");
+export type TagName = (typeof Tags)[number];

@@ -10,7 +10,7 @@ import { TaskDetails } from "./details";
 import { Notes } from "./notes";
 import { uploadData } from "aws-amplify/storage";
 import { TaskDate } from "./date";
-import { TaskTags } from "./tags";
+import { TaskTag } from "./tag";
 import { IconName } from "../components/icon/types";
 
 export type TaskDataType = TableDataType &
@@ -21,7 +21,7 @@ export type TasksMetaType = TableMetaType<TaskDataType>;
 export async function getTaskValues(
   task: TaskDataType
 ): Promise<TaskSchemaUpdate> {
-  const { id, name, attachment, attachmentFile, done, dueDate, tags } = task;
+  const { id, name, attachment, attachmentFile, done, dueDate, tag } = task;
   let result;
   if (attachmentFile) {
     result = await uploadData({
@@ -36,29 +36,7 @@ export async function getTaskValues(
     attachment: result?.path || attachment,
     done,
     dueDate,
-    tags,
-  });
-}
-
-export async function getTaskData(
-  task: TaskDataType
-): Promise<TaskSchemaUpdate> {
-  const { id, name, attachment, attachmentFile, done, dueDate, tags } = task;
-  let result;
-  if (attachmentFile) {
-    result = await uploadData({
-      path: ({ identityId }) =>
-        `attachments/${identityId}/${attachmentFile.name}`,
-      data: attachmentFile,
-    }).result;
-  }
-  return Promise.resolve({
-    id,
-    name,
-    attachment: result?.path || attachment,
-    done,
-    dueDate,
-    tags,
+    tag,
   });
 }
 
@@ -66,7 +44,7 @@ export function MetaLabel(args: { icon?: IconName; children: string }) {
   const { children, icon } = args;
   return (
     <>
-      {icon && <Icon name={icon} style={{ marginRight: "1rem" }} />}
+      {icon && <Icon name={icon} style={{ marginRight: "0.5rem" }} />}
       {children}
     </>
   );
@@ -89,10 +67,10 @@ export const TasksMeta: TasksMetaType[] = [
     },
   },
   {
-    key: "tags",
-    label: <MetaLabel icon="tags">Tag</MetaLabel>,
+    key: "tag",
+    label: <MetaLabel icon="tag">Tag</MetaLabel>,
     value: (task) => {
-      return <TaskTags task={task} />;
+      return <TaskTag task={task} />;
     },
   },
   {
