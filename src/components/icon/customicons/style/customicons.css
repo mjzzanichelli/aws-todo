@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "customicons";
-	src: url("customicons.eot?6a8652c418bfbe36080c48f6bbf9769f?#iefix") format("embedded-opentype"),
-url("customicons.woff2?6a8652c418bfbe36080c48f6bbf9769f") format("woff2"),
-url("customicons.woff?6a8652c418bfbe36080c48f6bbf9769f") format("woff"),
-url("customicons.ttf?6a8652c418bfbe36080c48f6bbf9769f") format("truetype"),
-url("customicons.svg?6a8652c418bfbe36080c48f6bbf9769f#customicons") format("svg");
+	src: url("customicons.eot?91f722978fd39e126c1024a5f3c118e0?#iefix") format("embedded-opentype"),
+url("customicons.woff2?91f722978fd39e126c1024a5f3c118e0") format("woff2"),
+url("customicons.woff?91f722978fd39e126c1024a5f3c118e0") format("woff"),
+url("customicons.ttf?91f722978fd39e126c1024a5f3c118e0") format("truetype"),
+url("customicons.svg?91f722978fd39e126c1024a5f3c118e0#customicons") format("svg");
 }
 
 .customicons {
@@ -42,9 +42,12 @@ url("customicons.svg?6a8652c418bfbe36080c48f6bbf9769f#customicons") format("svg"
 .customicons-tags:before {
 	content: "\0xf108";
 }
-.customicons-trash-can:before {
+.customicons-task:before {
 	content: "\0xf109";
 }
-.customicons-xmark:before {
+.customicons-trash-can:before {
 	content: "\0xf10a";
+}
+.customicons-xmark:before {
+	content: "\0xf10b";
 }

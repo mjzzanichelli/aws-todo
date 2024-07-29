@@ -5,8 +5,6 @@ import { useObservable } from "./observable";
 import { VariantType } from "../theme/theme.types";
 import { DialogProps } from "../components/dialog/types";
 import { ConfirmationContentType } from "../components/notifications/types";
-import { GlobalError } from "./error";
-import { Void } from "../utils/helpers";
 
 export interface ConfirmationProps {
   title?: string;

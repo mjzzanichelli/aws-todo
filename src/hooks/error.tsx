@@ -15,6 +15,13 @@ export class GlobalError {
   }
 }
 
+export function setApiError(errors: { message: string }[]) {
+  GlobalError.setError(
+    new Error(errors.map((item) => item.message).join("\n"))
+  );
+  return Promise.reject(errors);
+}
+
 export function useError() {
   const [errorValue] = useObservable(GlobalError.Values);
   const { error } = errorValue;

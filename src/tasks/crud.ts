@@ -1,12 +1,5 @@
-import { GlobalError } from "../hooks/error";
+import { setApiError } from "../hooks/error";
 import { client } from "./../amplify";
-
-export function setApiError(errors: { message: string }[]) {
-  GlobalError.setError(
-    new Error(errors.map((item) => item.message).join("\n"))
-  );
-  return Promise.reject(errors);
-}
 
 export type TaskSchemaCreate = Parameters<
   typeof client.models.Tasks.create
@@ -15,17 +8,18 @@ export type TaskSchemaCreate = Parameters<
 export async function createTask(task: TaskSchemaCreate) {
   const { data, errors } = await client.models.Tasks.create(task);
   if (errors) return setApiError(errors);
+  if (data === null) return setApiError([{ message: "Task not created" }]);
   return data;
 }
 
-export async function getTask(id: string) {
+export type TaskSchema = Awaited<ReturnType<typeof createTask>>;
+
+export async function getTask(id: string): Promise<TaskSchema> {
   const { data, errors } = await client.models.Tasks.get({ id });
   if (errors) return setApiError(errors);
   if (data === null) return setApiError([{ message: "Task not found" }]);
   return data;
 }
-
-export type TaskSchema = Awaited<ReturnType<typeof getTask>>;
 
 export async function listTasks(
   ...params: Parameters<typeof client.models.Tasks.list>
@@ -50,3 +44,7 @@ export async function deleteTask(id: string) {
   if (errors) return setApiError(errors);
   return true;
 }
+
+export const Tags = client.enums.Tags.values();
+
+// const weather = await getWeather("London");

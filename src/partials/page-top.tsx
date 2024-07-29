@@ -5,17 +5,14 @@ import { Icon } from "../components/icon/main";
 import { FlexBox } from "../components/layout/styled";
 import { createTask } from "../tasks/crud";
 import { TasksContext } from "../hooks/tasks";
-import { Confirmation } from "../hooks/confirmation";
-import { CreateTask } from "../tasks/form";
-import { Void } from "../utils/helpers";
 
 export function PageTop() {
-  const { search, setSearch, reloadTasks } = useContext(TasksContext);
+  const { search, addTask, setSearch } = useContext(TasksContext);
 
   return (
     <>
-      <FlexBox size={"none"} display="flex" flexDirection="row">
-        <FlexBox as="h2" mobileSize={1} margin="0">
+      <FlexBox size={"none"} display="flex" flexDirection="row" mobileDirection="column">
+        <FlexBox as="h2" size={1} margin="0">
           My Tasks for next month
         </FlexBox>
         <FlexBox size={"none"}>
@@ -29,18 +26,7 @@ export function PageTop() {
       <FlexBox size={"none"}>
         <Button
           onClick={() => {
-            Confirmation.prompt(
-              (resolve) => {
-                return (
-                  <CreateTask
-                    onSubmit={(task) =>
-                      createTask(task).then(reloadTasks).then(resolve)
-                    }
-                  />
-                );
-              },
-              { title: "Create new task" }
-            ).catch(Void);
+            createTask({ name: "" }).then(addTask);
           }}
         >
           <Icon name="plus" />

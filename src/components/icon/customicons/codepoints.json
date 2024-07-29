@@ -7,6 +7,7 @@
   "pen": "0xf106",
   "plus": "0xf107",
   "tags": "0xf108",
-  "trash-can": "0xf109",
-  "xmark": "0xf10a"
+  "task": "0xf109",
+  "trash-can": "0xf10a",
+  "xmark": "0xf10b"
 }

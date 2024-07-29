@@ -15,13 +15,14 @@ export const TasksContext = createContext<{
   metaTodo?: TasksMetaType[];
   metaDone?: TasksMetaType[];
   search?: string;
+  addTask?: (task: TaskSchema) => void;
   setSearch?: (search?: string) => void;
   setTasks?: (tasks: TaskDataType[]) => void;
   reloadTasks?: () => void;
 }>({});
 
 export function useTasksMeta() {
-  const [tasks, setTasks] = useState<TaskDataType[]>();
+  const [tasks, setTasks] = useState<TaskDataType[]>([]);
   const [search, setSearch] = useState<string>();
 
   const reloadTasks = useCallback(() => {
@@ -59,14 +60,35 @@ export function useTasksMeta() {
     (task: TaskDataType) => {
       if (!tasks) return;
       if (!task.editable) {
-        task.editable = !task.editable;
-        setTasks([...tasks]);
+        setTasks(
+          tasks.map((item) => {
+            const { attachmentFile, ...others } = item;
+            return {
+              ...others,
+              editable: item === task ? true : false,
+            };
+          })
+        );
       } else {
-        const values = getTaskValues(task);
-        updateTask(values).then(reloadTasks);
+        getTaskValues(task).then(updateTask).then(reloadTasks);
       }
     },
     [tasks, reloadTasks]
+  );
+
+  const addTask = useCallback(
+    (task: TaskSchema) => {
+      setTasks([
+        ...tasks.map((item) => {
+          return {
+            ...item,
+            editable: false,
+          };
+        }),
+        { ...task, editable: true },
+      ]);
+    },
+    [tasks, setTasks]
   );
 
   const metaCheck = getMetaCheck(reloadTasks);
@@ -88,6 +110,7 @@ export function useTasksMeta() {
     metaTodo: [checkMetaTodo, ...TasksMeta, metaActions],
     metaDone: [checkMetaDone, ...TasksMeta, metaActions],
     search,
+    addTask,
     setSearch,
     setTasks,
     reloadTasks,

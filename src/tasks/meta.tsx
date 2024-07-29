@@ -1,90 +1,114 @@
 import { Button } from "../components/button/main";
-import { CheckBox, Input } from "../components/form/input";
+import { CheckBox } from "../components/form/input";
 import { Icon } from "../components/icon/main";
-import {
-  StyledTableCellStyckyLeft,
-  StyledTableCellStyckyRight,
-} from "../components/table/styled";
+import { StyledTableCell } from "../components/table/styled";
 import { Confirmation } from "../hooks/confirmation";
-import { formatDate, Void } from "../utils/helpers";
+import { Void } from "../utils/helpers";
 import { deleteTask, TaskSchema, TaskSchemaUpdate, updateTask } from "./crud";
 import { TableDataType, TableMetaType } from "../components/table/types";
 import { TaskDetails } from "./details";
+import { Notes } from "./notes";
+import { uploadData } from "aws-amplify/storage";
+import { TaskDate } from "./date";
+import { TaskTags } from "./tags";
+import { IconName } from "../components/icon/types";
 
-export type TaskDataType = TableDataType & TaskSchema & { editable?: boolean };
+export type TaskDataType = TableDataType &
+  TaskSchema & { editable?: boolean; attachmentFile?: File };
 
 export type TasksMetaType = TableMetaType<TaskDataType>;
 
-export function getTaskValues(task: TaskDataType): TaskSchemaUpdate {
-  const { id, name, attachment, done, dueDate, tags } = task;
-  return {
+export async function getTaskValues(
+  task: TaskDataType
+): Promise<TaskSchemaUpdate> {
+  const { id, name, attachment, attachmentFile, done, dueDate, tags } = task;
+  let result;
+  if (attachmentFile) {
+    result = await uploadData({
+      path: ({ identityId }) =>
+        `attachments/${identityId}/${attachmentFile.name}`,
+      data: attachmentFile,
+    }).result;
+  }
+  return Promise.resolve({
     id,
     name,
-    attachment,
+    attachment: result?.path || attachment,
     done,
     dueDate,
     tags,
-  };
+  });
+}
+
+export async function getTaskData(
+  task: TaskDataType
+): Promise<TaskSchemaUpdate> {
+  const { id, name, attachment, attachmentFile, done, dueDate, tags } = task;
+  let result;
+  if (attachmentFile) {
+    result = await uploadData({
+      path: ({ identityId }) =>
+        `attachments/${identityId}/${attachmentFile.name}`,
+      data: attachmentFile,
+    }).result;
+  }
+  return Promise.resolve({
+    id,
+    name,
+    attachment: result?.path || attachment,
+    done,
+    dueDate,
+    tags,
+  });
+}
+
+export function MetaLabel(args: { icon?: IconName; children: string }) {
+  const { children, icon } = args;
+  return (
+    <>
+      {icon && <Icon name={icon} style={{ marginRight: "1rem" }} />}
+      {children}
+    </>
+  );
 }
 
 export const TasksMeta: TasksMetaType[] = [
   {
     key: "details",
-    label: "Task name",
-    thStyled: (
-      <StyledTableCellStyckyLeft style={{ width: "50%", left: "2.5rem" }} />
-    ),
-    tdStyled: <StyledTableCellStyckyLeft style={{ left: "2.5rem" }} />,
+    label: <MetaLabel icon="task">Task name</MetaLabel>,
+    thStyled: <StyledTableCell />,
     value: function (task) {
-      if (!task.editable) {
-        return <TaskDetails task={task} />;
-      }
-      return (
-        <Input
-          defaultValue={task.name}
-          onChange={(value = "") => {
-            task.name = value;
-          }}
-        />
-      );
+      return <TaskDetails task={task} />;
     },
   },
   {
     key: "dueDate",
-    label: "Due date",
+    label: <MetaLabel icon="calendar">Due date</MetaLabel>,
     value: function (task) {
-      if (!task.editable) return task.dueDate && formatDate(task.dueDate);
-      return (
-        <Input
-          type="date"
-          defaultValue={task.dueDate ?? undefined}
-          onChange={(value) => {
-            task.dueDate = value ?? null;
-          }}
-        />
-      );
+      return <TaskDate task={task} />;
     },
   },
   {
     key: "tags",
-    label: "Tags",
+    label: <MetaLabel icon="tags">Tag</MetaLabel>,
     value: (task) => {
-      return task.tags?.join(";");
+      return <TaskTags task={task} />;
     },
   },
   {
-    key: "note",
-    label: "Note",
+    key: "notes",
+    label: <MetaLabel icon="task">Note</MetaLabel>,
+    thStyled: <StyledTableCell />,
+    tdStyled: <StyledTableCell />,
+    value: (task) => <Notes task={task} />,
   },
 ];
 
 export function getMetaCheck(reloadTasks: () => void): TasksMetaType {
   return {
     key: "done",
-    thStyled: (
-      <StyledTableCellStyckyLeft align="center" style={{ width: "2.5rem" }} />
-    ),
-    tdStyled: <StyledTableCellStyckyLeft align="center" />,
+    thStyled: <StyledTableCell align="center" style={{ width: "2.5rem" }} />,
+    tdStyled: <StyledTableCell align="center" />,
     value: (task) => {
       const { id } = task;
       let { done } = task;
@@ -132,13 +156,13 @@ export function getMetaActions(args: {
     key: "actions",
     label: "Actions",
     thStyled: (
-      <StyledTableCellStyckyRight
+      <StyledTableCell
         align="center"
         style={{ minWidth: "6rem", width: "6rem" }}
       />
     ),
     tdStyled: (
-      <StyledTableCellStyckyRight
+      <StyledTableCell
         align="center"
         style={{ minWidth: "6rem", width: "6rem" }}
       />
@@ -148,6 +172,8 @@ export function getMetaActions(args: {
       return (
         <>
           <Button
+            outlined
+            noBorder
             onClick={() => {
               makeEditable(task);
             }}
@@ -156,6 +182,8 @@ export function getMetaActions(args: {
           </Button>
           &nbsp;
           <Button
+            outlined
+            noBorder
             onClick={() => {
               Confirmation.prompt((resolve, reject) => {
                 return (

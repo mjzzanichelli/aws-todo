@@ -71,6 +71,11 @@ export function truncate(val: string, max = 50) {
 moment.locale(navigator.language.toLowerCase());
 export function formatDate(date: string) {
   return moment(date).calendar(null, {
+    lastDay : '[Yesterday]',
+    sameDay : '[Today]',
+    nextDay : '[Tomorrow]',
+    lastWeek : '[last] dddd',
+    nextWeek : 'dddd',
     sameElse: "MMM D YYYY",
   });
 }

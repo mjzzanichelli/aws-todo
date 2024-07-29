@@ -3,6 +3,7 @@ import { Table } from "../components/table/main";
 import { TasksContext } from "../hooks/tasks";
 import { StyledTableSection } from "../components/table/styled";
 import { TaskDataType, TasksMetaType } from "./meta";
+import { ResizableContainer } from "../components/resizable/main";
 
 export function TasksTable(args: {
   meta?: TasksMetaType[];
@@ -22,17 +23,25 @@ export function TasksTable(args: {
 export function TasksEditor() {
   const { metaDone, metaTodo, tasks } = useContext(TasksContext);
   return (
-    <>
-      <TasksTable
-        meta={metaTodo}
-        title={"Tasks to do"}
-        data={tasks?.filter((item) => !item.done)}
-      />
-      <TasksTable
-        meta={metaDone}
-        title={"Tasks done"}
-        data={tasks?.filter((item) => !!item.done)}
-      />
-    </>
+    <ResizableContainer>
+      {({ width, height }) => {
+        console.log(width, height);
+
+        return (
+          <>
+            <TasksTable
+              meta={metaTodo}
+              title={"Tasks to do"}
+              data={tasks?.filter((item) => !item.done)}
+            />
+            <TasksTable
+              meta={metaDone}
+              title={"Tasks done"}
+              data={tasks?.filter((item) => !!item.done)}
+            />
+          </>
+        );
+      }}
+    </ResizableContainer>
   );
 }

@@ -7,9 +7,9 @@ import {
 } from "./../../theme/variants";
 import { StyledTableProps, RowProps, TableCellProps } from "./types";
 import { boxShadow, shadow } from "../../utils/styles";
-import { FlexBoxCentered } from "../layout/styled";
+import { FlexBox } from "../layout/styled";
 
-export const StyledTableSection = styled(FlexBoxCentered)`
+export const StyledTableSection = styled(FlexBox)`
   overflow-x: auto;
   & > h3 {
     width: 100%;

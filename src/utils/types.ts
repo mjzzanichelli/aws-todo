@@ -21,3 +21,8 @@ export type ChildrenType = Parameters<typeof Children.toArray>["0"];
 
 export type VariantElementProps<T extends HTMLElement = HTMLElement> =
   React.HTMLAttributes<T> & VariantProps;
+
+export interface Size {
+  width: number;
+  height: number;
+}
