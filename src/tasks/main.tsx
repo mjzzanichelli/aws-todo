@@ -27,7 +27,7 @@ export function TasksTable(args: { done?: boolean }) {
     <StyledTasksTableSection ref={ref}>
       <h3>
         {title}
-        <Button outlined noBorder onClick={() => setShowData(!showData)}>
+        <Button slim outlined onClick={() => setShowData(!showData)}>
           <Icon name="chevron-up" rotate={showData ? "bottom" : "top"} />
         </Button>
       </h3>

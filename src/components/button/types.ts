@@ -6,4 +6,5 @@ export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> &
     noBorder?: boolean;
     off?: boolean;
     preventDefault?: boolean;
+    slim?: boolean;
   };

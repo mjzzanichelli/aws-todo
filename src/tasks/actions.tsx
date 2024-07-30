@@ -16,7 +16,7 @@ export function TaskActions(args: { task: TaskDataType }) {
     <>
       <Button
         outlined
-        noBorder
+        slim
         onClick={() => {
           makeEditable(task);
         }}
@@ -26,7 +26,7 @@ export function TaskActions(args: { task: TaskDataType }) {
       &nbsp;
       <Button
         outlined
-        noBorder
+        slim
         onClick={() => {
           Confirmation.prompt((resolve, reject) => {
             return (

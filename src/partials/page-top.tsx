@@ -31,7 +31,6 @@ export function PageTop() {
       <FlexBox size={"none"}>
         <Button
           variant="primary"
-          noBorder
           onClick={() => {
             createTask({ name: "" }).then(addTask);
           }}

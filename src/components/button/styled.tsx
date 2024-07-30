@@ -8,15 +8,22 @@ import {
   variantBgColor,
   variantTextColor,
 } from "../../theme/variants";
-import { borderRadius, borderColor as makeBorderColor } from "../../utils/styles";
+import {
+  borderRadius,
+  borderColor as makeBorderColor,
+} from "../../utils/styles";
 
 export const StyledButton = styled.button.withConfig({
   shouldForwardProp: (prop) =>
-    !["outlined", "variant", "noBorder", "off", "preventDefault"].includes(
-      prop
-    ),
+    ![
+      "outlined",
+      "variant",
+      "noBorder",
+      "off",
+      "preventDefault",
+      "slim",
+    ].includes(prop),
 })<ButtonProps & VariantProps>`
-  padding: 0.25rem 0.5rem;
   display: inline-flex;
   justify-content: center;
   align-items: center;
@@ -25,6 +32,7 @@ export const StyledButton = styled.button.withConfig({
   font-size: 1rem;
   font-weight: normal;
   letter-spacing: 0.03em;
+  box-sizing: border-box;
   ${borderRadius()}
 
   & > label {
@@ -43,7 +51,7 @@ export const StyledButton = styled.button.withConfig({
     margin-left: 0.25rem;
   }
 
-  ${({ outlined, disabled, noBorder, off, ...props }) => {
+  ${({ outlined, disabled, noBorder, off, slim, ...props }) => {
     const { theme } = props;
     const textColor = outlined
       ? variantTextColor(props)
@@ -88,8 +96,9 @@ export const StyledButton = styled.button.withConfig({
       value: 0.1,
       color: borderColor,
     });
-
+    const paddingUnit = slim ? 0.25 : 1;
     return css`
+      padding: ${paddingUnit}rem ${paddingUnit * 2}rem;
       color: ${textColor};
       background-color: ${offColor || backColor};
       ${noBorder ? "border: none;" : makeBorderColor(borderColor)}

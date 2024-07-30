@@ -4,7 +4,14 @@ import { StyledButton } from "./styled";
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
   (args, ref) => {
-    const { preventDefault = true, onClick, disabled, type, ...others } = args;
+    const {
+      preventDefault = true,
+      noBorder = true,
+      onClick,
+      disabled,
+      type,
+      ...others
+    } = args;
     let { variant, ...props } = others;
     variant = disabled ? "disabled" : variant;
     if (!variant && !disabled && type === "submit") variant = "tertiary";
@@ -20,6 +27,7 @@ export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
         ref={ref}
         type={type}
         onClick={handleOnClick}
+        noBorder={noBorder}
         {...props}
       />
     );
