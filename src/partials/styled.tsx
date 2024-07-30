@@ -87,7 +87,4 @@ export const StyledMenuContent = styled.div`
 
 export const StyledShareLink = styled(FlexContainer)`
   width: 100%;
-  input {
-    width: 100%;
-  }
 `;

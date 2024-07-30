@@ -8,6 +8,10 @@ import {
 import { StyledTableProps, RowProps, TableCellProps } from "./types";
 import { borderRadius, boxShadow, shadow } from "../../utils/styles";
 
+export const StyledTableContainer = styled.div`
+  position: relative;
+`;
+
 export const StyledTable = styled.table.withConfig({
   shouldForwardProp: (prop) =>
     !["variant", "outlined", "hideHeader"].includes(prop),
@@ -33,6 +37,7 @@ export const StyledTable = styled.table.withConfig({
       box-sizing: border-box;
       ${borderRadius()}
       padding:${padding};
+
       & > thead {
         position: sticky;
         top: 0;
@@ -48,25 +53,41 @@ export const StyledTable = styled.table.withConfig({
           }
         }
       }
+
+      & > tbody {
+        position: relative;
+        & > tr[data-dragging="true"] {
+          position: absolute;
+          width: 100%;
+        }
+      }
     `;
   }}
 `;
 
 export const StyledTableRow = styled.th.withConfig({
   shouldForwardProp: (prop) =>
-    !["clickable", "selected", "hover", "variant"].includes(prop),
+    !["clickable", "selected", "hover", "draggingOver", "variant"].includes(
+      prop
+    ),
 })<RowProps>`
   ${(props) => {
-    const { theme, onClick, selected, hover } = props;
+    const { theme, onClick, selected, hover, draggingOver } = props;
     const bgColorHover = darkenVariantBgColor({ ...props, value: 0.05 });
+    const bgColorDraggingOver = darkenVariantBgColor({ ...props, value: 0.2 });
     const fontColorHover = variantTextColor(props);
 
-    const bgColor = selected
+    const bgColor = draggingOver
+      ? bgColorDraggingOver
+      : selected
       ? variantTextColor(props)
       : hover
       ? bgColorHover
       : variantBgColor(props);
-    const fontColor = selected
+
+    const fontColor = draggingOver
+      ? fontColorHover
+      : selected
       ? variantBgColor(props)
       : hover
       ? fontColorHover

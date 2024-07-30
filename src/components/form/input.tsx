@@ -11,6 +11,7 @@ export const Input = forwardRef<
   Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
     defaultValue?: FormDataEntryValue | null;
     onChange?: (value?: string) => void;
+    fullWidth?: boolean;
   }
 >((args, ref) => {
   const { onChange, type, ...props } = args;
@@ -36,6 +37,7 @@ export const InputFile = forwardRef<
   Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "type"> & {
     defaultValue?: FormDataEntryValue | null;
     onChange?: (value?: File) => void;
+    fullWidth?: boolean;
   }
 >((args, ref) => {
   const { onChange, ...props } = args;

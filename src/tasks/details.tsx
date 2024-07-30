@@ -1,12 +1,8 @@
 import { useEffect, useState } from "react";
 import { getUrl } from "aws-amplify/storage";
-import {
-  StyledFlexBoxInput,
-  StyledTaskDetails,
-  StyleTaskAttachment,
-} from "./styled";
+import { StyledTaskDetails, StyleTaskAttachment } from "./styled";
 import { Input, InputFile } from "../components/form/input";
-import { FlexContainer } from "../components/layout/styled";
+import { FlexBox, FlexContainer } from "../components/layout/styled";
 import { TaskDataType } from "./meta/types";
 
 export function TaskDetails(args: { task: TaskDataType }) {
@@ -41,22 +37,25 @@ export function TaskDetailsForm(args: { task: TaskDataType }) {
   const { task } = args;
   return (
     <FlexContainer margin="-0.5rem 0 0 -0.5rem" flexDirection="column">
-      <StyledFlexBoxInput margin="0.5rem 0 0 0.5rem">
+      <FlexBox margin="0.5rem 0 0 0.5rem">
         <Input
           ref={(el) => el?.focus()}
+          placeholder="Task name"
+          fullWidth
           defaultValue={task.name}
           onChange={(value = "") => {
             task.name = value;
           }}
         />
-      </StyledFlexBoxInput>
-      <StyledFlexBoxInput margin="0.5rem 0 0 0.5rem">
+      </FlexBox>
+      <FlexBox margin="0.5rem 0 0 0.5rem">
         <InputFile
+          fullWidth
           onChange={(file) => {
             task.attachmentFile = file;
           }}
         />
-      </StyledFlexBoxInput>
+      </FlexBox>
     </FlexContainer>
   );
 }

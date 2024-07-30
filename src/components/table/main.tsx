@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { StyledTable } from "./styled";
 import { TableProps, TableRowType } from "./types";
 import { TableBodyCells } from "./body-cells";
@@ -14,9 +15,12 @@ export function Table<T>(args: TableProps<T>) {
     onRowClick,
     onRowHover,
     children,
+    draggable,
     ...props
   } = args;
   const { variant, hideHeader } = props;
+  const [dragging, setDragging] = useState<T>();
+  const [draggingHover, setDraggingHover] = useState<T>();
 
   return (
     <StyledTable {...props}>
@@ -47,7 +51,13 @@ export function Table<T>(args: TableProps<T>) {
                 function () {
                   onRowClick(values);
                 },
+              draggable,
+              dragging,
+              draggingHover,
+              setDragging,
+              setDraggingHover,
             };
+
             return (
               <TableRow<T>
                 {...props}

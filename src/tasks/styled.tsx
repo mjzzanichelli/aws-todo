@@ -51,14 +51,6 @@ export const StyledTag = styled.span.withConfig({
   }
 `;
 
-export const StyledFlexBoxInput = styled(FlexBox)`
-  overflow: hidden;
-  input {
-    width: 100%;
-    max-width: 20rem;
-  }
-`;
-
 export const StyledTaskDetails = styled.div`
   overflow: hidden;
   text-overflow: ellipsis;

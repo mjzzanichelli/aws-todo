@@ -20,6 +20,7 @@ export interface TableProps<T> extends Omit<StyledTableProps, "children"> {
   selected?: T[];
   useRowVariant?: boolean;
   hover?: T;
+  draggable?: (start: T, end?: T) => void;
   onRowHover?: (values: T) => void;
   onRowClick?: (values: T) => void;
   children?: (args: TableRowProps<T>) => JSX.Element;
@@ -37,12 +38,18 @@ export interface TableRowProps<T> extends VariantProps {
   selected?: boolean;
   hover?: boolean;
   children?: TableProps<T>["children"] | JSX.Element;
+  draggable?: (start: T, end?: T) => void;
+  dragging?: T;
+  draggingHover?: T;
+  setDragging?: (value?: T) => void;
+  setDraggingHover?: (value?: T) => void;
 }
 
 export interface RowProps extends VariantElementProps<HTMLTableRowElement> {
   onClick?: () => void;
   selected?: boolean;
   hover?: boolean;
+  draggingOver?: boolean;
 }
 
 export interface RowCellsProps<T> {

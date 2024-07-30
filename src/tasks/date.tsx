@@ -18,6 +18,7 @@ export function TaskDateForm(args: { task: TaskDataType }) {
   return (
     <Input
       type="date"
+      placeholder="Due date"
       defaultValue={task.dueDate ?? undefined}
       onChange={(value) => {
         task.dueDate = value ?? null;

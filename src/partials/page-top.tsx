@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Button } from "../components/button/main";
 import { Input } from "../components/form/input";
 import { Icon } from "../components/icon/main";
@@ -39,29 +39,9 @@ export function PageTop() {
               slim
               variant="primary"
               onClick={() => {
-                Confirmation.prompt(
-                  () => {
-                    return (
-                      <StyledShareLink padding={"0.5rem"}>
-                        <FlexBox size={1} margin={"0.5rem"}>
-                          <Input readOnly defaultValue={shareLink} />
-                        </FlexBox>
-                        <FlexBox size={"none"} margin={"0.5rem"}>
-                          <Button
-                            variant="primary"
-                            onClick={() => {
-                              navigator.clipboard.writeText(shareLink);
-                            }}
-                          >
-                            <Icon name="copy" />
-                            <label>Copy</label>
-                          </Button>
-                        </FlexBox>
-                      </StyledShareLink>
-                    );
-                  },
-                  { title: "Share tasks" }
-                ).catch(Void);
+                Confirmation.prompt(() => <ShareLink link={shareLink} />, {
+                  title: "Share tasks",
+                }).catch(Void);
               }}
             >
               <Icon name="link" />
@@ -70,6 +50,7 @@ export function PageTop() {
         </FlexBox>
         <FlexBox size={"none"}>
           <Input
+            fullWidth
             placeholder="Search"
             defaultValue={search}
             onChange={setSearch}
@@ -90,5 +71,40 @@ export function PageTop() {
         </FlexBox>
       )}
     </>
+  );
+}
+
+export function ShareLink(args: { link: string }) {
+  const { link } = args;
+  const [copied, setCopied] = useState<boolean>();
+
+  useEffect(() => {
+    if (!copied) return;
+    const reset = setTimeout(() => {
+      setCopied(false);
+    }, 1000);
+    return () => {
+      clearTimeout(reset);
+    };
+  }, [copied]);
+
+  return (
+    <StyledShareLink padding={"0.5rem"}>
+      <FlexBox size={1} margin={"0.5rem"}>
+        <Input readOnly fullWidth defaultValue={link} />
+      </FlexBox>
+      <FlexBox size={"none"} margin={"0.5rem"}>
+        <Button
+          variant="primary"
+          onClick={() => {
+            navigator.clipboard.writeText(link);
+            setCopied(true);
+          }}
+        >
+          <Icon name="copy" />
+          <label>{copied ? "Link Copied" : "Copy Link"}</label>
+        </Button>
+      </FlexBox>
+    </StyledShareLink>
   );
 }

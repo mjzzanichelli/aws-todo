@@ -33,7 +33,16 @@ export const StyledFieldComponent = styled.label`
   }
 `;
 
-export const StyledInput = styled.input`
+export const StyledInput = styled.input.withConfig({
+  shouldForwardProp: (prop) => {
+    return !["fullWidth"].includes(prop);
+  },
+})<{ fullWidth?: boolean }>`
+  ${({ fullWidth }) =>
+    fullWidth &&
+    css`
+      width: 100%;
+    `}
   padding: 0.75rem 1rem;
 `;
 

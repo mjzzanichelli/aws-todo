@@ -10,7 +10,16 @@ import { Icon } from "../components/icon/main";
 import { StyledTasksTableSection } from "./styled";
 import { AuthContext } from "../hooks/auth";
 
-export function TasksTable(args: { done?: boolean }) {
+export function Tasks() {
+  return (
+    <>
+      <TasksList />
+      <TasksList done />
+    </>
+  );
+}
+
+export function TasksList(args: { done?: boolean }) {
   const { done = false } = args;
   const { user } = useContext(AuthContext);
   const { size, ref } = useResizable<HTMLDivElement>();
@@ -36,17 +45,20 @@ export function TasksTable(args: { done?: boolean }) {
         </Button>
       </h3>
       {showData && (
-        <Table meta={meta} data={data} outlined hideHeader={isSmall}></Table>
+        <Table
+          meta={meta}
+          data={data}
+          outlined
+          hideHeader={isSmall}
+          draggable={
+            !user
+              ? undefined
+              : (start, end) => {
+                  console.log(start, end);
+                }
+          }
+        />
       )}
     </StyledTasksTableSection>
-  );
-}
-
-export function Tasks() {
-  return (
-    <>
-      <TasksTable />
-      <TasksTable done />
-    </>
   );
 }
