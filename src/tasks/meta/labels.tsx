@@ -25,9 +25,9 @@ export function MetaCheckLabel(args: { done?: boolean }) {
       onChange={() => {
         const todo = tasks?.filter((item) => !!item.done !== done);
         if (!todo?.length) return;
-        Promise.all(todo.map(({ id }) => updateTask({ id, done }))).then(
-          reloadTasks
-        );
+        Promise.all(
+          todo.map(({ id }) => updateTask({ id, done }))
+        ).then(reloadTasks);
       }}
     />
   );

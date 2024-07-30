@@ -33,7 +33,7 @@ export function TableRow<T>(args: TableRowProps<T>) {
         }}
         onDrop={(e) => {
           e.preventDefault();
-          draggable && dragging && draggable(dragging, values);
+          draggable && dragging && values && draggable(dragging, values);
           setDraggingHover && setDraggingHover(undefined);
         }}
         onDragLeave={() => {

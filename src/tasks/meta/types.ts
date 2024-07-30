@@ -12,7 +12,8 @@ export type TasksMetaType = TableMetaType<TaskDataType>;
 export async function getTaskValues(
   task: TaskDataType
 ): Promise<TaskSchemaUpdate> {
-  const { id, name, attachment, attachmentFile, done, dueDate, tag } = task;
+  const { id, name, attachment, order, attachmentFile, done, dueDate, tag } =
+    task;
   let result;
   if (attachmentFile) {
     result = await uploadData({
@@ -28,5 +29,6 @@ export async function getTaskValues(
     done,
     dueDate,
     tag,
+    order,
   });
 }

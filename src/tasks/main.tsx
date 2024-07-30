@@ -9,6 +9,7 @@ import { Button } from "../components/button/main";
 import { Icon } from "../components/icon/main";
 import { StyledTasksTableSection } from "./styled";
 import { AuthContext } from "../hooks/auth";
+import { updateTask } from "./crud";
 
 export function Tasks() {
   return (
@@ -23,7 +24,7 @@ export function TasksList(args: { done?: boolean }) {
   const { done = false } = args;
   const { user } = useContext(AuthContext);
   const { size, ref } = useResizable<HTMLDivElement>();
-  const { tasks } = useContext(TasksContext);
+  const { tasks, reloadTasks } = useContext(TasksContext);
   const { theme } = useThemeSwitch();
   const [showData, setShowData] = useState(!done);
 
@@ -54,7 +55,20 @@ export function TasksList(args: { done?: boolean }) {
             !user
               ? undefined
               : (start, end) => {
-                  console.log(start, end);
+                  const newData = [...data];
+                  const startIndex = newData.indexOf(start);
+                  newData.splice(startIndex, 1);
+                  const endIndex = newData.indexOf(end);
+                  newData.splice(
+                    endIndex + (endIndex >= startIndex ? 1 : 0),
+                    0,
+                    start
+                  );
+                  Promise.all(
+                    newData
+                      .reverse()
+                      .map(({ id }, order) => updateTask({ id, order }))
+                  ).then(reloadTasks);
                 }
           }
         />

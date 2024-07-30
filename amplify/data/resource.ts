@@ -10,6 +10,7 @@ const schema = a.schema({
       tag: Tags,
       attachment: a.string(),
       done: a.boolean(),
+      order: a.integer(),
     })
     .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
 });

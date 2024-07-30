@@ -25,3 +25,5 @@ npm run build
 ```
 
 https://docs.amplify.aws/react/build-a-backend/data/customize-authz/
+
+https://docs.amplify.aws/react/build-a-backend/data/customize-authz/per-user-per-owner-data-access/
