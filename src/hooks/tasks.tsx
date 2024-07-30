@@ -1,6 +1,9 @@
 import { createContext, useCallback, useEffect, useState } from "react";
 import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
-import { getTaskValues, TaskDataType } from "../tasks/meta/types";
+import {
+  getTaskValues,
+  TaskDataType,
+} from "../tasks/meta/types";
 
 export const TasksContext = createContext<{
   tasks?: TaskDataType[];

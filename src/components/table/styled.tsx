@@ -6,27 +6,14 @@ import {
   darkenVariantBgColor,
 } from "./../../theme/variants";
 import { StyledTableProps, RowProps, TableCellProps } from "./types";
-import { boxShadow, shadow } from "../../utils/styles";
-import { FlexBox } from "../layout/styled";
-
-export const StyledTableSection = styled(FlexBox)`
-  overflow-x: auto;
-  & > h3 {
-    width: 100%;
-    margin: 0;
-    position: sticky;
-    left: 0;
-  }
-  th {
-    font-weight: normal;
-  }
-`;
+import { borderRadius, boxShadow, shadow } from "../../utils/styles";
 
 export const StyledTable = styled.table.withConfig({
-  shouldForwardProp: (prop) => !["variant", "outlined"].includes(prop),
+  shouldForwardProp: (prop) =>
+    !["variant", "outlined", "hideHeader"].includes(prop),
 })<StyledTableProps>`
   ${(props) => {
-    const { theme, outlined } = props;
+    const { theme, outlined, hideHeader } = props;
     const thTextColor = variantTextColor(props);
     const thBgColor = variantBgColor(props);
     const tdBgColor = lightenVariantTextColor({
@@ -34,13 +21,18 @@ export const StyledTable = styled.table.withConfig({
       variant: "disabled",
       value: 0.22,
     });
-    const border = outlined ? "border-bottom" : "border";
+    const padding = hideHeader ? "0" : "0.5rem";
+
     return css`
-      overflow-y: hidden;
+      overflow: hidden;
       width: 100%;
       position: relative;
       border-spacing: 0;
       height: fit-content;
+      border: 0.03rem solid ${tdBgColor};
+      box-sizing: border-box;
+      ${borderRadius()}
+      padding:${padding};
       & > thead {
         position: sticky;
         top: 0;
@@ -50,13 +42,7 @@ export const StyledTable = styled.table.withConfig({
           padding: 0.5rem;
           background-color: ${outlined ? thBgColor : thTextColor};
           color: ${outlined ? thTextColor : thBgColor};
-          ${border}: 0.03rem solid ${outlined ? tdBgColor : thBgColor};
-          &:first-child {
-            border-top-left-radius: 0.25rem;
-          }
-          &:last-child {
-            border-top-right-radius: 0.25rem;
-          }
+          border-bottom: 0.03rem solid ${tdBgColor};
           & > i {
             vertical-align: middle;
           }
@@ -104,7 +90,6 @@ export const StyledTableRow = styled.th.withConfig({
       `}
 
       & > td {
-        border-bottom: 0.03rem solid ${borderColor};
         max-width: 33vh;
         overflow: hidden;
         text-overflow: ellipsis;
@@ -119,6 +104,9 @@ export const StyledTableRow = styled.th.withConfig({
         & > td > p {
           margin: 0.25rem 0rem;
         }
+      }
+      &:not(:last-child) > td {
+        border-bottom: 0.03rem solid ${borderColor};
       }
     `;
   }}

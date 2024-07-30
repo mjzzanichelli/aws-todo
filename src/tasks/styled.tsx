@@ -5,6 +5,23 @@ import { TagProps } from "../theme/theme.types";
 import { darkenColor, tagBgColor, tagTextColor } from "../theme/variants";
 import { FlexBox } from "../components/layout/styled";
 
+export const StyledTasksTableSection = styled(FlexBox)`
+  overflow-x: auto;
+  & > h3 {
+    width: 100%;
+    margin: 0;
+    position: sticky;
+    left: 0;
+  }
+  th {
+    font-weight: normal;
+  }
+`;
+
+StyledTasksTableSection.defaultProps = {
+  as: "section",
+};
+
 export const StyleTaskAttachment = styled.a`
   margin-right: 0.5rem;
 `;
@@ -52,7 +69,7 @@ export const StyledTaskDetails = styled.div`
 
 export const StyledTaskInfo = styled(FlexBox)`
   overflow: hidden;
-  font-size: 1.33rem;
+  // font-size: 1.33rem;
 `;
 
 StyledTaskInfo.defaultProps = {

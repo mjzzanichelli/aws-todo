@@ -17,12 +17,16 @@ export function TaskInfo(args: { task: TaskDataType }) {
         <FlexBox>
           <TaskDetailsRead task={task} />
         </FlexBox>
-        <FlexBox>
-          <TaskDateRead task={task} />
-        </FlexBox>
-        <FlexBox>
-          <TaskTagRead task={task} />
-        </FlexBox>
+        {task.dueDate && (
+          <FlexBox>
+            <TaskDateRead task={task} />
+          </FlexBox>
+        )}
+        {task.tag && (
+          <FlexBox>
+            <TaskTagRead task={task} />
+          </FlexBox>
+        )}
       </StyledTaskInfo>
     </FlexContainer>
   );

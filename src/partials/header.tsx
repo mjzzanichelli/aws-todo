@@ -1,35 +1,30 @@
-import { FlexBox } from "../components/layout/styled";
-import { getNextTheme, ThemeContext } from "../hooks/theme-switch";
-import { Button } from "../components/button/main";
 import { useContext } from "react";
+import { getNextTheme, ThemeContext } from "../hooks/theme-switch";
 import { AuthContext } from "../hooks/auth";
-import styled from "styled-components";
-
-export const StyledHeding = styled(FlexBox)`
-  text-overflow: ellipsis;
-  overflow: hidden;
-`;
-
-StyledHeding.defaultProps = {
-  as: "h1",
-  mobileSize: 1,
-  margin: 0,
-};
+import { Button } from "../components/button/main";
+import { StyledH1, StyledHeader, StyledMenu } from "./styled";
 
 export function Header() {
+  return (
+    <StyledHeader>
+      <StyledH1>Checked</StyledH1>
+      <Menu />
+    </StyledHeader>
+  );
+}
+
+export function Menu() {
   const { user, signOut } = useContext(AuthContext);
   const { theme, switchTheme } = useContext(ThemeContext);
+  console.log(user);
   return (
-    <FlexBox as="header" size={"none"} display="flex" flexDirection="row">
-      <StyledHeding as="h1" mobileSize={1} margin="0">
-        Hello {user?.signInDetails?.loginId}
-      </StyledHeding>
+    <StyledMenu>
       <Button onClick={signOut} variant="primary" noBorder>
         Sign out
       </Button>
       <Button onClick={switchTheme} variant="primary" noBorder>
         Switch to {getNextTheme(theme).mode} theme
       </Button>
-    </FlexBox>
+    </StyledMenu>
   );
 }

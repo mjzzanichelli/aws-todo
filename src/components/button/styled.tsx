@@ -23,7 +23,7 @@ export const StyledButton = styled.button.withConfig({
   align-content: center;
   line-height: 1;
   font-size: 1rem;
-  font-weight: 600;
+  font-weight: normal;
   letter-spacing: 0.03em;
   ${borderRadius()}
 
@@ -34,7 +34,7 @@ export const StyledButton = styled.button.withConfig({
 
   & > i {
     font-size: 1.2rem;
-    font-weight: 400;
+    font-weight: normal;
     flex: none;
   }
 

@@ -153,4 +153,5 @@ export const AppBody = styled(FlexBox)`
 
 AppBody.defaultProps = {
   margin: "1rem auto",
+  padding: "0 1rem",
 };

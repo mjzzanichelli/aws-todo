@@ -10,14 +10,13 @@ export function Table<T>(args: TableProps<T>) {
     data,
     selected,
     hover,
-    hideHeader,
     useRowVariant,
     onRowClick,
     onRowHover,
     children,
     ...props
   } = args;
-  const { variant } = props;
+  const { variant, hideHeader } = props;
 
   return (
     <StyledTable {...props}>

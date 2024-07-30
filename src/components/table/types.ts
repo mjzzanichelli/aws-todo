@@ -11,13 +11,13 @@ export interface TableMetaType<T = unknown> {
 
 export interface StyledTableProps extends VariantProps {
   outlined?: boolean;
+  hideHeader?: boolean;
 }
 
 export interface TableProps<T> extends Omit<StyledTableProps, "children"> {
   meta: TableMetaType<T>[];
   data?: T[];
   selected?: T[];
-  hideHeader?: boolean;
   useRowVariant?: boolean;
   hover?: T;
   onRowHover?: (values: T) => void;

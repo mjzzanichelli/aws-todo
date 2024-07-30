@@ -79,19 +79,21 @@ ${({ theme }) => {
       height: 100%;
     }
     html {
-      font-size: ${theme.fontSize}px;
+      font-size: ${sizeMixin((theme.fontSize / 3) * 4)};
+      @media (min-width: ${sizeMixin(theme.sizes.md)}) {
+        font-size: ${sizeMixin(theme.fontSize)};
+      }
     }
 
     body {
       margin: 0;
-      font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
-        "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+      font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI",
+        "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
         "Helvetica Neue", sans-serif;
       -webkit-font-smoothing: antialiased;
       -moz-osx-font-smoothing: grayscale;
-      color: ${({ theme }) => variantTextColor({ theme })};
-      background-color: ${({ theme }) =>
-        variantTextColor({ theme, variant: "off" })};
+      color: ${variantTextColor({ theme })};
+      background-color: ${variantBgColor({ theme })};
     }
 
     code {
@@ -104,7 +106,7 @@ ${({ theme }) => {
     a:visited,
     a:active {
       text-decoration: none;
-      color: ${({ theme }) => variantTextColor({ theme, variant: "primary" })};
+      color: ${variantTextColor({ theme, variant: "primary" })};
       &:hover {
         text-decoration: underline;
       }
