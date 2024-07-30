@@ -17,6 +17,9 @@ export const StyledTableSection = styled(FlexBox)`
     position: sticky;
     left: 0;
   }
+  th {
+    font-weight: normal;
+  }
 `;
 
 export const StyledTable = styled.table.withConfig({
