@@ -1,5 +1,5 @@
 import styled, { css } from "styled-components";
-import { FlexBox } from "../components/layout/styled";
+import { FlexBox, FlexContainer } from "../components/layout/styled";
 import { border, borderRadius } from "../utils/styles";
 import { variantTextColor } from "../theme/variants";
 
@@ -82,5 +82,12 @@ export const StyledMenuContent = styled.div`
   button {
     margin: 0 0 1rem 0;
     width: 15rem;
+  }
+`;
+
+export const StyledShareLink = styled(FlexContainer)`
+  width: 100%;
+  input {
+    width: 100%;
   }
 `;

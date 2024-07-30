@@ -8,17 +8,12 @@ import { TaskActions } from "../actions";
 import { MetaCheckLabel, MetaLabel } from "./labels";
 import { TaskCheck } from "../check";
 
-export function TasksTableMeta(done?: boolean): TasksMetaType[] {
-  return [
-    {
-      key: "done",
-      thStyled: <StyledTableCell align="center" style={{ width: "2.5rem" }} />,
-      tdStyled: <StyledTableCell align="center" />,
-      label: <MetaCheckLabel done={done} />,
-      value: (task) => {
-        return <TaskCheck task={task} />;
-      },
-    },
+export function TasksTableMeta(args: {
+  done?: boolean;
+  editable?: boolean;
+}): TasksMetaType[] {
+  const { done, editable } = args;
+  const meta: TasksMetaType[] = [
     {
       key: "details",
       label: <MetaLabel icon="task">Task name</MetaLabel>,
@@ -48,6 +43,19 @@ export function TasksTableMeta(done?: boolean): TasksMetaType[] {
       tdStyled: <StyledTableCell />,
       value: (task) => <Notes task={task} />,
     },
+  ];
+  if (!editable) return meta;
+  return [
+    {
+      key: "done",
+      thStyled: <StyledTableCell align="center" style={{ width: "2.5rem" }} />,
+      tdStyled: <StyledTableCell align="center" />,
+      label: <MetaCheckLabel done={done} />,
+      value: (task) => {
+        return <TaskCheck task={task} />;
+      },
+    },
+    ...meta,
     {
       key: "actions",
       label: "Actions",

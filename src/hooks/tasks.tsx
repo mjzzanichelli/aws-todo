@@ -1,9 +1,13 @@
-import { createContext, useCallback, useEffect, useState } from "react";
-import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
 import {
-  getTaskValues,
-  TaskDataType,
-} from "../tasks/meta/types";
+  createContext,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
+import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
+import { getTaskValues, TaskDataType } from "../tasks/meta/types";
+import { AuthContext } from "./auth";
 
 export const TasksContext = createContext<{
   tasks?: TaskDataType[];
@@ -15,22 +19,27 @@ export const TasksContext = createContext<{
   reloadTasks?: () => void;
 }>({});
 
-export function useTasksMeta() {
+export function useTasks() {
+  const { guestUserId } = useContext(AuthContext);
   const [tasks, setTasks] = useState<TaskDataType[]>([]);
   const [search, setSearch] = useState<string>();
 
   const reloadTasks = useCallback(() => {
-    listTasks(
-      search
-        ? {
-            filter: {
-              name: {
-                contains: search,
-              },
-            },
-          }
-        : undefined
-    ).then((tasks) => {
+    const filter: { and: {}[] } = {
+      and: [
+        {
+          name: { contains: search ?? "" },
+        },
+      ],
+    };
+    guestUserId &&
+      filter.and.push({
+        owner: { contains: guestUserId },
+      });
+    listTasks({
+      filter,
+      authMode: guestUserId ? "identityPool" : "userPool",
+    }).then((tasks) => {
       setTasks(
         tasks.sort((a: TaskSchema, b: TaskSchema) => {
           const aCreatedAt = new Date(a.createdAt);
@@ -39,7 +48,7 @@ export function useTasksMeta() {
         })
       );
     });
-  }, [setTasks, search]);
+  }, [setTasks, search, guestUserId]);
 
   useEffect(() => {
     const search = setTimeout(() => {

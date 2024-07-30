@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "customicons";
-	src: url("customicons.eot?948951348efe18a9d7179a3b60a9a112?#iefix") format("embedded-opentype"),
-url("customicons.woff2?948951348efe18a9d7179a3b60a9a112") format("woff2"),
-url("customicons.woff?948951348efe18a9d7179a3b60a9a112") format("woff"),
-url("customicons.ttf?948951348efe18a9d7179a3b60a9a112") format("truetype"),
-url("customicons.svg?948951348efe18a9d7179a3b60a9a112#customicons") format("svg");
+	src: url("customicons.eot?a14376802b3600ed886c03929f46015f?#iefix") format("embedded-opentype"),
+url("customicons.woff2?a14376802b3600ed886c03929f46015f") format("woff2"),
+url("customicons.woff?a14376802b3600ed886c03929f46015f") format("woff"),
+url("customicons.ttf?a14376802b3600ed886c03929f46015f") format("truetype"),
+url("customicons.svg?a14376802b3600ed886c03929f46015f#customicons") format("svg");
 }
 
 .customicons {
@@ -27,30 +27,33 @@ url("customicons.svg?948951348efe18a9d7179a3b60a9a112#customicons") format("svg"
 .customicons-chevron-up:before {
 	content: "\0xf103";
 }
-.customicons-floppy-disk:before {
+.customicons-copy:before {
 	content: "\0xf104";
 }
-.customicons-link:before {
+.customicons-floppy-disk:before {
 	content: "\0xf105";
 }
-.customicons-paperclip:before {
+.customicons-link:before {
 	content: "\0xf106";
 }
-.customicons-pen:before {
+.customicons-paperclip:before {
 	content: "\0xf107";
 }
-.customicons-plus:before {
+.customicons-pen:before {
 	content: "\0xf108";
 }
-.customicons-tag:before {
+.customicons-plus:before {
 	content: "\0xf109";
 }
-.customicons-task:before {
+.customicons-tag:before {
 	content: "\0xf10a";
 }
-.customicons-trash-can:before {
+.customicons-task:before {
 	content: "\0xf10b";
 }
-.customicons-xmark:before {
+.customicons-trash-can:before {
 	content: "\0xf10c";
+}
+.customicons-xmark:before {
+	content: "\0xf10d";
 }

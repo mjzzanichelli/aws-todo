@@ -11,7 +11,7 @@ const schema = a.schema({
       attachment: a.string(),
       done: a.boolean(),
     })
-    .authorization((allow) => [allow.owner()]),
+    .authorization((allow) => [allow.owner(), allow.guest().to(["read"])]),
 });
 
 export type Schema = ClientSchema<typeof schema>;

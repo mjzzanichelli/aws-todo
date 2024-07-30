@@ -15,7 +15,7 @@ export interface ConfirmationProps {
 export function confirmationProps(props: ConfirmationProps = {}) {
   const defaultProps: ConfirmationProps = {
     title: "Confirmation Required",
-    variant: "warning",
+    variant: "primary",
     dismissable: true,
   };
   return {

@@ -2,7 +2,7 @@ import { createContext, useCallback, useContext, useState } from "react";
 import { LightTheme } from "../theme/light";
 import { DarkTheme } from "../theme/dark";
 import { ThemeMode } from "../theme/theme.types";
-import { DefaultTheme } from "styled-components";
+import { DefaultTheme, useTheme } from "styled-components";
 
 let preferedTheme: ThemeMode | null = null;
 if (matchMedia) {

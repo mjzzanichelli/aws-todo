@@ -29,7 +29,7 @@ export function Dialog({
         title={title}
         tools={
           onClose && (
-            <Button onClick={() => onClose()} variant={variant}>
+            <Button slim onClick={() => onClose()} variant={variant}>
               <Icon name={"xmark"} />
             </Button>
           )

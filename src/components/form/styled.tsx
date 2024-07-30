@@ -34,7 +34,7 @@ export const StyledFieldComponent = styled.label`
 `;
 
 export const StyledInput = styled.input`
-  padding: 0.25rem 1rem;
+  padding: 0.75rem 1rem;
 `;
 
 export const StyledCheckbox = styled.input`

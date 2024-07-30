@@ -66,7 +66,6 @@ export const StyledTaskDetails = styled.div`
 
 export const StyledTaskInfo = styled(FlexBox)`
   overflow: hidden;
-  // font-size: 1.33rem;
 `;
 
 StyledTaskInfo.defaultProps = {

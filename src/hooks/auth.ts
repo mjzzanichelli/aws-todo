@@ -3,6 +3,7 @@ import { createContext } from "react";
 
 export interface AuthContextType {
   user?: AuthUser;
+  guestUserId?: string;
   signOut?: () => void;
 }
 

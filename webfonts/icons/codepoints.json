@@ -2,13 +2,14 @@
   "calendar": "0xf101",
   "check": "0xf102",
   "chevron-up": "0xf103",
-  "floppy-disk": "0xf104",
-  "link": "0xf105",
-  "paperclip": "0xf106",
-  "pen": "0xf107",
-  "plus": "0xf108",
-  "tag": "0xf109",
-  "task": "0xf10a",
-  "trash-can": "0xf10b",
-  "xmark": "0xf10c"
+  "copy": "0xf104",
+  "floppy-disk": "0xf105",
+  "link": "0xf106",
+  "paperclip": "0xf107",
+  "pen": "0xf108",
+  "plus": "0xf109",
+  "tag": "0xf10a",
+  "task": "0xf10b",
+  "trash-can": "0xf10c",
+  "xmark": "0xf10d"
 }

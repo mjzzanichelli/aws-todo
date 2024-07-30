@@ -6,10 +6,10 @@ import { TasksContext } from "../hooks/tasks";
 
 export function TaskCheck(args: { task: TaskDataType }) {
   const { task } = args;
+  const { reloadTasks } = useContext(TasksContext);
   const { id } = task;
   let { done } = task;
   done = done ?? false;
-  const { reloadTasks } = useContext(TasksContext);
   return (
     <CheckBox
       key={id}

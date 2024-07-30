@@ -11,20 +11,23 @@ export function Menu() {
   const [showContent, setShowContent] = useState(false);
 
   const initial = user?.signInDetails?.loginId?.charAt(0).toUpperCase();
+
   return (
     <StyledMenu>
-      <StyledUserBubble>{initial}</StyledUserBubble>
+      {initial && <StyledUserBubble>{initial}</StyledUserBubble>}
       <Button slim onClick={() => setShowContent(!showContent)}>
         <Icon name="chevron-up" rotate={showContent ? "bottom" : "top"} />
       </Button>
       {showContent && (
         <StyledMenuContent>
-          <Button onClick={signOut} variant="primary" >
-            Sign out
-          </Button>
           <Button onClick={switchTheme} variant="primary">
             Switch to {getNextTheme(theme).mode} theme
           </Button>
+          {signOut && (
+            <Button onClick={signOut} variant="primary">
+              Sign out
+            </Button>
+          )}
         </StyledMenuContent>
       )}
     </StyledMenu>

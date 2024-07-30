@@ -8,9 +8,11 @@ import { TasksListMeta } from "./meta/list";
 import { Button } from "../components/button/main";
 import { Icon } from "../components/icon/main";
 import { StyledTasksTableSection } from "./styled";
+import { AuthContext } from "../hooks/auth";
 
 export function TasksTable(args: { done?: boolean }) {
   const { done = false } = args;
+  const { user } = useContext(AuthContext);
   const { size, ref } = useResizable<HTMLDivElement>();
   const { tasks } = useContext(TasksContext);
   const { theme } = useThemeSwitch();
@@ -20,7 +22,9 @@ export function TasksTable(args: { done?: boolean }) {
 
   const isSmall = size && size.width < theme.sizes.md ? true : false;
   const title = done ? "Tasks done" : "Tasks to do";
-  const meta = isSmall ? TasksListMeta : TasksTableMeta(!done);
+  const meta = isSmall
+    ? TasksListMeta
+    : TasksTableMeta({ done: !done, editable: !!user });
 
   if (!data?.length) return null;
   return (
