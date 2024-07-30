@@ -1,20 +1,11 @@
 import { createContext, useCallback, useEffect, useState } from "react";
-import {
-  getMetaActions,
-  getMetaCheck,
-  getTaskValues,
-  MetaCheckLabel,
-  TaskDataType,
-  TasksMeta,
-  TasksMetaType,
-} from "../tasks/meta";
 import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
+import { getTaskValues, TaskDataType } from "../tasks/meta/types";
 
 export const TasksContext = createContext<{
   tasks?: TaskDataType[];
-  metaTodo?: TasksMetaType[];
-  metaDone?: TasksMetaType[];
   search?: string;
+  makeEditable?: (task: TaskDataType) => void;
   addTask?: (task: TaskSchema) => void;
   setSearch?: (search?: string) => void;
   setTasks?: (tasks: TaskDataType[]) => void;
@@ -91,25 +82,10 @@ export function useTasksMeta() {
     [tasks, setTasks]
   );
 
-  const metaCheck = getMetaCheck(reloadTasks);
-
-  const metaActions = getMetaActions({ makeEditable, reloadTasks });
-
-  const checkMetaTodo: TasksMetaType = {
-    ...metaCheck,
-    label: <MetaCheckLabel tasks={tasks} reloadTasks={reloadTasks} done />,
-  };
-
-  const checkMetaDone: TasksMetaType = {
-    ...metaCheck,
-    label: <MetaCheckLabel tasks={tasks} reloadTasks={reloadTasks} />,
-  };
-
   return {
     tasks,
-    metaTodo: [checkMetaTodo, ...TasksMeta, metaActions],
-    metaDone: [checkMetaDone, ...TasksMeta, metaActions],
     search,
+    makeEditable,
     addTask,
     setSearch,
     setTasks,

@@ -1,10 +1,10 @@
 import { StyledTable } from "./styled";
-import { TableDataType, TableProps, TableRowType } from "./types";
+import { TableProps, TableRowType } from "./types";
 import { TableBodyCells } from "./body-cells";
 import { TableHeadCells } from "./head-cells";
 import { TableRow } from "./table-row";
 
-export function Table<T extends TableDataType>(args: TableProps<T>) {
+export function Table<T>(args: TableProps<T>) {
   const {
     meta,
     data,

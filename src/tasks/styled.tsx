@@ -13,7 +13,9 @@ StyleTaskAttachment.defaultProps = {
   children: <Icon name="paperclip" />,
 };
 
-export const StyledTag = styled.span<TagProps>`
+export const StyledTag = styled.span.withConfig({
+  shouldForwardProp: (prop) => !["variant"].includes(prop),
+})<TagProps>`
   ${borderRadius()};
   ${(props) => {
     const textColor = tagTextColor(props);
@@ -27,8 +29,9 @@ export const StyledTag = styled.span<TagProps>`
     `;
   }}
   display: inline-block;
-  padding: 0.5rem;
-  margin: 0.25rem 0;
+  padding: 0.5em;
+  margin: 0.25em 0;
+  line-height: 1;
   &:not(:last-child) {
     margin-right: 0.5rem;
   }
@@ -41,3 +44,20 @@ export const StyledFlexBoxInput = styled(FlexBox)`
     max-width: 20rem;
   }
 `;
+
+export const StyledTaskDetails = styled.div`
+  overflow: hidden;
+  text-overflow: ellipsis;
+`;
+
+export const StyledTaskInfo = styled(FlexBox)`
+  overflow: hidden;
+  font-size: 1.33rem;
+`;
+
+StyledTaskInfo.defaultProps = {
+  display: "flex",
+  mobileDirection: "column",
+  mobileSize: 1,
+  margin: "0 0 0 1rem",
+};

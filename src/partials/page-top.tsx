@@ -11,7 +11,12 @@ export function PageTop() {
 
   return (
     <>
-      <FlexBox size={"none"} display="flex" flexDirection="row" mobileDirection="column">
+      <FlexBox
+        size={"none"}
+        display="flex"
+        flexDirection="row"
+        mobileDirection="column"
+      >
         <FlexBox as="h2" size={1} margin="0">
           My Tasks for next month
         </FlexBox>
@@ -25,6 +30,8 @@ export function PageTop() {
       </FlexBox>
       <FlexBox size={"none"}>
         <Button
+          variant="primary"
+          noBorder
           onClick={() => {
             createTask({ name: "" }).then(addTask);
           }}

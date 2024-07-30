@@ -5,6 +5,7 @@ import {
   backgrounMixin,
   borderRadius,
   minWidthPx,
+  sizeMixin,
 } from "../../utils/styles";
 import { FlexBoxProps, FlexContainerProps } from "./types";
 export const containerProps = [
@@ -144,3 +145,12 @@ export const AppContainer = styled(FlexContainer)`
   overflow-x: hidden;
   overflow-y: auto;
 `;
+
+export const AppBody = styled(FlexBox)`
+  max-width: ${(props) => sizeMixin(props.theme.sizes.xl)};
+  width: 100%;
+`;
+
+AppBody.defaultProps = {
+  margin: "1rem auto",
+};

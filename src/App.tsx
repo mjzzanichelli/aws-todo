@@ -2,11 +2,11 @@ import { Authenticator } from "@aws-amplify/ui-react";
 import { ThemeProvider } from "styled-components";
 import { ThemeContext, useThemeSwitch } from "./hooks/theme-switch";
 import { GlobalStyles } from "./utils/styles";
-import { AppContainer } from "./components/layout/styled";
+import { AppBody, AppContainer } from "./components/layout/styled";
 import { AuthContext } from "./hooks/auth";
 import { TasksContext, useTasksMeta } from "./hooks/tasks";
 import { Header } from "./partials/header";
-import { TasksEditor } from "./tasks/editor";
+import { Tasks } from "./tasks/main";
 import { PageTop } from "./partials/page-top";
 import { ErrorNotification } from "./components/notifications/error";
 import { ConfirmationNotification } from "./components/notifications/confirmation";
@@ -38,8 +38,10 @@ export function AppAuth() {
       <ErrorNotification>
         <TasksContext.Provider value={tasksValues}>
           <Header />
-          <PageTop />
-          <TasksEditor />
+          <AppBody>
+            <PageTop />
+            <Tasks />
+          </AppBody>
         </TasksContext.Provider>
       </ErrorNotification>
       <ConfirmationNotification />

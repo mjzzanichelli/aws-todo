@@ -1,7 +1,7 @@
 import { cloneElement } from "react";
-import { RowCellsProps, TableDataType } from "./types";
+import { RowCellsProps } from "./types";
 
-export function TableBodyCells<T extends TableDataType>({
+export function TableBodyCells<T>({
   row,
   meta,
   values,
@@ -10,7 +10,7 @@ export function TableBodyCells<T extends TableDataType>({
     <>
       {values &&
         meta.map(({ key, value, tdStyled: CellRenderer }, col) => {
-          const children = value ? value(values, key, row, col) : values[key];
+          const children = value(values, key, row, col);
           return CellRenderer ? (
             cloneElement(CellRenderer, { key: col, as: "td" }, children)
           ) : (

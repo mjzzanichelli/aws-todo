@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { REACT_APP_WHEATHER_API_KEY, REACT_APP_LOCATIONS } from "../env";
-import { TaskDataType } from "./meta";
+import { TaskDataType } from "./meta/types";
 
 export const Locations = REACT_APP_LOCATIONS.split("|");
 

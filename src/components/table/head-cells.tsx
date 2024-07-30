@@ -1,7 +1,7 @@
 import { cloneElement } from "react";
-import { RowCellsProps, TableDataType } from "./types";
+import { RowCellsProps } from "./types";
 
-export function TableHeadCells<T extends TableDataType>({
+export function TableHeadCells<T>({
   meta,
 }: RowCellsProps<T>): JSX.Element {
   return (

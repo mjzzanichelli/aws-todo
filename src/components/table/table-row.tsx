@@ -1,7 +1,7 @@
-import { TableDataType, TableRowProps } from "./types";
+import { TableRowProps } from "./types";
 import { StyledTableRow } from "./styled";
 
-export function TableRow<T extends TableDataType>(args: TableRowProps<T>) {
+export function TableRow<T>(args: TableRowProps<T>) {
   const { row, rowType, values, children: RowRenderer, ...props } = args;
 
   if (!(RowRenderer instanceof Function))

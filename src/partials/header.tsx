@@ -24,8 +24,10 @@ export function Header() {
       <StyledHeding as="h1" mobileSize={1} margin="0">
         Hello {user?.signInDetails?.loginId}
       </StyledHeding>
-      <Button onClick={signOut}>Sign out</Button>
-      <Button onClick={switchTheme}>
+      <Button onClick={signOut} variant="primary" noBorder>
+        Sign out
+      </Button>
+      <Button onClick={switchTheme} variant="primary" noBorder>
         Switch to {getNextTheme(theme).mode} theme
       </Button>
     </FlexBox>

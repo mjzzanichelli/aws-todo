@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { createRef, useCallback, useEffect, useState } from "react";
 import { Size } from "../utils/types";
 
 export function getElementSize(element: Element) {
@@ -6,8 +6,19 @@ export function getElementSize(element: Element) {
   return { width: Math.floor(width), height: Math.floor(height) };
 }
 
-export function useResizable<T extends Element>(element?: T) {
+export function useResizable<T extends Element>() {
+  const ref = createRef<T>();
   const [size, setSize] = useState<Size>();
+  const [element, setElement] = useState<T>();
+
+  useEffect(() => {
+    const { current } = ref;
+    setElement((element) => {
+      if (!current) return undefined;
+      return current !== element ? current : element;
+    });
+  }, [ref]);
+
   const updateSize = useCallback(
     (current: Size) => {
       setSize((previous?: Size) => {
@@ -24,7 +35,6 @@ export function useResizable<T extends Element>(element?: T) {
 
   useEffect(() => {
     if (!element) return;
-
     updateSize(getElementSize(element));
 
     const resizeObserver = new ResizeObserver(([{ contentRect }]) => {
@@ -39,5 +49,5 @@ export function useResizable<T extends Element>(element?: T) {
     };
   }, [element, updateSize]);
 
-  return size;
+  return { size, ref };
 }

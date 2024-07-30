@@ -1,9 +1,13 @@
 import { useEffect, useState } from "react";
 import { getUrl } from "aws-amplify/storage";
-import { TaskDataType } from "./meta";
-import { StyledFlexBoxInput, StyleTaskAttachment } from "./styled";
+import {
+  StyledFlexBoxInput,
+  StyledTaskDetails,
+  StyleTaskAttachment,
+} from "./styled";
 import { Input, InputFile } from "../components/form/input";
 import { FlexContainer } from "../components/layout/styled";
+import { TaskDataType } from "./meta/types";
 
 export function TaskDetails(args: { task: TaskDataType }) {
   const { task } = args;
@@ -26,10 +30,10 @@ export function TaskDetailsRead(args: { task: TaskDataType }) {
   }, [task.attachment]);
 
   return (
-    <>
+    <StyledTaskDetails title={task.name}>
       {link && <StyleTaskAttachment href={link} target="_blank" />}
       {task.name}
-    </>
+    </StyledTaskDetails>
   );
 }
 

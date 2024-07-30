@@ -1,22 +1,19 @@
 import { VariantProps } from "../../theme/theme.types";
-import { Properties, ChildrenType, VariantElementProps } from "../../utils/types";
+import { ChildrenType, VariantElementProps } from "../../utils/types";
 
 export interface TableMetaType<T = unknown> {
+  key: string;
+  value: (values: T, key: string, row: number, col: number) => ChildrenType;
+  label?: ChildrenType;
   thStyled?: JSX.Element;
   tdStyled?: JSX.Element;
-  key: string;
-  label?: ChildrenType;
-  value?: (values: T, key: string, row: number, col: number) => ChildrenType;
 }
-
-export type TableDataType<T = never> = Properties<ChildrenType | T>;
 
 export interface StyledTableProps extends VariantProps {
   outlined?: boolean;
 }
 
-export interface TableProps<T extends TableDataType>
-  extends Omit<StyledTableProps, "children"> {
+export interface TableProps<T> extends Omit<StyledTableProps, "children"> {
   meta: TableMetaType<T>[];
   data?: T[];
   selected?: T[];
@@ -33,7 +30,7 @@ export enum TableRowType {
   Body = "tbody",
 }
 
-export interface TableRowProps<T extends TableDataType> extends VariantProps {
+export interface TableRowProps<T> extends VariantProps {
   rowType: TableRowType;
   row: number;
   values?: T;
@@ -48,7 +45,7 @@ export interface RowProps extends VariantElementProps<HTMLTableRowElement> {
   hover?: boolean;
 }
 
-export interface RowCellsProps<T extends TableDataType> {
+export interface RowCellsProps<T> {
   row: number;
   meta: TableMetaType<T>[];
   values?: T;

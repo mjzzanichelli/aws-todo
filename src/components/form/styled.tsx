@@ -1,6 +1,6 @@
-import styled from "styled-components";
+import styled, { css } from "styled-components";
 import { variantTextColor } from "../../theme/variants";
-import { blur, borderColor, borderRadius } from "../../utils/styles";
+import { borderColor, borderRadius } from "../../utils/styles";
 import { getCharCode } from "../icon/styled";
 
 export const StyledForm = styled.form`
@@ -34,36 +34,36 @@ export const StyledFieldComponent = styled.label`
 `;
 
 export const StyledCheckbox = styled.input`
-  label & {
-    width: 2rem;
-    height: 2rem;
-    appearance: none;
-    ${blur()}
-    ${borderRadius()}
-    cursor: pointer;
-    line-height: 1;
-    font-size: 1.25rem;
+  width: 1.25rem;
+  height: 1.25rem;
+  appearance: none;
+  ${borderRadius()}
+  cursor: pointer;
+  line-height: 1;
+  font-size: 0.75rem;
+  font-style: normal;
+  display: inline-flex;
+  justify-content: center;
+  align-content: center;
+  align-items: center;
+  margin: 0;
+  ${(props) => {
+    const defaultColor = variantTextColor({ ...props, variant: "default" });
+    const primaryColor = variantTextColor({ ...props, variant: "primary" });
+    return css`
+      ${borderColor(defaultColor)}
+      color: transparent;
+      &:checked {
+        background-color: ${primaryColor};
+        color: ${defaultColor};
+      }
+    `;
+  }}
+  &:before {
+    font-family: customicons !important;
     font-style: normal;
-    display: inline-flex;
-    justify-content: center;
-    align-content: center;
-    align-items: center;
-    ${({ theme }) =>
-      borderColor(variantTextColor({ theme, variant: "primary" }))}
-    color: ${({ theme }) => variantTextColor({ theme })};
-    &:not(:checked) {
-      color: ${({ theme }) => variantTextColor({ theme, variant: "disabled" })};
-    }
-    &:before {
-      font-family: customicons !important;
-      font-style: normal;
-      text-rendering: optimizeLegibility;
-      content: "${getCharCode("xmark")}";
-    }
-
-    &:checked:before {
-      content: "${getCharCode("check")}";
-    }
+    text-rendering: optimizeLegibility;
+    content: "${getCharCode("check")}";
   }
 `;
 

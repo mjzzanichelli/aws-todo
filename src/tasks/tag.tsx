@@ -1,5 +1,5 @@
-import { TaskDataType } from "./meta";
 import { TagName, Tags } from "./crud";
+import { TaskDataType } from "./meta/types";
 import { StyledTag } from "./styled";
 import { useCallback, useState } from "react";
 
