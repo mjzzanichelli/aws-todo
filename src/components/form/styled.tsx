@@ -33,6 +33,10 @@ export const StyledFieldComponent = styled.label`
   }
 `;
 
+export const StyledInput = styled.input`
+  padding: 0.25rem 1rem;
+`;
+
 export const StyledCheckbox = styled.input`
   width: 1.25rem;
   height: 1.25rem;

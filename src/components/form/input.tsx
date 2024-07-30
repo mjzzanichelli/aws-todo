@@ -4,7 +4,7 @@ import {
   TextareaHTMLAttributes,
   forwardRef,
 } from "react";
-import { StyledCheckbox } from "./styled";
+import { StyledCheckbox, StyledInput } from "./styled";
 
 export const Input = forwardRef<
   HTMLInputElement,
@@ -20,7 +20,7 @@ export const Input = forwardRef<
   }
 
   return (
-    <input
+    <StyledInput
       {...props}
       ref={ref}
       type={type}
@@ -45,7 +45,7 @@ export const InputFile = forwardRef<
   }
 
   return (
-    <input
+    <StyledInput
       {...props}
       ref={ref}
       type={"file"}

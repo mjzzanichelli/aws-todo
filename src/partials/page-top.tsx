@@ -16,6 +16,7 @@ export function PageTop() {
         display="flex"
         flexDirection="row"
         mobileDirection="column"
+        margin="2rem 0"
       >
         <FlexBox as="h2" size={1} margin="0">
           My Tasks for next month
@@ -28,7 +29,7 @@ export function PageTop() {
           />
         </FlexBox>
       </FlexBox>
-      <FlexBox size={"none"}>
+      <FlexBox size={"none"} margin="1rem 0">
         <Button
           variant="primary"
           onClick={() => {

@@ -21,7 +21,7 @@ export const StyledTable = styled.table.withConfig({
       variant: "disabled",
       value: 0.22,
     });
-    const padding = hideHeader ? "0" : "0.5rem";
+    const padding = hideHeader ? "0" : "0 0.5rem";
 
     return css`
       overflow: hidden;

@@ -8,10 +8,7 @@ import { FlexBox } from "../components/layout/styled";
 export const StyledTasksTableSection = styled(FlexBox)`
   overflow-x: auto;
   & > h3 {
-    width: 100%;
-    margin: 0;
-    position: sticky;
-    left: 0;
+    margin: 2rem 0;
   }
   th {
     font-weight: normal;

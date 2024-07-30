@@ -85,6 +85,10 @@ ${({ theme }) => {
       }
     }
 
+    [data-amplify-authenticator] {
+      margin: auto auto;
+    }
+
     body {
       margin: 0;
       font-family: Poppins, -apple-system, BlinkMacSystemFont, "Segoe UI",
