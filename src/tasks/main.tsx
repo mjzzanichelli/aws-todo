@@ -24,7 +24,7 @@ export function TasksList(args: { done?: boolean }) {
   const { done = false } = args;
   const { user } = useContext(AuthContext);
   const { size, ref } = useResizable<HTMLDivElement>();
-  const { tasks, reloadTasks } = useContext(TasksContext);
+  const { tasks, search, reloadTasks } = useContext(TasksContext);
   const { theme } = useThemeSwitch();
   const [showData, setShowData] = useState(!done);
 
@@ -52,7 +52,7 @@ export function TasksList(args: { done?: boolean }) {
           outlined
           hideHeader={isSmall}
           draggable={
-            !user
+            !user || !!search
               ? undefined
               : (start, end) => {
                   const newData = [...data];
