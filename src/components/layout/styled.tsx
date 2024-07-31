@@ -138,7 +138,7 @@ export const FlexBoxResizable = styled(FlexBox)`
   overflow: hidden;
 `;
 
-export const AppContainer = styled(FlexContainer)`
+export const StyledAppContainer = styled(FlexContainer)`
   width: 100vw;
   height: 100vh;
   box-sizing: border-box;

@@ -10,9 +10,9 @@ import { TaskCheck } from "../check";
 
 export function TasksTableMeta(args: {
   done?: boolean;
-  editable?: boolean;
+  isOwner?: boolean;
 }): TasksMetaType[] {
-  const { done, editable } = args;
+  const { done, isOwner } = args;
   const meta: TasksMetaType[] = [
     {
       key: "details",
@@ -44,7 +44,7 @@ export function TasksTableMeta(args: {
       value: (task) => <Notes task={task} />,
     },
   ];
-  if (!editable) return meta;
+  if (!isOwner) return meta;
   return [
     {
       key: "done",

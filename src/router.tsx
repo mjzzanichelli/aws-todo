@@ -1,12 +1,12 @@
-import type { NonIndexRouteObject } from "react-router-dom";
 import { Authenticator } from "@aws-amplify/ui-react";
-import { AppBody } from "./components/layout/styled";
-import { AuthContext } from "./hooks/auth";
-import { TasksContext, useTasks } from "./hooks/tasks";
-import { Header } from "./partials/header";
-import { Tasks } from "./tasks/main";
-import { PageTop } from "./partials/page-top";
+import type { NonIndexRouteObject } from "react-router-dom";
 import { useParams, useRoutes } from "react-router-dom";
+import { AuthContext, TasksContext } from "./context";
+import { AppBody } from "./components/layout/styled";
+import { useTasks } from "./hooks/tasks";
+import { Header } from "./partials/header";
+import { PageTop } from "./partials/page-top";
+import { Tasks } from "./tasks/main";
 
 export const GuestRoute: NonIndexRouteObject = {
   path: "/user/:guestUserId",

@@ -1,15 +1,13 @@
 import { useContext, useState } from "react";
-import { useResizable } from "../hooks/resizable";
-import { useThemeSwitch } from "../hooks/theme-switch";
-import { TasksContext } from "../hooks/tasks";
 import { Table } from "../components/table/main";
 import { TasksTableMeta } from "./meta/table";
 import { TasksListMeta } from "./meta/list";
 import { Button } from "../components/button/main";
 import { Icon } from "../components/icon/main";
 import { StyledTasksTableSection } from "./styled";
-import { AuthContext } from "../hooks/auth";
+
 import { updateTask } from "./crud";
+import { AuthContext, ScreenContext, TasksContext } from "../context";
 
 export function Tasks() {
   return (
@@ -23,24 +21,23 @@ export function Tasks() {
 export function TasksList(args: { done?: boolean }) {
   const { done = false } = args;
   const { user } = useContext(AuthContext);
-  const { size, ref } = useResizable<HTMLDivElement>();
-  const { tasks, search, reloadTasks } = useContext(TasksContext);
-  const { theme } = useThemeSwitch();
+  const { isMobile } = useContext(ScreenContext);
+  const { tasks, reloadTasks } = useContext(TasksContext);
+
   const [showData, setShowData] = useState(!done);
 
   const data = tasks?.filter((item) => Boolean(item.done) === done);
 
-  const isSmall = size && size.width < theme.sizes.md ? true : false;
   const title = done ? "Tasks done" : "Tasks to do";
-  const meta = isSmall
+  const meta = isMobile
     ? TasksListMeta
-    : TasksTableMeta({ done: !done, editable: !!user });
+    : TasksTableMeta({ done: !done, isOwner: !!user });
 
   if (!data?.length) return null;
   return (
-    <StyledTasksTableSection ref={ref}>
+    <StyledTasksTableSection>
       <h3>
-        {title}
+        {title}&nbsp;({data.length})
         <Button slim outlined onClick={() => setShowData(!showData)}>
           <Icon name="chevron-up" rotate={showData ? "bottom" : "top"} />
         </Button>
@@ -50,12 +47,12 @@ export function TasksList(args: { done?: boolean }) {
           meta={meta}
           data={data}
           outlined
-          hideHeader={isSmall}
+          hideHeader={isMobile}
           draggable={
-            !user || !!search
+            !user || !tasks
               ? undefined
               : (start, end) => {
-                  const newData = [...data];
+                  const newData = [...tasks];
                   const startIndex = newData.indexOf(start);
                   newData.splice(startIndex, 1);
                   const endIndex = newData.indexOf(end);

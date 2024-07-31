@@ -1,4 +1,3 @@
-import { useContext } from "react";
 import { FlexBox, FlexContainer } from "../components/layout/styled";
 import { TaskCheck } from "./check";
 import { TaskDateRead } from "./date";
@@ -6,18 +5,17 @@ import { TaskDetailsRead } from "./details";
 import { TaskDataType } from "./meta/types";
 import { StyledTaskInfo } from "./styled";
 import { TaskTagRead } from "./tag";
-import { AuthContext } from "../hooks/auth";
+import { TasksOwner } from "./owner";
 
 export function TaskInfo(args: { task: TaskDataType }) {
-  const { user } = useContext(AuthContext);
   const { task } = args;
   return (
     <FlexContainer mobileDirection="row">
-      {user && (
-        <FlexBox mobileSize={"none"}>
+      <TasksOwner>
+        <FlexBox mobileSize={"none"} margin={"0 1rem 0 0"}>
           <TaskCheck task={task} />
         </FlexBox>
-      )}
+      </TasksOwner>
       <StyledTaskInfo>
         <FlexBox>
           <TaskDetailsRead task={task} />

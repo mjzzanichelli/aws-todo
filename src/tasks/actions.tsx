@@ -1,11 +1,11 @@
 import { useContext } from "react";
+import { Void } from "../utils/helpers";
+import { TasksContext } from "../context";
+import { Confirmation } from "../hooks/confirmation";
 import { Button } from "../components/button/main";
 import { Icon } from "../components/icon/main";
-import { Confirmation } from "../hooks/confirmation";
-import { Void } from "../utils/helpers";
-import { deleteTask } from "./crud";
 import { TaskDataType } from "./meta/types";
-import { TasksContext } from "../hooks/tasks";
+import { deleteTask } from "./crud";
 
 export function TaskActions(args: { task: TaskDataType }) {
   const { makeEditable, reloadTasks } = useContext(TasksContext);

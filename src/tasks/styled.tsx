@@ -64,5 +64,4 @@ StyledTaskInfo.defaultProps = {
   display: "flex",
   mobileDirection: "column",
   mobileSize: 1,
-  margin: "0 0 0 1rem",
 };

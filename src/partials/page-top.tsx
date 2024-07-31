@@ -1,15 +1,15 @@
 import { useContext, useEffect, useState } from "react";
+import { generatePath } from "react-router-dom";
+import { GuestRoute } from "../router";
+import { AuthContext, TasksContext } from "../context";
+import { Confirmation } from "../hooks/confirmation";
 import { Button } from "../components/button/main";
 import { Input } from "../components/form/input";
 import { Icon } from "../components/icon/main";
 import { FlexBox } from "../components/layout/styled";
-import { createTask } from "../tasks/crud";
-import { TasksContext } from "../hooks/tasks";
-import { AuthContext } from "../hooks/auth";
-import { GuestRoute } from "../router";
-import { generatePath } from "react-router-dom";
-import { Confirmation } from "../hooks/confirmation";
 import { Void } from "../utils/helpers";
+import { createTask } from "../tasks/crud";
+import { TasksOwner } from "../tasks/owner";
 import { StyledShareLink } from "./styled";
 
 export function PageTop() {
@@ -57,7 +57,7 @@ export function PageTop() {
           />
         </FlexBox>
       </FlexBox>
-      {user && (
+      <TasksOwner>
         <FlexBox size={"none"} margin="1rem 0">
           <Button
             variant="primary"
@@ -69,7 +69,7 @@ export function PageTop() {
             <label>Add task</label>
           </Button>
         </FlexBox>
-      )}
+      </TasksOwner>
     </>
   );
 }

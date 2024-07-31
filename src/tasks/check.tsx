@@ -1,8 +1,8 @@
 import { useContext } from "react";
+import { TasksContext } from "../context";
 import { CheckBox } from "../components/form/input";
-import { updateTask } from "./crud";
 import { TaskDataType } from "./meta/types";
-import { TasksContext } from "../hooks/tasks";
+import { updateTask } from "./crud";
 
 export function TaskCheck(args: { task: TaskDataType }) {
   const { task } = args;
