@@ -29,11 +29,13 @@ export function Menu() {
           <Button onClick={switchTheme} variant="primary">
             Switch to {getNextTheme(theme).mode} theme
           </Button>
-          <TasksOwner>
-            <Button onClick={signOut} variant="primary">
-              Sign out
-            </Button>
-          </TasksOwner>
+          {signOut && (
+            <TasksOwner>
+              <Button onClick={signOut} variant="primary">
+                Sign out
+              </Button>
+            </TasksOwner>
+          )}
         </StyledMenuContent>
       )}
     </StyledMenu>

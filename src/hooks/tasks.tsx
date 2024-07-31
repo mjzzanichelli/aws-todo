@@ -21,7 +21,7 @@ export function orderTasks(tasks: TaskSchema[]): TaskDataType[] {
 }
 
 export function useTasks() {
-  const { guestUserId } = useContext(AuthContext);
+  const { user, guestUserId } = useContext(AuthContext);
   const { isMobile } = useContext(ScreenContext);
   const [tasks, setTasks] = useState<TaskDataType[]>([]);
   const [search, setSearch] = useState<string>();
@@ -34,17 +34,20 @@ export function useTasks() {
         },
       ],
     };
-    guestUserId &&
+
+    const isGuest = !user && !!guestUserId;
+    isGuest &&
       filter.and.push({
         owner: { contains: guestUserId },
       });
+
     listTasks({
       filter,
-      authMode: guestUserId ? "identityPool" : "userPool",
+      authMode: user ? "userPool" : "identityPool",
     }).then((tasks) => {
       setTasks(orderTasks(tasks));
     });
-  }, [setTasks, search, guestUserId]);
+  }, [setTasks, search, guestUserId, user]);
 
   useEffect(() => {
     const search = setTimeout(() => {
