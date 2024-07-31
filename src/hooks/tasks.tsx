@@ -35,8 +35,7 @@ export function useTasks() {
       ],
     };
 
-    const isGuest = !user && !!guestUserId;
-    isGuest &&
+    guestUserId &&
       filter.and.push({
         owner: { contains: guestUserId },
       });
