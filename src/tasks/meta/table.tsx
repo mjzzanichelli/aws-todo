@@ -1,7 +1,7 @@
 import { StyledTableCell } from "../../components/table/styled";
 import { TaskDate } from "../date";
 import { TaskDetails } from "../details";
-import { Notes } from "../notes";
+import { TaskNotes } from "../notes";
 import { TaskTag } from "../tag";
 import { TasksMetaType } from "./types";
 import { TaskActions } from "../actions";
@@ -41,7 +41,7 @@ export function TasksTableMeta(args: {
       label: <MetaLabel icon="task">Note</MetaLabel>,
       thStyled: <StyledTableCell />,
       tdStyled: <StyledTableCell />,
-      value: (task) => <Notes task={task} />,
+      value: (task) => <TaskNotes task={task} />,
     },
   ];
   if (!isOwner) return meta;

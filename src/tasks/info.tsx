@@ -6,6 +6,7 @@ import { TaskDataType } from "./meta/types";
 import { StyledTaskInfo } from "./styled";
 import { TaskTagRead } from "./tag";
 import { TasksOwner } from "./owner";
+import { TaskNotes } from "./notes";
 
 export function TaskInfo(args: { task: TaskDataType }) {
   const { task } = args;
@@ -19,6 +20,9 @@ export function TaskInfo(args: { task: TaskDataType }) {
       <StyledTaskInfo>
         <FlexBox>
           <TaskDetailsRead task={task} />
+        </FlexBox>
+        <FlexBox>
+          <TaskNotes task={task} />
         </FlexBox>
         {task.dueDate && (
           <FlexBox>

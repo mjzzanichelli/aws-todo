@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { REACT_APP_WHEATHER_API_KEY, REACT_APP_LOCATIONS } from "../env";
 import { TaskDataType } from "./meta/types";
+import { Void } from "../utils/helpers";
 
 export const Locations = REACT_APP_LOCATIONS.split("|");
 
@@ -31,7 +32,7 @@ export async function getWeather(q: string) {
     .then((weather: WeatherSchema) => weather);
 }
 
-export function Notes(args: { task: TaskDataType }) {
+export function TaskNotes(args: { task: TaskDataType }) {
   const { task } = args;
   const [weather, setWeather] = useState<WeatherSchema>();
 
@@ -43,7 +44,7 @@ export function Notes(args: { task: TaskDataType }) {
 
     if (!q) return;
 
-    getWeather(q).then(setWeather);
+    getWeather(q).then(setWeather, Void);
 
     return () => {
       setWeather(undefined);
@@ -52,7 +53,8 @@ export function Notes(args: { task: TaskDataType }) {
   if (!weather) return null;
   return (
     <>
-      (<img
+      (
+      <img
         src={`${protocol}/${weather.current.condition.icon}`}
         style={{ height: "1.5rem", verticalAlign: "middle" }}
         title={"current weather"}

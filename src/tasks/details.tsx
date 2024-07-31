@@ -6,6 +6,7 @@ import { FlexBox, FlexContainer } from "../components/layout/styled";
 import { TaskDataType } from "./meta/types";
 import { FieldComponent } from "../components/form/field";
 import { formatByteSize, formatDateTime } from "../utils/helpers";
+import { Icon } from "../components/icon/main";
 
 export function TaskDetails(args: { task: TaskDataType }) {
   const { task } = args;
@@ -49,11 +50,15 @@ export function TaskDetailsRead(args: { task: TaskDataType }) {
   let title = fileProps?.name;
   if (fileProps?.size) title = `${title} (${formatByteSize(fileProps.size)})`;
   if (fileProps?.lastModified)
-    title = `${title} ${formatDateTime(fileProps.lastModified.toUTCString())}`;
+    title = `${title}, ${formatDateTime(fileProps.lastModified.toUTCString())}`;
 
   return (
-    <StyledTaskDetails title={title}>
-      {link && <StyleTaskAttachment href={link} target="_blank" />}
+    <StyledTaskDetails>
+      {link && (
+        <StyleTaskAttachment href={link} target="_blank">
+          <Icon name="paperclip" title={title} />
+        </StyleTaskAttachment>
+      )}
       {task.name}
     </StyledTaskDetails>
   );

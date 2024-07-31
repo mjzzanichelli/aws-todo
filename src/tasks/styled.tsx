@@ -1,5 +1,4 @@
 import styled, { css } from "styled-components";
-import { Icon } from "../components/icon/main";
 import { borderColor, borderRadius } from "../utils/styles";
 import { TagProps } from "../theme/theme.types";
 import { darkenColor, tagBgColor, tagTextColor } from "../theme/variants";
@@ -22,10 +21,6 @@ StyledTasksTableSection.defaultProps = {
 export const StyleTaskAttachment = styled.a`
   margin-right: 0.5rem;
 `;
-
-StyleTaskAttachment.defaultProps = {
-  children: <Icon name="paperclip" />,
-};
 
 export const StyledTag = styled.span.withConfig({
   shouldForwardProp: (prop) => !["variant"].includes(prop),
