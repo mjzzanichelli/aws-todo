@@ -38,7 +38,7 @@ export function TaskActions(args: { task: TaskDataType }) {
                     Confirm
                   </Button>
                   &nbsp;
-                  <Button variant="error" onClick={reject}>
+                  <Button variant="error" onClick={() => reject()}>
                     Cancel
                   </Button>
                 </div>
