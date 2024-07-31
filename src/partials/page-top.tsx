@@ -9,7 +9,7 @@ import { Icon } from "../components/icon/main";
 import { FlexBox } from "../components/layout/styled";
 import { Void } from "../utils/helpers";
 import { createTask } from "../tasks/crud";
-import { TasksOwner } from "../tasks/owner";
+import { TasksOwner } from "../tasks/access";
 import { StyledShareLink } from "./styled";
 import { FieldComponent } from "../components/form/field";
 

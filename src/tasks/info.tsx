@@ -5,7 +5,7 @@ import { TaskDetailsRead } from "./details";
 import { TaskDataType } from "./meta/types";
 import { StyledTaskInfo } from "./styled";
 import { TaskTagRead } from "./tag";
-import { TasksOwner } from "./owner";
+import { TasksOwner } from "./access";
 import { TaskNotes } from "./notes";
 
 export function TaskInfo(args: { task: TaskDataType }) {

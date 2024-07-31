@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "customicons";
-	src: url("customicons.eot?e995cf0040abc370dbc46c184ce7458f?#iefix") format("embedded-opentype"),
-url("customicons.woff2?e995cf0040abc370dbc46c184ce7458f") format("woff2"),
-url("customicons.woff?e995cf0040abc370dbc46c184ce7458f") format("woff"),
-url("customicons.ttf?e995cf0040abc370dbc46c184ce7458f") format("truetype"),
-url("customicons.svg?e995cf0040abc370dbc46c184ce7458f#customicons") format("svg");
+	src: url("customicons.eot?96dfffd4d4fde9bca16424958039d8a2?#iefix") format("embedded-opentype"),
+url("customicons.woff2?96dfffd4d4fde9bca16424958039d8a2") format("woff2"),
+url("customicons.woff?96dfffd4d4fde9bca16424958039d8a2") format("woff"),
+url("customicons.ttf?96dfffd4d4fde9bca16424958039d8a2") format("truetype"),
+url("customicons.svg?96dfffd4d4fde9bca16424958039d8a2#customicons") format("svg");
 }
 
 .customicons {
@@ -33,30 +33,33 @@ url("customicons.svg?e995cf0040abc370dbc46c184ce7458f#customicons") format("svg"
 .customicons-floppy-disk:before {
 	content: "\0xf105";
 }
-.customicons-link:before {
+.customicons-house:before {
 	content: "\0xf106";
 }
-.customicons-magnifying-glass:before {
+.customicons-link:before {
 	content: "\0xf107";
 }
-.customicons-paperclip:before {
+.customicons-magnifying-glass:before {
 	content: "\0xf108";
 }
-.customicons-pen:before {
+.customicons-paperclip:before {
 	content: "\0xf109";
 }
-.customicons-plus:before {
+.customicons-pen:before {
 	content: "\0xf10a";
 }
-.customicons-tag:before {
+.customicons-plus:before {
 	content: "\0xf10b";
 }
-.customicons-task:before {
+.customicons-tag:before {
 	content: "\0xf10c";
 }
-.customicons-trash-can:before {
+.customicons-task:before {
 	content: "\0xf10d";
 }
-.customicons-xmark:before {
+.customicons-trash-can:before {
 	content: "\0xf10e";
+}
+.customicons-xmark:before {
+	content: "\0xf10f";
 }

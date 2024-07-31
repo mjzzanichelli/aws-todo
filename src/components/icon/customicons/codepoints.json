@@ -4,13 +4,14 @@
   "chevron-up": "0xf103",
   "copy": "0xf104",
   "floppy-disk": "0xf105",
-  "link": "0xf106",
-  "magnifying-glass": "0xf107",
-  "paperclip": "0xf108",
-  "pen": "0xf109",
-  "plus": "0xf10a",
-  "tag": "0xf10b",
-  "task": "0xf10c",
-  "trash-can": "0xf10d",
-  "xmark": "0xf10e"
+  "house": "0xf106",
+  "link": "0xf107",
+  "magnifying-glass": "0xf108",
+  "paperclip": "0xf109",
+  "pen": "0xf10a",
+  "plus": "0xf10b",
+  "tag": "0xf10c",
+  "task": "0xf10d",
+  "trash-can": "0xf10e",
+  "xmark": "0xf10f"
 }
