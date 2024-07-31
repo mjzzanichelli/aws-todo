@@ -41,7 +41,7 @@ export function Menu() {
         </>
       </TasksOwner>
       <TasksGuest>
-        <Button onClick={(e) => navigate("/")}>
+        <Button onClick={() => navigate("/")}>
           <Icon name="house" />
         </Button>
       </TasksGuest>

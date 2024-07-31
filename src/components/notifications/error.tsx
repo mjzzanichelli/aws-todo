@@ -3,6 +3,9 @@ import { ErrorBoundary } from "react-error-boundary";
 import { Dialog } from "../dialog/main";
 import { ChildrenType } from "../../utils/types";
 import { GlobalError, useError } from "../../hooks/error";
+import { useNavigate } from "react-router-dom";
+import { Button } from "../button/main";
+import { Icon } from "../icon/main";
 
 export const ErrorDialogTitle = "Oooops!";
 
@@ -11,8 +14,19 @@ export function ErrorNotification(args: {
   children?: ChildrenType;
 }) {
   const error = useError();
+  const navigate = useNavigate();
   const [active, setActive] = useState(false);
   const { message = "An Error Occurred", children } = args;
+
+  const goHome = (
+    <>
+      <br />
+      <br />
+      <a href="/">
+        <Icon name="house" />
+      </a>
+    </>
+  );
 
   return (
     <ErrorBoundary
@@ -24,6 +38,7 @@ export function ErrorNotification(args: {
           onClose={resetErrorBoundary}
         >
           <>{message}</>
+          {goHome}
         </Dialog>
       )}
     >
@@ -35,6 +50,7 @@ export function ErrorNotification(args: {
           onClose={GlobalError.setError}
         >
           <>{error.message}</>
+          {goHome}
         </Dialog>
       )}
     </ErrorBoundary>
