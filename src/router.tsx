@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { AuthUser, getCurrentUser } from "aws-amplify/auth";
+import { signOut } from "aws-amplify/auth";
 import { Authenticator } from "@aws-amplify/ui-react";
 import type { NonIndexRouteObject } from "react-router-dom";
 import { useParams, useRoutes } from "react-router-dom";
@@ -42,21 +42,17 @@ export function AppCheckAuth() {
 
 export function AppGuest() {
   const { guestUserId } = useParams();
-  const [user, setUsers] = useState<AuthUser>();
-  const [tryUser, setTryUser] = useState(false);
+
+  const [signedOut, setSignedOut] = useState(false);
 
   useEffect(() => {
-    getCurrentUser()
-      .then((user) => {
-        setUsers(user);
-      })
-      .finally(() => {
-        setTryUser(true);
-      });
+    signOut().finally(() => {
+      setSignedOut(true);
+    });
   }, []);
-  if (!tryUser) return <></>;
+  if (!signedOut) return <></>;
   return (
-    <AuthContext.Provider value={{ guestUserId, user }}>
+    <AuthContext.Provider value={{ guestUserId }}>
       <AppAuthorised />
     </AuthContext.Provider>
   );
