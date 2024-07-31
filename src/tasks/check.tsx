@@ -15,6 +15,9 @@ export function TaskCheck(args: { task: TaskDataType }) {
       key={id}
       variant="primary"
       defaultChecked={done}
+      onClick={(e) => {
+        e.stopPropagation();
+      }}
       onChange={() => {
         updateTask({ id, done: !done }).then(reloadTasks);
       }}
