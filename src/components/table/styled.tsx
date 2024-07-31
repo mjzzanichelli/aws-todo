@@ -117,7 +117,7 @@ export const StyledTableRow = styled.th.withConfig({
         padding: 0.5rem;
         font-size: 0.875rem;
         line-height: 1.5;
-        vertical-align: top;
+        // vertical-align: top;
         & p {
           margin: 0;
         }
