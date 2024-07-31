@@ -6,6 +6,7 @@ import { Button } from "../components/button/main";
 import { Icon } from "../components/icon/main";
 import { TaskDataType } from "./meta/types";
 import { deleteTask } from "./crud";
+import { GlobalError } from "../hooks/error";
 
 export function TaskActions(args: { task: TaskDataType }) {
   const { makeEditable, reloadTasks } = useContext(TasksContext);
@@ -44,7 +45,11 @@ export function TaskActions(args: { task: TaskDataType }) {
                 </div>
               </>
             );
-          }).then(() => deleteTask(id).then(reloadTasks), Void);
+          })
+            .then(() => deleteTask(id))
+            .then(reloadTasks, (e) => {
+              GlobalError.setError(e);
+            });
         }}
       >
         <Icon name="trash-can" />
