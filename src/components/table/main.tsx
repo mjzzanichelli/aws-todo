@@ -55,7 +55,10 @@ export function Table<T>(args: TableProps<T>) {
               dragging,
               draggingHover,
               setDragging,
-              setDraggingHover,
+              setDraggingHover: (value?: T) => {
+                if (!dragging) return setDraggingHover(undefined);
+                data.includes(dragging) && setDraggingHover(value);
+              },
             };
 
             return (

@@ -38,6 +38,8 @@ export function TaskTagForm(args: { task: TaskDataType }) {
 
   return (
     <>
+      <label>Tag</label>
+      <br />
       {Tags.map((tagName: TagName, key: number) => {
         return (
           <StyledTag

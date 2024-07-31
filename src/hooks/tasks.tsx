@@ -1,12 +1,8 @@
-import {
-  useCallback,
-  useContext,
-  useEffect,
-  useState,
-} from "react";
-import { listTasks, TaskSchema, updateTask } from "../tasks/crud";
+import { useCallback, useContext, useEffect, useState } from "react";
+import { deleteTask, listTasks, TaskSchema, updateTask } from "../tasks/crud";
 import { getTaskValues, TaskDataType } from "../tasks/meta/types";
-import { AuthContext } from "../context";
+import { AuthContext, ScreenContext } from "../context";
+import { promptTaskForm } from "../tasks/form";
 
 export function orderTasks(tasks: TaskSchema[]): TaskDataType[] {
   return tasks.sort((a, b) => {
@@ -26,6 +22,7 @@ export function orderTasks(tasks: TaskSchema[]): TaskDataType[] {
 
 export function useTasks() {
   const { guestUserId } = useContext(AuthContext);
+  const { isMobile } = useContext(ScreenContext);
   const [tasks, setTasks] = useState<TaskDataType[]>([]);
   const [search, setSearch] = useState<string>();
 
@@ -80,17 +77,24 @@ export function useTasks() {
 
   const addTask = useCallback(
     (task: TaskSchema) => {
-      setTasks([
-        ...tasks.map((item) => {
-          return {
-            ...item,
-            editable: false,
-          };
-        }),
-        { ...task, editable: true },
-      ]);
+      if (isMobile) {
+        promptTaskForm(task)
+          .catch((deleted) => {
+            return !deleted && deleteTask(task.id);
+          })
+          .finally(reloadTasks);
+      } else
+        setTasks([
+          ...tasks.map((item) => {
+            return {
+              ...item,
+              editable: false,
+            };
+          }),
+          { ...task, editable: true },
+        ]);
     },
-    [tasks, setTasks]
+    [tasks, setTasks, reloadTasks, isMobile]
   );
 
   return {

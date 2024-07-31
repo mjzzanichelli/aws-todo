@@ -4,6 +4,7 @@ import { StyledTaskDetails, StyleTaskAttachment } from "./styled";
 import { Input, InputFile } from "../components/form/input";
 import { FlexBox, FlexContainer } from "../components/layout/styled";
 import { TaskDataType } from "./meta/types";
+import { FieldComponent } from "../components/form/field";
 
 export function TaskDetails(args: { task: TaskDataType }) {
   const { task } = args;
@@ -38,23 +39,29 @@ export function TaskDetailsForm(args: { task: TaskDataType }) {
   return (
     <FlexContainer margin="-0.5rem 0 0 -0.5rem" flexDirection="column">
       <FlexBox margin="0.5rem 0 0 0.5rem">
-        <Input
-          ref={(el) => el?.focus()}
-          placeholder="Task name"
-          fullWidth
-          defaultValue={task.name}
-          onChange={(value = "") => {
-            task.name = value;
-          }}
-        />
+        <FieldComponent id="name" label={"Task name"}>
+          <Input
+            id="name"
+            ref={(el) => el?.focus()}
+            placeholder="Task name"
+            fullWidth
+            defaultValue={task.name}
+            onChange={(value = "") => {
+              task.name = value;
+            }}
+          />
+        </FieldComponent>
       </FlexBox>
       <FlexBox margin="0.5rem 0 0 0.5rem">
-        <InputFile
-          fullWidth
-          onChange={(file) => {
-            task.attachmentFile = file;
-          }}
-        />
+        <FieldComponent id="attachment">
+          <InputFile
+            id="attachment"
+            fullWidth
+            onChange={(file) => {
+              task.attachmentFile = file;
+            }}
+          />
+        </FieldComponent>
       </FlexBox>
     </FlexContainer>
   );

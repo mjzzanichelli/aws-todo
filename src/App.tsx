@@ -3,7 +3,6 @@ import { useThemeSwitch } from "./hooks/theme-switch";
 import { GlobalStyles } from "./utils/styles";
 import { StyledAppContainer } from "./components/layout/styled";
 import { ErrorNotification } from "./components/notifications/error";
-import { ConfirmationNotification } from "./components/notifications/confirmation";
 import { BrowserRouter } from "react-router-dom";
 import { AppRouter } from "./router";
 import { FlexContainerProps } from "./components/layout/types";
@@ -23,7 +22,6 @@ export function App() {
             <ErrorNotification>
               <AppRouter />
             </ErrorNotification>
-            <ConfirmationNotification />
           </BrowserRouter>
         </AppContainer>
       </ThemeProvider>

@@ -7,6 +7,7 @@ import { useTasks } from "./hooks/tasks";
 import { Header } from "./partials/header";
 import { PageTop } from "./partials/page-top";
 import { Tasks } from "./tasks/main";
+import { ConfirmationNotification } from "./components/notifications/confirmation";
 
 export const GuestRoute: NonIndexRouteObject = {
   path: "/user/:guestUserId",
@@ -57,6 +58,7 @@ export function AppAuthorised() {
           <PageTop />
           <Tasks />
         </AppBody>
+        <ConfirmationNotification />
       </TasksContext.Provider>
     </>
   );

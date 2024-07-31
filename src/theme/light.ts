@@ -20,7 +20,7 @@ export const LightTheme: DefaultTheme = {
     quaternary: { text: "#1A5767", bg: "bgColor" },
     off: { text: "#d5caca", bg: "textColor" },
     disabled: { text: "#7B7B7B", bg: "bgColor" },
-    success: { text: "#709856", bg: "textColor" },
+    success: { text: "#72b945", bg: "bgColor" },
     warning: { text: "#f7ce84", bg: "textColor" },
     error: { text: "#ed4c4c", bg: "bgColor" },
   },

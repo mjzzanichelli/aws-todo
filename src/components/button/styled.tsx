@@ -96,7 +96,7 @@ export const StyledButton = styled.button.withConfig({
       value: 0.1,
       color: borderColor,
     });
-    const paddingUnit = slim ? 0.25 : 1;
+    const paddingUnit = slim ? 0.25 : 0.75;
     return css`
       padding: ${paddingUnit}rem ${paddingUnit * 2}rem;
       color: ${textColor};

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { hasKeys, prettyJson, randomString } from "../utils/helpers";
 import { JsonProperties, Properties } from "../utils/types";
 import { isJsonProperties } from "../utils/guardians";
@@ -126,62 +126,23 @@ export function useFormData<T>(
   const [formData, setFormData] = useState(new FormData());
   const [key, setKey] = useState<string>();
 
-  function init(...formValues: (FormDefaultValuesType | undefined)[]) {
-    const formData = new FormData();
-    if (!formValues.length) return setFormData(formData);
-    const defaultValue = sanitizeFormValues(...formValues);
-    for (const key in defaultValue) {
-      const value = defaultValue[key];
-      value === null || value === undefined
-        ? formData.delete(key)
-        : formData.set(key, value);
-    }
-    setFormData(formData);
-  }
+  const init = useCallback(
+    (...formValues: (FormDefaultValuesType | undefined)[]) => {
+      const formData = new FormData();
+      if (!formValues.length) return setFormData(formData);
+      const defaultValue = sanitizeFormValues(...formValues);
+      for (const key in defaultValue) {
+        const value = defaultValue[key];
+        value === null || value === undefined
+          ? formData.delete(key)
+          : formData.set(key, value);
+      }
+      setFormData(formData);
+    },
+    [setFormData]
+  );
 
-  useEffect(() => {
-    setKey(randomString());
-    if (!validateOnInit) return;
-    triggerChanges();
-  }, [formData]);
-
-  function triggerChanges() {
-    const { entries } = validateForm();
-    const values = getFormValues(entries);
-    onChange && onChange(values);
-  }
-
-  function setValue(key: string, value?: FormDataValue) {
-    value === null || value === undefined
-      ? formData.delete(key)
-      : formData.set(key, value);
-    triggerChanges();
-  }
-
-  function removeValue(key: string) {
-    formData.delete(key);
-    triggerChanges();
-  }
-
-  function getValue(key: string) {
-    return formData.get(key);
-  }
-
-  function getStringValue(key: string) {
-    const value = formData.get(key);
-    return typeof value === "string" ? value : undefined;
-  }
-
-  function getFileValue(key: string) {
-    const value = formData.get(key);
-    return value instanceof File ? value : undefined;
-  }
-
-  function getEntries() {
-    return new FormEntries(formData);
-  }
-
-  function validateForm() {
+  const validateForm = useCallback(() => {
     const entries = new FormEntries(formData);
     let errors = {};
     if (validation) {
@@ -190,9 +151,66 @@ export function useFormData<T>(
     }
     errors = { ...errors };
     return { entries, errors };
-  }
+  }, [setErrors, formData, validation]);
 
-  function submit() {
+  const triggerChanges = useCallback(() => {
+    const { entries } = validateForm();
+    const values = getFormValues(entries);
+    onChange && onChange(values);
+  }, [onChange, validateForm]);
+
+  useEffect(() => {
+    setKey(randomString());
+    if (!validateOnInit) return;
+    triggerChanges();
+  }, [formData, triggerChanges, validateOnInit]);
+
+  const setValue = useCallback(
+    (key: string, value?: FormDataValue) => {
+      value === null || value === undefined
+        ? formData.delete(key)
+        : formData.set(key, value);
+      triggerChanges();
+    },
+    [triggerChanges, formData]
+  );
+
+  const removeValue = useCallback(
+    (key: string) => {
+      formData.delete(key);
+      triggerChanges();
+    },
+    [triggerChanges, formData]
+  );
+
+  const getValue = useCallback(
+    (key: string) => {
+      return formData.get(key);
+    },
+    [formData]
+  );
+
+  const getStringValue = useCallback(
+    (key: string) => {
+      const value = formData.get(key);
+      return typeof value === "string" ? value : undefined;
+    },
+    [formData]
+  );
+
+  const getFileValue = useCallback(
+    (key: string) => {
+      const value = formData.get(key);
+      return value instanceof File ? value : undefined;
+    },
+    [formData]
+  );
+
+  const getEntries = useCallback(() => {
+    return new FormEntries(formData);
+  }, [formData]);
+
+  const submit = useCallback(() => {
     const { entries, errors } = validateForm();
     if (hasKeys(errors)) return;
     try {
@@ -200,13 +218,13 @@ export function useFormData<T>(
     } catch (e) {
       return;
     }
-  }
+  }, [onSubmit, validateForm]);
 
-  function submitAny() {
+  const submitAny = useCallback(() => {
     const { entries, errors } = validateForm();
     if (hasKeys(errors)) return Promise.reject(errors);
     return onSubmit ? onSubmit(entries) : Promise.resolve(entries);
-  }
+  }, [validateForm, onSubmit]);
 
   const disabled = hasKeys(errors);
 

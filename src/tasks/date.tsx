@@ -1,3 +1,4 @@
+import { FieldComponent } from "../components/form/field";
 import { Input } from "../components/form/input";
 import { formatDate } from "../utils/helpers";
 import { TaskDataType } from "./meta/types";
@@ -16,13 +17,16 @@ export function TaskDateRead(args: { task: TaskDataType }) {
 export function TaskDateForm(args: { task: TaskDataType }) {
   const { task } = args;
   return (
-    <Input
-      type="date"
-      placeholder="Due date"
-      defaultValue={task.dueDate ?? undefined}
-      onChange={(value) => {
-        task.dueDate = value ?? null;
-      }}
-    />
+    <FieldComponent id="dueDate" label="Due date">
+      <Input
+        id="dueDate"
+        type="date"
+        placeholder="Due date"
+        defaultValue={task.dueDate ?? undefined}
+        onChange={(value) => {
+          task.dueDate = value ?? null;
+        }}
+      />
+    </FieldComponent>
   );
 }

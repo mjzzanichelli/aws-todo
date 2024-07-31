@@ -43,7 +43,7 @@ export const StyledInput = styled.input.withConfig({
     css`
       width: 100%;
     `}
-  padding: 0.75rem 1rem;
+  padding: 0.45rem 1rem;
 `;
 
 export const StyledCheckbox = styled.input`

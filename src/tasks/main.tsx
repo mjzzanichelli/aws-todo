@@ -8,6 +8,8 @@ import { StyledTasksTableSection } from "./styled";
 
 import { updateTask } from "./crud";
 import { AuthContext, ScreenContext, TasksContext } from "../context";
+import { promptTaskForm } from "./form";
+import { Void } from "../utils/helpers";
 
 export function Tasks() {
   return (
@@ -33,21 +35,31 @@ export function TasksList(args: { done?: boolean }) {
     ? TasksListMeta
     : TasksTableMeta({ done: !done, isOwner: !!user });
 
-  if (!data?.length) return null;
+  const size = data?.length ?? 0;
+  const hasData = !!size;
   return (
     <StyledTasksTableSection>
       <h3>
-        {title}&nbsp;({data.length})
-        <Button slim outlined onClick={() => setShowData(!showData)}>
-          <Icon name="chevron-up" rotate={showData ? "bottom" : "top"} />
-        </Button>
+        {title}&nbsp;({size})
+        {hasData && (
+          <Button slim outlined onClick={() => setShowData(!showData)}>
+            <Icon name="chevron-up" rotate={showData ? "bottom" : "top"} />
+          </Button>
+        )}
       </h3>
-      {showData && (
+      {hasData && showData && (
         <Table
           meta={meta}
           data={data}
           outlined
           hideHeader={isMobile}
+          onRowClick={
+            user && isMobile
+              ? (task) => {
+                  promptTaskForm(task).catch(Void).finally(reloadTasks);
+                }
+              : undefined
+          }
           draggable={
             !user || !tasks
               ? undefined
@@ -64,7 +76,9 @@ export function TasksList(args: { done?: boolean }) {
                   Promise.all(
                     newData
                       .reverse()
-                      .map(({ id }, order) => updateTask({ id, order }))
+                      .map(({ id }, order) =>
+                        updateTask({ id, order })
+                      )
                   ).then(reloadTasks);
                 }
           }

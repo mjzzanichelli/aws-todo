@@ -58,10 +58,13 @@ export const StyledTaskDetails = styled.div`
 
 export const StyledTaskInfo = styled(FlexBox)`
   overflow: hidden;
+  label {
+    align-items: start;
+  }
 `;
 
 StyledTaskInfo.defaultProps = {
   display: "flex",
-  mobileDirection: "column",
+  flexDirection: "column",
   mobileSize: 1,
 };
