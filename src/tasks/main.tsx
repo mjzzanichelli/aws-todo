@@ -5,11 +5,9 @@ import { TasksListMeta } from "./meta/list";
 import { Button } from "../components/button/main";
 import { Icon } from "../components/icon/main";
 import { StyledTasksTableSection } from "./styled";
-
 import { updateTask } from "./crud";
 import { AuthContext, ScreenContext, TasksContext } from "../context";
 import { promptTaskForm } from "./form";
-import { Void } from "../utils/helpers";
 import { GlobalError } from "../hooks/error";
 
 export function Tasks() {
