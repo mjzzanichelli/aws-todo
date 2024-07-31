@@ -8,7 +8,8 @@ export type TaskSchemaCreate = Parameters<
 export async function createTask(task: TaskSchemaCreate) {
   const { data, errors } = await client.models.Tasks.create(task);
   if (errors) return setApiError(errors);
-  if (data === null) return setApiError([{ message: "Task not created" }]);
+  if (data === null)
+    return setApiError([{ message: "Failed to create a newtask" }]);
   return data;
 }
 
@@ -36,12 +37,14 @@ export type TaskSchemaUpdate = Parameters<
 export async function updateTask(task: TaskSchemaUpdate) {
   const { data, errors } = await client.models.Tasks.update(task);
   if (errors) return setApiError(errors);
+  if (data === null) return setApiError([{ message: "Failed to update task" }]);
   return data;
 }
 
 export async function deleteTask(id: string) {
-  const { errors } = await client.models.Tasks.delete({ id });
+  const { data,errors } = await client.models.Tasks.delete({ id });
   if (errors) return setApiError(errors);
+  if (data === null) return setApiError([{ message: "Failed to delete task" }]);
   return true;
 }
 

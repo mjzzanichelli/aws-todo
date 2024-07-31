@@ -3,6 +3,7 @@ import { deleteTask, listTasks, TaskSchema, updateTask } from "../tasks/crud";
 import { getTaskValues, TaskDataType } from "../tasks/meta/types";
 import { AuthContext, ScreenContext } from "../context";
 import { promptTaskForm } from "../tasks/form";
+import { GlobalError } from "./error";
 
 export function orderTasks(tasks: TaskSchema[]): TaskDataType[] {
   return tasks.sort((a, b) => {
@@ -71,7 +72,11 @@ export function useTasks() {
           })
         );
       } else {
-        getTaskValues(task).then(updateTask).then(reloadTasks);
+        getTaskValues(task)
+          .then(updateTask)
+          .then(reloadTasks, (e) => {
+            GlobalError.setError(e);
+          });
       }
     },
     [tasks, reloadTasks]
