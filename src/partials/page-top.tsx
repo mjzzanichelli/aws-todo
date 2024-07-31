@@ -12,6 +12,7 @@ import { createTask } from "../tasks/crud";
 import { TasksOwner } from "../tasks/access";
 import { StyledShareLink } from "./styled";
 import { FieldComponent } from "../components/form/field";
+import { GlobalError } from "../hooks/error";
 
 export function PageTop() {
   const { user, guestUserId } = useContext(AuthContext);
@@ -71,7 +72,9 @@ export function PageTop() {
           <Button
             variant="primary"
             onClick={() => {
-              createTask({ name: "" }).then(addTask);
+              createTask({ name: "" }).then(addTask, (e) => {
+                GlobalError.setError(e);
+              });
             }}
           >
             <Icon name="plus" />

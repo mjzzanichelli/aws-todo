@@ -10,6 +10,7 @@ import { updateTask } from "./crud";
 import { AuthContext, ScreenContext, TasksContext } from "../context";
 import { promptTaskForm } from "./form";
 import { Void } from "../utils/helpers";
+import { GlobalError } from "../hooks/error";
 
 export function Tasks() {
   return (
@@ -56,7 +57,9 @@ export function TasksList(args: { done?: boolean }) {
           onRowClick={
             user && isMobile
               ? (task) => {
-                  promptTaskForm(task).catch(Void).finally(reloadTasks);
+                  promptTaskForm(task).then(reloadTasks, (e) =>
+                    GlobalError.setError(e)
+                  );
                 }
               : undefined
           }
@@ -76,9 +79,7 @@ export function TasksList(args: { done?: boolean }) {
                   Promise.all(
                     newData
                       .reverse()
-                      .map(({ id }, order) =>
-                        updateTask({ id, order })
-                      )
+                      .map(({ id }, order) => updateTask({ id, order }))
                   ).then(reloadTasks);
                 }
           }

@@ -12,6 +12,7 @@ import { Button } from "../components/button/main";
 import { Icon } from "../components/icon/main";
 import { Confirmation } from "../hooks/confirmation";
 import { deleteTask, updateTask } from "./crud";
+import { GlobalError } from "../hooks/error";
 
 export function TaskForm(args: {
   task: TaskDataType;
@@ -46,7 +47,12 @@ export function TaskForm(args: {
               onClick={() =>
                 getTaskValues(task)
                   .then(updateTask)
-                  .then(() => onSave(task))
+                  .then(
+                    () => onSave(task),
+                    (e) => {
+                      GlobalError.setError(e);
+                    }
+                  )
               }
             >
               <Icon name="floppy-disk" />
@@ -56,7 +62,14 @@ export function TaskForm(args: {
             <Button
               variant="error"
               outlined
-              onClick={() => deleteTask(task.id).then(() => onDelete(true))}
+              onClick={() =>
+                deleteTask(task.id).then(
+                  () => onDelete(true),
+                  (e) => {
+                    GlobalError.setError(e);
+                  }
+                )
+              }
             >
               <Icon name="trash-can" />
             </Button>

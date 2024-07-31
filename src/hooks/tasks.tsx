@@ -44,9 +44,14 @@ export function useTasks() {
     listTasks({
       filter,
       authMode: user ? "userPool" : "identityPool",
-    }).then((tasks) => {
-      setTasks(orderTasks(tasks));
-    });
+    }).then(
+      (tasks) => {
+        setTasks(orderTasks(tasks));
+      },
+      (e) => {
+        GlobalError.setError(e);
+      }
+    );
   }, [setTasks, search, guestUserId, user]);
 
   useEffect(() => {

@@ -3,6 +3,7 @@ import { TasksContext } from "../context";
 import { CheckBox } from "../components/form/input";
 import { TaskDataType } from "./meta/types";
 import { updateTask } from "./crud";
+import { GlobalError } from "../hooks/error";
 
 export function TaskCheck(args: { task: TaskDataType }) {
   const { task } = args;
@@ -19,7 +20,9 @@ export function TaskCheck(args: { task: TaskDataType }) {
         e.stopPropagation();
       }}
       onChange={() => {
-        updateTask({ id, done: !done }).then(reloadTasks);
+        updateTask({ id, done: !done }).then(reloadTasks, (e) => {
+          GlobalError.setError(e);
+        });
       }}
     />
   );
