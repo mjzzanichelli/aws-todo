@@ -4,9 +4,9 @@ This application uses [AWS Amplify Gen 2 and React](https://docs.amplify.aws/rea
 
 ## Infrastructure
 
-To run the solution, it is neccessary to have an application set-up in AWS. Follow the steps described [here](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/) to know how.
+To run the solution, it is neccessary to have an application set-up in AWS Amplify. Follow the steps described [here](https://aws.amazon.com/getting-started/hands-on/build-react-app-amplify-graphql/) to know how.
 
-Use the content in [./amplify.yml](./amplify.yml) to setup correct deployment steps.
+Use the content of [./amplify.yml](./amplify.yml) to setup correct deployment steps and make sure the output directory is set to `./src/`
 
 This package comes with prebuilt scripts to:
 
