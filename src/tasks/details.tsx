@@ -55,7 +55,11 @@ export function TaskDetailsRead(args: { task: TaskDataType }) {
   return (
     <StyledTaskDetails>
       {link && (
-        <StyleTaskAttachment href={link} target="_blank">
+        <StyleTaskAttachment
+          href={link}
+          target="_blank"
+          onClick={(e) => e.stopPropagation()}
+        >
           <Icon name="paperclip" title={title} />
         </StyleTaskAttachment>
       )}
