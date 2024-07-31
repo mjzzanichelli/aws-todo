@@ -1,24 +1,28 @@
 import styled, { css } from "styled-components";
-import { variantTextColor } from "../../theme/variants";
+import { variantBgColor, variantTextColor } from "../../theme/variants";
 import { borderColor, borderRadius } from "../../utils/styles";
-import { getCharCode } from "../icon/styled";
+import { getCharCode, iconPseudo } from "../icon/styled";
+import { InputProps } from "./types";
+import { IconProps } from "../icon/types";
+import { VariantProps } from "../../theme/theme.types";
 
 export const StyledForm = styled.form`
   display: flex;
   flex-direction: column;
 `;
 
-export const StyledFieldComponent = styled.label`
+export const StyledFieldComponent = styled.label<VariantProps>`
   display: flex;
   flex-direction: column;
   & + label {
     margin-top: 1rem;
   }
+  
+  color: ${(props) => variantTextColor(props)};
 
   input,
   select,
   textarea {
-    width: 100%;
     box-sizing: border-box;
   }
 
@@ -35,18 +39,52 @@ export const StyledFieldComponent = styled.label`
 
 export const StyledInput = styled.input.withConfig({
   shouldForwardProp: (prop) => {
-    return !["fullWidth"].includes(prop);
+    return !["fullWidth", "iconName", "iconRotate"].includes(prop);
   },
-})<{ fullWidth?: boolean }>`
-  ${({ fullWidth }) =>
-    fullWidth &&
-    css`
-      width: 100%;
-    `}
+})<InputProps>`
+  ${({ fullWidth, ...props }) => {
+    const offColor = variantTextColor({ ...props, variant: "off" });
+    const activeColor = variantTextColor(props);
+    const bgColor = variantBgColor({ ...props, variant: "default" });
+    const textColor = variantTextColor({ ...props, variant: "default" });
+    return css`
+      ${borderRadius()};
+      outline: none;
+      ${borderColor(offColor)};
+      background-color: ${bgColor};
+      color: ${textColor};
+      &:focus {
+        border-color: ${activeColor};
+      }
+      ${fullWidth && "width: 100%;"}
+    `;
+  }}
   padding: 0.45rem 1rem;
 `;
 
-export const StyledCheckbox = styled.input`
+export const StyledInputContainer = styled.div.withConfig({
+  shouldForwardProp: (props) => !["name", "rotate"].includes(props),
+})<VariantProps & Partial<IconProps>>`
+  ${(props) => {
+    if (!props.name) return;
+
+    return css`
+      position: relative;
+      ${iconPseudo(props)}
+      &:before {
+        position: absolute;
+        top: 50%;
+        transform: translate(1rem, -50%);
+      }
+
+      & > input {
+        padding-left: 2.5rem;
+      }
+    `;
+  }}
+`;
+
+export const StyledCheckbox = styled.input<VariantProps>`
   width: 1.25rem;
   height: 1.25rem;
   appearance: none;
@@ -61,14 +99,14 @@ export const StyledCheckbox = styled.input`
   align-items: center;
   margin: 0;
   ${(props) => {
-    const defaultColor = variantTextColor({ ...props, variant: "default" });
-    const primaryColor = variantTextColor({ ...props, variant: "primary" });
+    const strokeColor = variantTextColor({ ...props, variant: "default" });
+    const bgColor = variantTextColor(props);
     return css`
-      ${borderColor(defaultColor)}
+      ${borderColor(strokeColor)}
       color: transparent;
       &:checked {
-        background-color: ${primaryColor};
-        color: ${defaultColor};
+        background-color: ${bgColor};
+        color: ${strokeColor};
       }
     `;
   }}

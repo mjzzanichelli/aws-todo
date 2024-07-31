@@ -20,6 +20,7 @@ export function MetaCheckLabel(args: { done?: boolean }) {
   const { done = true } = args;
   return (
     <CheckBox
+      variant="primary"
       key={Math.random()}
       defaultChecked={false}
       onChange={() => {

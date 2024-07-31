@@ -39,7 +39,7 @@ export function TaskDetailsForm(args: { task: TaskDataType }) {
   return (
     <FlexContainer margin="-0.5rem 0 0 -0.5rem" flexDirection="column">
       <FlexBox margin="0.5rem 0 0 0.5rem">
-        <FieldComponent id="name" label={"Task name"}>
+        <FieldComponent id="name" label={"Task name"} variant="primary">
           <Input
             id="name"
             ref={(el) => el?.focus()}
@@ -53,7 +53,7 @@ export function TaskDetailsForm(args: { task: TaskDataType }) {
         </FieldComponent>
       </FlexBox>
       <FlexBox margin="0.5rem 0 0 0.5rem">
-        <FieldComponent id="attachment">
+        <FieldComponent id="attachment" variant="primary">
           <InputFile
             id="attachment"
             fullWidth

@@ -13,6 +13,7 @@ export function TaskCheck(args: { task: TaskDataType }) {
   return (
     <CheckBox
       key={id}
+      variant="primary"
       defaultChecked={done}
       onChange={() => {
         updateTask({ id, done: !done }).then(reloadTasks);

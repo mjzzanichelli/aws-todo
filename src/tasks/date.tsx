@@ -17,7 +17,7 @@ export function TaskDateRead(args: { task: TaskDataType }) {
 export function TaskDateForm(args: { task: TaskDataType }) {
   const { task } = args;
   return (
-    <FieldComponent id="dueDate" label="Due date">
+    <FieldComponent id="dueDate" label="Due date" variant="primary">
       <Input
         id="dueDate"
         type="date"

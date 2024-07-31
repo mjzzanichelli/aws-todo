@@ -1,12 +1,14 @@
 import { ReactElement, cloneElement } from "react";
+import { VariantProps } from "../../theme/theme.types";
+import { IconName, IconRotation } from "../icon/types";
 import { ChildrenType } from "../../utils/types";
 import { FormDataType, getValuesEntries } from "../../hooks/form-data";
-import { StyledFieldComponent } from "./styled";
+import { StyledFieldComponent, StyledInputContainer } from "./styled";
 import { Input } from "./input";
 
 export type FieldPropsType = Partial<ReturnType<typeof getFieldProps>>;
 
-export interface FieldComponentProps {
+export interface FieldComponentProps extends VariantProps {
   id: string;
   hidden?: boolean;
   formData?: FormDataType;
@@ -14,6 +16,8 @@ export interface FieldComponentProps {
   noLabel?: boolean;
   noError?: boolean;
   children?: ReactElement<FieldPropsType>;
+  iconName?: IconName;
+  iconRotate?: IconRotation;
 }
 
 export function isFieldComponent(
@@ -45,22 +49,38 @@ export function getFieldProps(formData: FormDataType, key: string) {
 }
 
 export function FieldComponent(args: FieldComponentProps) {
-  const { formData, id, hidden, noLabel, noError } = args;
+  const {
+    formData,
+    id,
+    hidden,
+    noLabel,
+    noError,
+    iconName,
+    iconRotate,
+    variant,
+  } = args;
   const {
     label = id.capitalise(),
     children = <Input type={hidden ? "hidden" : "text"} />,
   } = args;
   const errorMessage = formData?.errors[id];
 
-  const inputElement = formData
-    ? cloneElement(children, getFieldProps(formData, id))
-    : children;
+  const inputProps = formData ? getFieldProps(formData, id) : {};
+
+  const inputElement = cloneElement(children, { variant, ...inputProps });
+
   if (hidden) return inputElement;
   return (
     <>
-      <StyledFieldComponent htmlFor={id}>
+      <StyledFieldComponent htmlFor={id} variant={variant}>
         {!noLabel && label}
-        {inputElement}
+        <StyledInputContainer
+          variant={variant}
+          name={iconName}
+          rotate={iconRotate}
+        >
+          {inputElement}
+        </StyledInputContainer>
       </StyledFieldComponent>
       {!noError && errorMessage && (
         <p data-testid="error-message">{errorMessage}</p>

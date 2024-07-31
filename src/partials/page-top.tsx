@@ -11,6 +11,7 @@ import { Void } from "../utils/helpers";
 import { createTask } from "../tasks/crud";
 import { TasksOwner } from "../tasks/owner";
 import { StyledShareLink } from "./styled";
+import { FieldComponent } from "../components/form/field";
 
 export function PageTop() {
   const { user, guestUserId } = useContext(AuthContext);
@@ -49,12 +50,20 @@ export function PageTop() {
           )}
         </FlexBox>
         <FlexBox size={"none"}>
-          <Input
-            fullWidth
-            placeholder="Search"
-            defaultValue={search}
-            onChange={setSearch}
-          />
+          <FieldComponent
+            id="search"
+            iconName="magnifying-glass"
+            variant="primary"
+            noLabel
+          >
+            <Input
+              id="search"
+              fullWidth
+              placeholder="Search"
+              defaultValue={search}
+              onChange={setSearch}
+            />
+          </FieldComponent>
         </FlexBox>
       </FlexBox>
       <TasksOwner>
@@ -91,7 +100,7 @@ export function ShareLink(args: { link: string }) {
   return (
     <StyledShareLink padding={"0.5rem"}>
       <FlexBox size={1} margin={"0.5rem"}>
-        <Input readOnly fullWidth defaultValue={link} />
+        <Input variant="primary" readOnly fullWidth defaultValue={link} />
       </FlexBox>
       <FlexBox size={"none"} margin={"0.5rem"}>
         <Button

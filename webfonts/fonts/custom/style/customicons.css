@@ -1,10 +1,10 @@
 @font-face {
 	font-family: "customicons";
-	src: url("customicons.eot?a14376802b3600ed886c03929f46015f?#iefix") format("embedded-opentype"),
-url("customicons.woff2?a14376802b3600ed886c03929f46015f") format("woff2"),
-url("customicons.woff?a14376802b3600ed886c03929f46015f") format("woff"),
-url("customicons.ttf?a14376802b3600ed886c03929f46015f") format("truetype"),
-url("customicons.svg?a14376802b3600ed886c03929f46015f#customicons") format("svg");
+	src: url("customicons.eot?e995cf0040abc370dbc46c184ce7458f?#iefix") format("embedded-opentype"),
+url("customicons.woff2?e995cf0040abc370dbc46c184ce7458f") format("woff2"),
+url("customicons.woff?e995cf0040abc370dbc46c184ce7458f") format("woff"),
+url("customicons.ttf?e995cf0040abc370dbc46c184ce7458f") format("truetype"),
+url("customicons.svg?e995cf0040abc370dbc46c184ce7458f#customicons") format("svg");
 }
 
 .customicons {
@@ -36,24 +36,27 @@ url("customicons.svg?a14376802b3600ed886c03929f46015f#customicons") format("svg"
 .customicons-link:before {
 	content: "\0xf106";
 }
-.customicons-paperclip:before {
+.customicons-magnifying-glass:before {
 	content: "\0xf107";
 }
-.customicons-pen:before {
+.customicons-paperclip:before {
 	content: "\0xf108";
 }
-.customicons-plus:before {
+.customicons-pen:before {
 	content: "\0xf109";
 }
-.customicons-tag:before {
+.customicons-plus:before {
 	content: "\0xf10a";
 }
-.customicons-task:before {
+.customicons-tag:before {
 	content: "\0xf10b";
 }
-.customicons-trash-can:before {
+.customicons-task:before {
 	content: "\0xf10c";
 }
-.customicons-xmark:before {
+.customicons-trash-can:before {
 	content: "\0xf10d";
+}
+.customicons-xmark:before {
+	content: "\0xf10e";
 }

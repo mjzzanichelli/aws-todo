@@ -5,14 +5,16 @@ import {
   forwardRef,
 } from "react";
 import { StyledCheckbox, StyledInput } from "./styled";
+import { InputProps } from "./types";
+import { VariantProps } from "../../theme/theme.types";
 
 export const Input = forwardRef<
   HTMLInputElement,
-  Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
-    defaultValue?: FormDataEntryValue | null;
-    onChange?: (value?: string) => void;
-    fullWidth?: boolean;
-  }
+  Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> &
+    InputProps & {
+      defaultValue?: FormDataEntryValue | null;
+      onChange?: (value?: string) => void;
+    }
 >((args, ref) => {
   const { onChange, type, ...props } = args;
 
@@ -21,51 +23,55 @@ export const Input = forwardRef<
   }
 
   return (
-    <StyledInput
-      {...props}
-      ref={ref}
-      type={type}
-      onChange={(e) => {
-        onChange && onChange(e.target.value);
-      }}
-    />
+    <>
+      <StyledInput
+        {...props}
+        ref={ref}
+        type={type}
+        onChange={(e) => {
+          onChange && onChange(e.target.value);
+        }}
+      />
+    </>
   );
 });
 
 export const InputFile = forwardRef<
   HTMLInputElement,
-  Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "type"> & {
-    defaultValue?: FormDataEntryValue | null;
-    onChange?: (value?: File) => void;
-    fullWidth?: boolean;
-  }
+  Omit<InputHTMLAttributes<HTMLInputElement>, "onChange" | "type"> &
+    InputProps & {
+      defaultValue?: FormDataEntryValue | null;
+      onChange?: (value?: File) => void;
+    }
 >((args, ref) => {
   const { onChange, ...props } = args;
 
   if (props.defaultValue instanceof File) {
     delete props.defaultValue;
   }
-
   return (
-    <StyledInput
-      {...props}
-      ref={ref}
-      type={"file"}
-      onChange={(e) => {
-        if (!onChange) return;
-        if (!e.target.files) return onChange();
-        const [value] = e.target.files;
-        onChange(value);
-      }}
-    />
+    <>
+      <StyledInput
+        {...props}
+        ref={ref}
+        type={"file"}
+        onChange={(e) => {
+          if (!onChange) return;
+          if (!e.target.files) return onChange();
+          const [value] = e.target.files;
+          onChange(value);
+        }}
+      />
+    </>
   );
 });
 
 export const CheckBox = forwardRef<
   HTMLInputElement,
-  Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> & {
-    onChange?: (value?: string) => void;
-  }
+  Omit<InputHTMLAttributes<HTMLInputElement>, "onChange"> &
+    VariantProps & {
+      onChange?: (value?: string) => void;
+    }
 >((args, ref) => {
   const { onChange, ...props } = args;
   delete props.value;
