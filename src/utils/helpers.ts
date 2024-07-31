@@ -71,11 +71,25 @@ export function truncate(val: string, max = 50) {
 moment.locale(navigator.language.toLowerCase());
 export function formatDate(date: string) {
   return moment(date).calendar(null, {
-    lastDay : '[Yesterday]',
-    sameDay : '[Today]',
-    nextDay : '[Tomorrow]',
-    lastWeek : '[last] dddd',
-    nextWeek : 'dddd',
+    lastDay: "[Yesterday]",
+    sameDay: "[Today]",
+    nextDay: "[Tomorrow]",
+    lastWeek: "[last] dddd",
+    nextWeek: "dddd",
     sameElse: "MMM D YYYY",
   });
+}
+
+export function formatDateTime(date: string) {
+  return moment(date).calendar();
+}
+
+// Bytes Formatter
+
+export function formatByteSize(bytes: number): string {
+  if (bytes < 1024) return bytes + " bytes";
+  else if (bytes < 1024 * 1024) return (bytes / 1024).toFixed(3) + " KiB";
+  else if (bytes < 1024 * 1024 * 1024)
+    return (bytes / 1024 / 1024).toFixed(3) + " MiB";
+  else return (bytes / 1024 / 1024 / 1024).toFixed(3) + " GiB";
 }

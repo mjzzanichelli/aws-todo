@@ -11,13 +11,17 @@ export const StyledForm = styled.form`
   flex-direction: column;
 `;
 
-export const StyledFieldComponent = styled.label<VariantProps>`
+export const StyledFieldComponent = styled.label.withConfig({
+  shouldForwardProp: (prop) => {
+    return !["variant"].includes(prop);
+  },
+})<VariantProps>`
   display: flex;
   flex-direction: column;
   & + label {
     margin-top: 1rem;
   }
-  
+
   color: ${(props) => variantTextColor(props)};
 
   input,
@@ -39,7 +43,7 @@ export const StyledFieldComponent = styled.label<VariantProps>`
 
 export const StyledInput = styled.input.withConfig({
   shouldForwardProp: (prop) => {
-    return !["fullWidth", "iconName", "iconRotate"].includes(prop);
+    return !["fullWidth", "iconName", "iconRotate", "variant"].includes(prop);
   },
 })<InputProps>`
   ${({ fullWidth, ...props }) => {
@@ -63,7 +67,7 @@ export const StyledInput = styled.input.withConfig({
 `;
 
 export const StyledInputContainer = styled.div.withConfig({
-  shouldForwardProp: (props) => !["name", "rotate"].includes(props),
+  shouldForwardProp: (props) => !["name", "rotate", "variant"].includes(props),
 })<VariantProps & Partial<IconProps>>`
   ${(props) => {
     if (!props.name) return;
@@ -84,7 +88,9 @@ export const StyledInputContainer = styled.div.withConfig({
   }}
 `;
 
-export const StyledCheckbox = styled.input<VariantProps>`
+export const StyledCheckbox = styled.input.withConfig({
+  shouldForwardProp: (props) => !["variant"].includes(props),
+})<VariantProps>`
   width: 1.25rem;
   height: 1.25rem;
   appearance: none;

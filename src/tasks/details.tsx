@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
-import { getUrl } from "aws-amplify/storage";
+import { getUrl, list } from "aws-amplify/storage";
 import { StyledTaskDetails, StyleTaskAttachment } from "./styled";
 import { Input, InputFile } from "../components/form/input";
 import { FlexBox, FlexContainer } from "../components/layout/styled";
 import { TaskDataType } from "./meta/types";
 import { FieldComponent } from "../components/form/field";
+import { formatByteSize, formatDateTime } from "../utils/helpers";
 
 export function TaskDetails(args: { task: TaskDataType }) {
   const { task } = args;
@@ -18,16 +19,40 @@ export function TaskDetails(args: { task: TaskDataType }) {
 export function TaskDetailsRead(args: { task: TaskDataType }) {
   const { task } = args;
   const [link, setLink] = useState<string>();
+  const [fileProps, setFileProps] = useState<{
+    name?: string;
+    size?: number;
+    lastModified?: Date;
+  }>();
 
   useEffect(() => {
     if (!task.attachment) return setLink(undefined);
-    getUrl({
-      path: task.attachment,
-    }).then(({ url }) => setLink(url.href));
+
+    Promise.all([
+      list({ path: task.attachment }),
+      getUrl({
+        path: task.attachment,
+      }),
+    ]).then(([{ items }, { url }]) => {
+      const [file] = items;
+      const name = file.path.split("/").pop();
+      const { size, lastModified } = file;
+      setFileProps({
+        name,
+        size,
+        lastModified,
+      });
+      setLink(url.href);
+    });
   }, [task.attachment]);
 
+  let title = fileProps?.name;
+  if (fileProps?.size) title = `${title} (${formatByteSize(fileProps.size)})`;
+  if (fileProps?.lastModified)
+    title = `${title} ${formatDateTime(fileProps.lastModified.toUTCString())}`;
+
   return (
-    <StyledTaskDetails title={task.name}>
+    <StyledTaskDetails title={title}>
       {link && <StyleTaskAttachment href={link} target="_blank" />}
       {task.name}
     </StyledTaskDetails>
